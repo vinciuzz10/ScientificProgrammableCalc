@@ -22,7 +22,7 @@ public class ScientificProgrammableCalculator extends Application {
             
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Ciao Alfonso");
+                System.out.println("Prova SDK JavaFX");
             }
         });
         
