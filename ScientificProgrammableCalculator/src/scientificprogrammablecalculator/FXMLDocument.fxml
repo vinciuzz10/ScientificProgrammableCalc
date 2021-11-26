@@ -1,14 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scientificprogrammablecalculator.FXMLDocumentController">
-    <children>
-        <Button layoutX="126" layoutY="90" text="Click Me!" onAction="#handleButtonAction" fx:id="button" />
-        <Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" fx:id="label" />
-    </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scientificprogrammablecalculator.FXMLDocumentController">
+   <children>
+      <SplitPane dividerPositions="0.7218045112781954" layoutX="300.0" layoutY="235.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <VBox prefHeight="588.0" prefWidth="560.0" spacing="20.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="15.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="49.0" prefWidth="550.0" spacing="20.0">
+                           <children>
+                              <TextField fx:id="realPartTextField" prefHeight="49.0" prefWidth="130.0" promptText="Real part" />
+                              <TextField fx:id="imagPartTextField" prefHeight="49.0" prefWidth="130.0" promptText="Imag part" />
+                              <Label text="j">
+                                 <HBox.margin>
+                                    <Insets left="-10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitButtonPressed" text="Submit">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="550.0" spacing="20.0">
+                           <children>
+                              <Button fx:id="sumButton" mnemonicParsing="false" onAction="#sumButtonPressed" prefHeight="40.0" prefWidth="60.0" text="+" />
+                              <Button fx:id="differenceButton" mnemonicParsing="false" onAction="#differenceButtonPressed" prefHeight="40.0" prefWidth="60.0" text="-" />
+                              <Button fx:id="productButton" mnemonicParsing="false" onAction="#productButtonPressed" prefHeight="40.0" prefWidth="60.0" text="x" />
+                              <Button fx:id="quotientButton" mnemonicParsing="false" onAction="#quotientButtonPressed" prefHeight="40.0" prefWidth="60.0" text="/" />
+                              <Button fx:id="sqrtButton" mnemonicParsing="false" onAction="#sqrtButtonPressed" prefHeight="40.0" prefWidth="60.0" text="rad" />
+                              <Button fx:id="invertSignButton" mnemonicParsing="false" onAction="#invertSignButtonPressed" prefHeight="40.0" prefWidth="60.0" text="+/-" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="550.0" spacing="20.0">
+                           <children>
+                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonPressed" prefHeight="40.0" prefWidth="75.0" text="Clear" />
+                              <Button fx:id="delButton" mnemonicParsing="false" onAction="#delButtonPressed" prefHeight="40.0" prefWidth="75.0" text="Del" />
+                              <Button fx:id="swapButton" mnemonicParsing="false" onAction="#swapButtonPressed" prefHeight="40.0" prefWidth="75.0" text="Swap" />
+                              <Button fx:id="dupButton" mnemonicParsing="false" onAction="#dupButtonPressed" prefHeight="40.0" prefWidth="75.0" text="Dup" />
+                              <Button fx:id="cslButton" mnemonicParsing="false" onAction="#cslButtonPressed" prefHeight="40.0" prefWidth="75.0" text="CSL" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="220.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <VBox prefHeight="588.0" prefWidth="220.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                     <children>
+                        <TableView fx:id="lastNumbersTableView" prefHeight="643.0" prefWidth="210.0">
+                          <columns>
+                            <TableColumn fx:id="lastNumbersColumn" prefWidth="209.0" text="Last numbers:" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
 </AnchorPane>

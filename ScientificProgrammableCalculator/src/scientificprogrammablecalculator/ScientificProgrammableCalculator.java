@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 /**
  *
  * @author Vinciuzz10
- */
+ */  
 public class ScientificProgrammableCalculator extends Application {
     
     @Override
@@ -19,6 +19,7 @@ public class ScientificProgrammableCalculator extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
