@@ -34,7 +34,7 @@ public class ComplexNumber {
     
     
     /**
-     * Constructor of the class ComplexNumber that creates a complex number, taking its real and imaginary part as parameters.
+     * Constructor of the class ComplexNumber, that creates a complex number taking its real and imaginary part as parameters.
      * @param imaginary The imaginary part of the complex number.
      * @param real The real part of the complex number.
      */
@@ -44,7 +44,7 @@ public class ComplexNumber {
     }
     
     /**
-     * Constructor of the class ComplexNumber that creates a complex number, taking only its real part as parameter.
+     * Constructor of the class ComplexNumber, that creates a complex number taking only its real part as parameter.
      * @param real The real part of the complex number.
      */
     public ComplexNumber (double real) {
@@ -52,24 +52,24 @@ public class ComplexNumber {
     }
 
     /**
-     * Get the imaginary part of the complex number.
-     * @return The imaginary part of the complex number.
+     * Returns the imaginary part of the complex number as a double.
+     * @return the double value representing the imaginary part of the complex number.
      */
     public double getImaginary() {
         return imaginary;
     }
 
     /**
-     * Get the real part of the complex number.
-     * @return The real part of the complex number.
+     * Returns the real part of the complex number as a double.
+     * @return the double value representing the real part of the complex number.
      */
     public double getReal() {
         return real;
     }
     
     /**
-     *
-     * @return
+     * Utility method which returns a String representation of the complex number calling the method "toString".
+     * @return a string representing the complex number like "5+6j" or "-6-3j"
      */
     public String getComplexString() {
         return this.toString();
@@ -116,13 +116,17 @@ public class ComplexNumber {
     }
 
     /**
-     *
-     * @return
+     * Returns the absolute value of the complex number as a double.
+     * @return the double value representing the absolute value of the complex number.
      */
     public double abs() {
         return Math.sqrt(real*real + imaginary*imaginary);
     }
     
+    /**
+     *
+     * @return
+     */
     public double phase() {
         if (real == 0 && imaginary > 0) {
             return Math.PI/2;
@@ -143,8 +147,8 @@ public class ComplexNumber {
     }
     
     /**
-     *
-     * @return
+     * Returns the sqare root of a complex number as a ComplexNumber
+     * @return a ComplexNumber representing the square root of the complex number.
      */
     public ComplexNumber sqrt() {
         if (imaginary == 0 && real <0) {
@@ -158,7 +162,7 @@ public class ComplexNumber {
     }
     
     /**
-     *
+     * 
      * @return
      */
     public ComplexNumber opposite() {
@@ -191,5 +195,6 @@ public class ComplexNumber {
             return String.valueOf(real) + String.valueOf(imaginary) + "j";
         }
     }    
+
     
 }
