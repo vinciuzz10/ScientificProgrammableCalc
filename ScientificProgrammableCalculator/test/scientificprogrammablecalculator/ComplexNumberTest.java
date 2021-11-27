@@ -88,7 +88,6 @@ public class ComplexNumberTest {
         ComplexNumber instance = new ComplexNumber(1,1);
         ComplexNumber expResult = new ComplexNumber(5,-2);
         ComplexNumber result = instance.add(other);
-        if(expResult.getReal()!=result.getReal()||expResult.getImaginary()!=result.getImaginary())
         assertTrue(expResult.equals(result));
         // TODO review the generated test code and remove the default call to fail.
         //fail("The testAdd failed.\n Expected:"+ expResult.getComplexString()+"\nObtained:"+result.getComplexString());
