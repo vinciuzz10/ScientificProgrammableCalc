@@ -205,5 +205,32 @@ public class ComplexNumber {
         }
     }    
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ComplexNumber other = (ComplexNumber) obj;
+        if (Double.doubleToLongBits(this.imaginary) != Double.doubleToLongBits(other.imaginary)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.real) != Double.doubleToLongBits(other.real)) {
+            return false;
+        }
+        return true;
+    }
+    
     
 }
