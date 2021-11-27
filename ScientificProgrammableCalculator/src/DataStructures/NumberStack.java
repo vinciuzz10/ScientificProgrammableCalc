@@ -1,10 +1,10 @@
-package scientificprogrammablecalculator.datastruct;
+package DataStructures;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
-import scientificprogrammablecalculator.ComplexNumber;
+import ComplexNumberClass.ComplexNumber;
 
 /**
  *
@@ -15,7 +15,7 @@ import scientificprogrammablecalculator.ComplexNumber;
 public class NumberStack extends Stack<ComplexNumber> {
     
     /**
-     * This function swap the last and the second last elements contained into the stack.
+     * Swap the last and the second last elements contained into the stack.
      */
     public void swap() throws EmptyStackException {
         ComplexNumber last = pop();
@@ -25,7 +25,7 @@ public class NumberStack extends Stack<ComplexNumber> {
     }
     
     /**
-     * This function push onto the stack a copy of the second last element.
+     * Push onto the stack a copy of the second last element.
      */
     public void over() throws EmptyStackException {
         if (size()<2) {
@@ -38,15 +38,16 @@ public class NumberStack extends Stack<ComplexNumber> {
     }
     
     /**
-     * This function push onto the stack a copy of the last element.
+     * Push onto the stack a copy of the last element.
      */
     public void dup()  throws EmptyStackException {
         push(peek());
     }
     
     /**
-     *
-     * @return
+     * Gives a List representation of the structure.
+     * The first element is the last element of the stack.
+     * @return a list containing the elements into the stack.
      */
     public List<ComplexNumber> toList() {
         if (isEmpty()) {

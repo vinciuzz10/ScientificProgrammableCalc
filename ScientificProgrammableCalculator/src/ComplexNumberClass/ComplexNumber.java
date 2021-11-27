@@ -1,20 +1,20 @@
-package scientificprogrammablecalculator;
+package ComplexNumberClass;
 
 /**
- *
+ * This class implements the mathematical concept of Complex Number.
  * @author Vinciuzz10
  */
 public class ComplexNumber {
     
-    /** The square root of -1. A number representing "0.0 + 1.0i" */
-    public static final ComplexNumber I = new ComplexNumber(0.0, 1.0);
+    /** The square root of -1. A number representing "0.0 + 1.0j" */
+    public static final ComplexNumber J = new ComplexNumber(0.0, 1.0);
     // CHECKSTYLE: stop ConstantName
     /** A complex number representing "NaN + NaNi" */
     public static final ComplexNumber NaN = new ComplexNumber(Double.NaN, Double.NaN);
     // CHECKSTYLE: resume ConstantName
     /** A complex number representing "+INF + INFi" */
     public static final ComplexNumber INF = new ComplexNumber(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
-    /** A complex number representing "1.0 + 0.0i" */
+    /** A complex number representing "1.0 + 0.0  i" */
     public static final ComplexNumber ONE = new ComplexNumber(1.0, 0.0);
     /** A complex number representing "0.0 + 0.0i" */
     public static final ComplexNumber ZERO = new ComplexNumber(0.0, 0.0);
@@ -24,13 +24,11 @@ public class ComplexNumber {
     private final double imaginary;
     /** The real part. */
     private final double real;
-
-    
-    //private static final DecimalFormat df = new DecimalFormat("0.000");
-    
     
     /**
      * Create a complex number given the real and imaginary parts.
+     * @param real the real part of the complex number.
+     * @param imaginary the imaginary part of the complex number.
      */
     public ComplexNumber(double real, double imaginary) {
         this.imaginary = imaginary;
@@ -39,6 +37,7 @@ public class ComplexNumber {
     
     /**
      * Create a complex number given only the real part.
+     * @param real the real part of the complex number.
      */
     public ComplexNumber (double real) {
         this(real, 0.0);
@@ -62,14 +61,14 @@ public class ComplexNumber {
     
     /**
      * Utility method which returns a String representation of the complex number calling the method "toString".
-     * @return a string representing the complex number like "5+6j" or "-6-3j"
+     * @return a string representing the complex number.
      */
     public String getComplexString() {
         return this.toString();
     }
     
     /**
-     * Returns a ComplexNumber whose value is {@code (this + addend)}. Uses the definitional formula
+     * Returns a ComplexNumber whose value is {@code this + addend}. Uses the definitional formula
      * <p>
      *   {@code (a + bj) + (c + dj) = (a+c) + (b+d)j}
      * </p>
@@ -81,7 +80,7 @@ public class ComplexNumber {
     }
     
     /**
-     * Returns a ComplexNumber whose value is {@code (this - subtrahend)}. Uses the definitional formula
+     * Returns a ComplexNumber whose value is {@code this - subtrahend}. Uses the definitional formula
      * <p>
      *   {@code (a + bj) - (c + dj) = (a-c) + (b-d)j}
      * </p>
@@ -93,7 +92,7 @@ public class ComplexNumber {
     }
     
     /**
-     * Returns a ComplexNumber whose value is {@code (this * subtrahend)}. Uses the definitional formula
+     * Returns a ComplexNumber whose value is {@code this * subtrahend}. Uses the definitional formula
      * <p>
      *   {@code (a + bi)(c + di) = (ac - bd) + (ad + bc)j}
      * </p>
@@ -105,7 +104,7 @@ public class ComplexNumber {
     }
     
     /**
-     * Returns a ComplexNumber whose value is {@code (this / subtrahend)}. Uses the definitional formula
+     * Returns a ComplexNumber whose value is {@code this / subtrahend}. Uses the definitional formula
      * <p>
      *   {@code (a + bi)/(c + di) = [ac + bd + (bc - ad)j]/(c^2 + d^2)}
      * </p>
@@ -122,15 +121,17 @@ public class ComplexNumber {
 
     /**
      * Return the absolute value of this complex number.
-     * @return the absolute value
+     * @return the absolute value.
      */
     public double abs() {
         return Math.sqrt(real*real + imaginary*imaginary);
     }
     
     /**
-     *
-     * @return
+     * Compute the phase of this complex number.
+     * The phase is the angle phi between the positive real axis and
+     * the point representing this number in the complex plane.
+     * @return the phase of {@code this}.
      */
     public double phase() {
         if (real == 0 && imaginary > 0) {
@@ -152,8 +153,9 @@ public class ComplexNumber {
     }
     
     /**
-     * Returns the sqare root of a complex number as a ComplexNumber
-     * @return a ComplexNumber representing the square root of the complex number.
+     * Compute the <a href="http://mathworld.wolfram.com/SquareRoot.html" TARGET="_top">square root</a> 
+     * of this complex number.
+     * @return the square root of {@code this}.
      */
     public ComplexNumber sqrt() {
         if (imaginary == 0 && real <0) {
@@ -167,16 +169,20 @@ public class ComplexNumber {
     }
     
     /**
-     * 
-     * @return
+     * Returns a {@code ComplexNumber} whose value is {@code -this}.
+     * @return {@code -this}.
      */
     public ComplexNumber opposite() {
+        if (real == 0 && imaginary == 0) {
+            return this;
+        } 
         return new ComplexNumber(-real, -imaginary);
     }
     
     /**
-     *
-     * @return
+     * Returns a {@code ComplexNumber} whose value is the conjugate of {@code this}.
+     * The conjugate of {@code "a + bj" is "a - bj"}.
+     * @return the conjugate of {@code this}.
      */
     public ComplexNumber conjugate() {
         return new ComplexNumber(real, -imaginary);
@@ -184,7 +190,7 @@ public class ComplexNumber {
     
     /**
      * Gives a string representation for a complex number.
-     * @return A string that represent the complex number (e.g. "2+3j).
+     * @return A string that represent the complex number (e.g. "2+3j","-4j","3").
      */
     @Override
     public String toString() {
@@ -201,5 +207,4 @@ public class ComplexNumber {
         }
     }    
 
-    
 }

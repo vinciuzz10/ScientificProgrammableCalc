@@ -4,6 +4,7 @@
  */
 package scientificprogrammablecalculator;
 
+import ComplexNumberClass.ComplexNumber;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
