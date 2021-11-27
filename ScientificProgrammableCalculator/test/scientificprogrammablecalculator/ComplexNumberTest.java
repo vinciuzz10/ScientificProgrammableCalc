@@ -103,10 +103,9 @@ public class ComplexNumberTest {
         ComplexNumber instance = new ComplexNumber(1,1);
         ComplexNumber expResult = new ComplexNumber(-3,4);
         ComplexNumber result = instance.subtract(other);
-        if(expResult.getReal()!=result.getReal()||expResult.getImaginary()!=result.getImaginary())
-
+        assertTrue(expResult.equals(result));   
         // TODO review the generated test code and remove the default call to fail.
-        fail("The testSubtract failed.\n Expected:"+ expResult.getComplexString()+"\nObtained:"+result.getComplexString());
+        //fail("The testSubtract failed.\n Expected:"+ expResult.getComplexString()+"\nObtained:"+result.getComplexString());
     }
 
     /**
