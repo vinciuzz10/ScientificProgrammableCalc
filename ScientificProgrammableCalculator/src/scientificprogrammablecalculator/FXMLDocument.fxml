@@ -19,13 +19,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="49.0" prefWidth="550.0" spacing="20.0">
                            <children>
-                              <TextField fx:id="realPartTextField" prefHeight="49.0" prefWidth="130.0" promptText="Real part" />
-                              <TextField fx:id="imagPartTextField" prefHeight="49.0" prefWidth="130.0" promptText="Imag part" />
-                              <Label text="j">
-                                 <HBox.margin>
-                                    <Insets left="-10.0" />
-                                 </HBox.margin>
-                              </Label>
+                              <TextField fx:id="mainTextField" prefHeight="49.0" prefWidth="413.0" promptText="Insert number or operations..." />
                               <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitButtonPressed" text="Submit">
                                  <font>
                                     <Font name="System Bold" size="15.0" />

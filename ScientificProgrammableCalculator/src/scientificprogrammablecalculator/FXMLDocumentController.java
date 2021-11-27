@@ -39,9 +39,7 @@ public class FXMLDocumentController implements Initializable {
     private Button sqrtButton;
     @FXML
     private Button invertSignButton;
-    @FXML
     private TextField realPartTextField;
-    @FXML
     private TextField imagPartTextField;
     @FXML
     private Button clearButton;
@@ -62,6 +60,9 @@ public class FXMLDocumentController implements Initializable {
     
     private ObservableList<ComplexNumber> numbers;
     private final NumberStack stack = new NumberStack();
+    private TextField provaTextField;
+    @FXML
+    private TextField mainTextField;
    
 
     
@@ -78,12 +79,28 @@ public class FXMLDocumentController implements Initializable {
     private void submitButtonPressed(ActionEvent event) {
         double real, imag;
         
-        String realAsString = realPartTextField.getText().replace(" ", "");
+        /*String realAsString = realPartTextField.getText().replace(" ", "");
         String imagAsString = imagPartTextField.getText().replace(" ", "");
         
-        /* Check if the user entered at least one value (the real part or the imaginary one) */
-        if (realAsString.isEmpty() && imagAsString.isEmpty()) {
-            System.out.println("ciao");
+        /* Check if the user entered the real part 
+        if(realAsString.isEmpty()) {
+            real = 0.0;
+        } else {
+            real = Double.parseDouble(realAsString);
+        }
+        /* Check if the user entered the imaginary part 
+        if (imagAsString.isEmpty()) {
+            imag = 0.0;
+        } else {
+            imag = Double.parseDouble(imagAsString);
+        }
+        
+        /* Create the complex number to be pushed onto the stack 
+        ComplexNumber number = new ComplexNumber(real, imag);*/
+        
+        String numberAsString = mainTextField.getText();
+        
+        if (numberAsString.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
             alert.setContentText("You can't submit an empty number.");
@@ -92,35 +109,26 @@ public class FXMLDocumentController implements Initializable {
             return;
         }
         
-        /* Check if the user entered the real part */
-        if(realAsString.isEmpty()) {
-            real = 0.0;
-        } else {
-            real = Double.parseDouble(realAsString);
+        ComplexNumber number;
+        try {
+            number = ComplexNumber.complexFromString(numberAsString);
+            stack.push(number);
+        } catch (NumberFormatException e) {
+            showNumberFormatAlert();
         }
-        /* Check if the user entered the imaginary part */
-        if (imagAsString.isEmpty()) {
-            imag = 0.0;
-        } else {
-            imag = Double.parseDouble(imagAsString);
-        }
-        
-        /* Create the complex number to be pushed onto the stack */
-        ComplexNumber number = new ComplexNumber(real, imag);
-        stack.push(number);
         
         /* Update TableView items */
-        List<ComplexNumber> tmp = stack.toList();
-        numbers.clear();
-        numbers.setAll(tmp);
+        updateTableView();
         
         /* Clear both real part text field and imaginary part text field */
-        realPartTextField.clear();
-        imagPartTextField.clear();
+        clearTextField();
     }
 
     @FXML
     private void sumButtonPressed(ActionEvent event) {
+        if (stack.size() < 2)
+            return;
+        
         ComplexNumber secondOperand = stack.pop();
         ComplexNumber firstOperand = stack.pop();
         
@@ -128,17 +136,17 @@ public class FXMLDocumentController implements Initializable {
         stack.push(sum);
         
         /* Update TableView items */
-        List<ComplexNumber> tmp = stack.toList();
-        numbers.clear();
-        numbers.setAll(tmp);
+        updateTableView();
         
         /* Clear both real part text field and imaginary part text field */
-        realPartTextField.clear();
-        imagPartTextField.clear();
+        clearTextField();
     }
 
     @FXML
     private void differenceButtonPressed(ActionEvent event) {
+        if (stack.size() < 2)
+            return;
+        
         ComplexNumber secondOperand = stack.pop();
         ComplexNumber firstOperand = stack.pop();
         
@@ -146,17 +154,17 @@ public class FXMLDocumentController implements Initializable {
         stack.push(difference);
         
         /* Update TableView items */
-        List<ComplexNumber> tmp = stack.toList();
-        numbers.clear();
-        numbers.setAll(tmp);
+        updateTableView();
         
         /* Clear both real part text field and imaginary part text field */
-        realPartTextField.clear();
-        imagPartTextField.clear();
+        clearTextField();
     }
 
     @FXML
     private void productButtonPressed(ActionEvent event) {
+        if (stack.size() < 2)
+            return;
+        
         ComplexNumber secondOperand = stack.pop();
         ComplexNumber firstOperand = stack.pop();
         
@@ -164,17 +172,17 @@ public class FXMLDocumentController implements Initializable {
         stack.push(product);
         
         /* Update TableView items */
-        List<ComplexNumber> tmp = stack.toList();
-        numbers.clear();
-        numbers.setAll(tmp);
+        updateTableView();
         
         /* Clear both real part text field and imaginary part text field */
-        realPartTextField.clear();
-        imagPartTextField.clear();
+        clearTextField();
     }
 
     @FXML
     private void quotientButtonPressed(ActionEvent event) {
+        if (stack.size() < 2)
+            return;
+        
         ComplexNumber secondOperand = stack.pop();
         ComplexNumber firstOperand = stack.pop();
         
@@ -182,13 +190,10 @@ public class FXMLDocumentController implements Initializable {
         stack.push(quotient);
         
         /* Update TableView items */
-        List<ComplexNumber> tmp = stack.toList();
-        numbers.clear();
-        numbers.setAll(tmp);
+        updateTableView();
         
         /* Clear both real part text field and imaginary part text field */
-        realPartTextField.clear();
-        imagPartTextField.clear();
+        clearTextField();
     }
 
     @FXML
@@ -199,13 +204,10 @@ public class FXMLDocumentController implements Initializable {
         stack.push(sqrt);
         
         /* Update TableView items */
-        List<ComplexNumber> tmp = stack.toList();
-        numbers.clear();
-        numbers.setAll(tmp);
+        updateTableView();
         
         /* Clear both real part text field and imaginary part text field */
-        realPartTextField.clear();
-        imagPartTextField.clear();
+        clearTextField();
     }
 
     @FXML
@@ -217,13 +219,10 @@ public class FXMLDocumentController implements Initializable {
         stack.push(opposite);
         
         /* Update TableView items */
-        List<ComplexNumber> tmp = stack.toList();
-        numbers.clear();
-        numbers.setAll(tmp);
+        updateTableView();
         
         /* Clear both real part text field and imaginary part text field */
-        realPartTextField.clear();
-        imagPartTextField.clear();
+        clearTextField();
     }
 
     @FXML
@@ -231,86 +230,95 @@ public class FXMLDocumentController implements Initializable {
         stack.clear();
         
         /* Update TableView items */
-        List<ComplexNumber> tmp = stack.toList();
-        numbers.clear();
-        numbers.setAll(tmp);
+        updateTableView();
         
         /* Clear both real part text field and imaginary part text field */
-        realPartTextField.clear();
-        imagPartTextField.clear();
+        clearTextField();
     }
 
     @FXML
     private void delButtonPressed(ActionEvent event) {
+        if (stack.isEmpty()) 
+            throw new EmptyStackException();
+        
         stack.pop();
         
         /* Update TableView items */
-        List<ComplexNumber> tmp = stack.toList();
-        numbers.clear();
-        numbers.setAll(tmp);
+        updateTableView();
         
         /* Clear both real part text field and imaginary part text field */
-        realPartTextField.clear();
-        imagPartTextField.clear();
+        clearTextField();
     }
 
     @FXML
     private void swapButtonPressed(ActionEvent event) {
+        if (stack.size() < 2) 
+            return;
+        
         stack.swap();
         
         /* Update TableView items */
-        List<ComplexNumber> tmp = stack.toList();
-        numbers.clear();
-        numbers.setAll(tmp);
+        updateTableView();
         
         /* Clear both real part text field and imaginary part text field */
-        realPartTextField.clear();
-        imagPartTextField.clear();
+        clearTextField();
     }
 
     @FXML
     private void dupButtonPressed(ActionEvent event) {
-        if (stack.isEmpty()) {
+        if (stack.isEmpty()) 
             throw new EmptyStackException();
-        }
         
         stack.dup();
         
         /* Update TableView items */
-        List<ComplexNumber> tmp = stack.toList();
-        numbers.clear();
-        numbers.setAll(tmp);
+        updateTableView();
         
         /* Clear both real part text field and imaginary part text field */
-        realPartTextField.clear();
-        imagPartTextField.clear();
+        clearTextField();
     }
 
     private void overButtonPressed(ActionEvent event) {
         stack.over();
         
         /* Update TableView items */
-        List<ComplexNumber> tmp = stack.toList();
-        numbers.clear();
-        numbers.setAll(tmp);
+        updateTableView();
         
         /* Clear both real part text field and imaginary part text field */
-        realPartTextField.clear();
-        imagPartTextField.clear();
+        clearTextField();
     }
 
     @FXML
     private void cslButtonPressed(ActionEvent event) {
+        if (stack.size() < 2) 
+            return;
+        
         stack.over();
         
         /* Update TableView items */
+        updateTableView();
+        
+        /* Clear both real part text field and imaginary part text field */
+        clearTextField();
+    }
+    
+    private void clearTextField() {
+        mainTextField.clear();
+    }
+    
+    private void updateTableView() {
         List<ComplexNumber> tmp = stack.toList();
         numbers.clear();
         numbers.setAll(tmp);
-        
-        /* Clear both real part text field and imaginary part text field */
-        realPartTextField.clear();
-        imagPartTextField.clear();
+    }
+    
+    private void showNumberFormatAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error");
+        alert.setContentText("The entered number format is not valid.");
+        alert.setHeaderText("Invalid Input");
+        alert.showAndWait();
+        return;
     }
 
 }

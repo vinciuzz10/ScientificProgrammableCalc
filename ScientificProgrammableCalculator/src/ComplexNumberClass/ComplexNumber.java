@@ -189,6 +189,133 @@ public class ComplexNumber {
     }
     
     /**
+     *
+     * @param numberAsString
+     * @return
+     */
+    public static ComplexNumber complexFromString(String numberAsString) {
+        double real, imaginary;
+        String formattedString = numberAsString.replace(" ", "");
+
+        if (!formattedString.matches("[0123456789j.+-]*")) {
+            System.out.println("uncorrect format");
+            throw new NumberFormatException();
+        }
+        
+        String[] splittedNumber = formattedString.split("[+-]");
+        
+        if (splittedNumber.length == 1) {
+            String number = splittedNumber[0];
+            if (number.contains("j")) {
+                String imaginaryAsString = number.substring(0, number.length()-1);
+                if (imaginaryAsString.equals("")) {
+                    imaginary = 1;
+                    return new ComplexNumber(0, imaginary);
+                }
+                imaginary = Double.parseDouble(imaginaryAsString);
+                return new ComplexNumber(0, imaginary);
+            } else {
+                real = Double.parseDouble(splittedNumber[0]);
+                return new ComplexNumber(real);
+            }
+        } else if (splittedNumber.length == 2) {
+            if (formattedString.charAt(0) == '-') {
+                String number = splittedNumber[1];
+                if (number.contains("j")) {
+                    String imaginaryAsString = number.substring(0, number.length()-1);
+                    if (imaginaryAsString.equals("")) {
+                        imaginary = 1;
+                        return new ComplexNumber(0, -imaginary);
+                    }
+                    imaginary = Double.parseDouble(imaginaryAsString);
+                    return new ComplexNumber(0, -imaginary);
+                } else {
+                    real = Double.parseDouble(number);
+                    return new ComplexNumber(-real);
+                }
+            } else if (formattedString.charAt(0) == '+') {
+                String number = splittedNumber[1];
+                if (number.contains("j")) {
+                    String imaginaryAsString = number.substring(0, number.length()-1);
+                    if (imaginaryAsString.equals("")) {
+                        imaginary = 1;
+                        return new ComplexNumber(0, imaginary);
+                    }
+                    imaginary = Double.parseDouble(imaginaryAsString);
+                    return new ComplexNumber(0, imaginary);
+                } else {
+                    real = Double.parseDouble(number);
+                    return new ComplexNumber(real);
+                }
+            } else {
+                String number = splittedNumber[1];
+                if (number.contains("j")) {
+                    real = Double.parseDouble(splittedNumber[0]);
+                    String imaginaryAsString = number.substring(0, number.length()-1);
+                    if (formattedString.contains("-")) {
+                        if (imaginaryAsString.equals("")) {
+                            imaginary = -1;
+                            return new ComplexNumber(real, imaginary);
+                        }
+                        imaginary = Double.parseDouble(imaginaryAsString);
+                        return new ComplexNumber(real, -imaginary);
+                    } else {
+                        if (imaginaryAsString.equals("")) {
+                            imaginary = 1;
+                            return new ComplexNumber(real, imaginary);
+                        }
+                        imaginary = Double.parseDouble(imaginaryAsString);
+                        return new ComplexNumber(real, imaginary);
+                    } 
+                }
+            }
+        } else if (splittedNumber.length == 3) {
+            if (!splittedNumber[2].contains("j")) {
+                throw new NumberFormatException();
+            }
+            if (formattedString.charAt(0) == '+') {
+                real = Double.parseDouble(splittedNumber[1]);
+                String imaginaryAsString = splittedNumber[2].substring(0, splittedNumber[2].length()-1);
+                if (formattedString.substring(1).contains("+")) {
+                    if (imaginaryAsString.equals("")) {
+                        imaginary = 1;
+                        return new ComplexNumber(real, imaginary);
+                    }
+                    imaginary = Double.parseDouble(imaginaryAsString);
+                    return new ComplexNumber(real, imaginary);
+                } else if (formattedString.substring(1).contains("-")) {
+                    if (imaginaryAsString.equals("")) {
+                        imaginary = 1;
+                        return new ComplexNumber(real, -imaginary);
+                    }
+                    imaginary = Double.parseDouble(imaginaryAsString);
+                    return new ComplexNumber(real, -imaginary);
+                }
+            } else if (formattedString.charAt(0) == '-') {
+                real = -Double.parseDouble(splittedNumber[1]);
+                String imaginaryAsString = splittedNumber[2].substring(0, splittedNumber[2].length()-1);
+                if (formattedString.substring(1).contains("+")) {
+                    if (imaginaryAsString.equals("")) {
+                        imaginary = 1;
+                        return new ComplexNumber(real, imaginary);
+                    }
+                    imaginary = Double.parseDouble(imaginaryAsString);
+                    return new ComplexNumber(real, imaginary);
+                } else if (formattedString.substring(1).contains("-")) {
+                    if (imaginaryAsString.equals("")) {
+                        imaginary = 1;
+                        return new ComplexNumber(real, -imaginary);
+                    }
+                    imaginary = Double.parseDouble(imaginaryAsString);
+                    return new ComplexNumber(real, -imaginary);
+                }
+            }
+        }
+        
+        throw new NumberFormatException();
+    }
+    
+    /**
      * Gives a string representation for a complex number.
      * @return A string that represent the complex number (e.g. "2+3j","-4j","3").
      */
