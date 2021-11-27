@@ -39,8 +39,6 @@ public class FXMLDocumentController implements Initializable {
     private Button sqrtButton;
     @FXML
     private Button invertSignButton;
-    private TextField realPartTextField;
-    private TextField imagPartTextField;
     @FXML
     private Button clearButton;
     @FXML
@@ -55,17 +53,16 @@ public class FXMLDocumentController implements Initializable {
     private TableView<ComplexNumber> lastNumbersTableView;
     @FXML
     private TableColumn<ComplexNumber, String> lastNumbersColumn;
+    @FXML
+    private TextField mainTextField;
     
     
     
     private ObservableList<ComplexNumber> numbers;
     private final NumberStack stack = new NumberStack();
-    private TextField provaTextField;
-    @FXML
-    private TextField mainTextField;
-   
 
-    
+   
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -77,33 +74,13 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void submitButtonPressed(ActionEvent event) {
-        double real, imag;
+
+        String stringFromTextField = mainTextField.getText().replace(" ", "");
         
-        /*String realAsString = realPartTextField.getText().replace(" ", "");
-        String imagAsString = imagPartTextField.getText().replace(" ", "");
-        
-        /* Check if the user entered the real part 
-        if(realAsString.isEmpty()) {
-            real = 0.0;
-        } else {
-            real = Double.parseDouble(realAsString);
-        }
-        /* Check if the user entered the imaginary part 
-        if (imagAsString.isEmpty()) {
-            imag = 0.0;
-        } else {
-            imag = Double.parseDouble(imagAsString);
-        }
-        
-        /* Create the complex number to be pushed onto the stack 
-        ComplexNumber number = new ComplexNumber(real, imag);*/
-        
-        String numberAsString = mainTextField.getText();
-        
-        if (numberAsString.isEmpty()) {
+        if (stringFromTextField.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
-            alert.setContentText("You can't submit an empty number.");
+            alert.setContentText("You can't submit an empty number or an empty operation.");
             alert.setHeaderText("Invalid Input");
             alert.showAndWait();
             return;
@@ -111,7 +88,7 @@ public class FXMLDocumentController implements Initializable {
         
         ComplexNumber number;
         try {
-            number = ComplexNumber.complexFromString(numberAsString);
+            number = ComplexNumber.complexFromString(stringFromTextField);
             stack.push(number);
         } catch (NumberFormatException e) {
             showNumberFormatAlert();

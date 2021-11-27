@@ -189,9 +189,10 @@ public class ComplexNumber {
     }
     
     /**
-     *
-     * @param numberAsString
-     * @return
+     * Convert a {@code String} in a {@code ComplexNumber} if the string respects the format.
+     * @param numberAsString String representation of a complex number.
+     * @return a {@code ComplexNumber} representation of the {@code String}.
+     * @throws NumberFormatException
      */
     public static ComplexNumber complexFromString(String numberAsString) {
         double real, imaginary;
