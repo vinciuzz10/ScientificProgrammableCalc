@@ -34,9 +34,7 @@ public class ComplexNumber {
     
     
     /**
-     * Constructor of the class ComplexNumber, that creates a complex number taking its real and imaginary part as parameters.
-     * @param imaginary The imaginary part of the complex number.
-     * @param real The real part of the complex number.
+     * Create a complex number given the real and imaginary parts.
      */
     public ComplexNumber(double real, double imaginary) {
         this.imaginary = imaginary;
@@ -44,8 +42,7 @@ public class ComplexNumber {
     }
     
     /**
-     * Constructor of the class ComplexNumber, that creates a complex number taking only its real part as parameter.
-     * @param real The real part of the complex number.
+     * Create a complex number given only the real part.
      */
     public ComplexNumber (double real) {
         this(real, 0.0);
@@ -76,36 +73,48 @@ public class ComplexNumber {
     }
     
     /**
-     *
-     * @param other
-     * @return
+     * Returns a ComplexNumber whose value is {@code (this + addend)}. Uses the definitional formula
+     * <p>
+     *   {@code (a + bj) + (c + dj) = (a+c) + (b+d)j}
+     * </p>
+     * @param other Value to be added to this {@code ComplexNumber}.
+     * @return {@code this + addend}.
      */
     public ComplexNumber add(ComplexNumber other) {
         return new ComplexNumber(real + other.getReal(), imaginary + other.getImaginary());
     }
     
     /**
-     *
-     * @param other
-     * @return
+     * Returns a ComplexNumber whose value is {@code (this - subtrahend)}. Uses the definitional formula
+     * <p>
+     *   {@code (a + bj) - (c + dj) = (a-c) + (b-d)j}
+     * </p>
+     * @param other Value to be subtracted to this {@code ComplexNumber}.
+     * @return {@code this - subtrahend}.
      */
     public ComplexNumber subtract(ComplexNumber other) {
         return new ComplexNumber(real - other.real, imaginary - other.imaginary);
     }
     
     /**
-     *
-     * @param other
-     * @return
+     * Returns a ComplexNumber whose value is {@code (this * subtrahend)}. Uses the definitional formula
+     * <p>
+     *   {@code (a + bi)(c + di) = (ac - bd) + (ad + bc)j}
+     * </p>
+     * @param other Value to be multiplied by this {@code ComplexNumber}.
+     * @return {@code this * subtrahend}.
      */
     public ComplexNumber multiply(ComplexNumber other) {
         return new ComplexNumber(real * other.real - imaginary * other.imaginary, real * other.imaginary + imaginary * other.real);
     }
     
     /**
-     *
-     * @param other
-     * @return
+     * Returns a ComplexNumber whose value is {@code (this / subtrahend)}. Uses the definitional formula
+     * <p>
+     *   {@code (a + bi)/(c + di) = [ac + bd + (bc - ad)j]/(c^2 + d^2)}
+     * </p>
+     * @param other Value to be multiplied by this {@code ComplexNumber}.
+     * @return {@code this * subtrahend}.
      */
     public ComplexNumber divide(ComplexNumber other) {
         double realPartNumerator = real * other.real + imaginary * other.imaginary;
@@ -116,8 +125,8 @@ public class ComplexNumber {
     }
 
     /**
-     * Returns the absolute value of the complex number as a double.
-     * @return the double value representing the absolute value of the complex number.
+     * Return the absolute value of this complex number.
+     * @return the absolute value
      */
     public double abs() {
         return Math.sqrt(real*real + imaginary*imaginary);
