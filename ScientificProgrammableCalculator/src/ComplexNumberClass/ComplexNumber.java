@@ -64,7 +64,7 @@ public class ComplexNumber {
      * @return a string representing the complex number.
      */
     public String getComplexString() {
-        return this.toString();
+        return toString();
     }
     
     /**
@@ -199,19 +199,18 @@ public class ComplexNumber {
         String formattedString = numberAsString.replace(" ", "");
 
         if (!formattedString.matches("[0123456789j.+-]*")) {
-            System.out.println("uncorrect format");
             throw new NumberFormatException();
         }
         
         String[] splittedNumber = formattedString.split("[+-]");
         
+        /* Case 1: "5", "5j" */
         if (splittedNumber.length == 1) {
             String number = splittedNumber[0];
             if (number.contains("j")) {
                 String imaginaryAsString = number.substring(0, number.length()-1);
                 if (imaginaryAsString.equals("")) {
-                    imaginary = 1;
-                    return new ComplexNumber(0, imaginary);
+                    return J;
                 }
                 imaginary = Double.parseDouble(imaginaryAsString);
                 return new ComplexNumber(0, imaginary);
@@ -219,14 +218,14 @@ public class ComplexNumber {
                 real = Double.parseDouble(splittedNumber[0]);
                 return new ComplexNumber(real);
             }
+        /* Case 2: "+5", "-5j", "5+3j" */
         } else if (splittedNumber.length == 2) {
             if (formattedString.charAt(0) == '-') {
                 String number = splittedNumber[1];
                 if (number.contains("j")) {
                     String imaginaryAsString = number.substring(0, number.length()-1);
                     if (imaginaryAsString.equals("")) {
-                        imaginary = 1;
-                        return new ComplexNumber(0, -imaginary);
+                        return J.conjugate();
                     }
                     imaginary = Double.parseDouble(imaginaryAsString);
                     return new ComplexNumber(0, -imaginary);
@@ -239,8 +238,7 @@ public class ComplexNumber {
                 if (number.contains("j")) {
                     String imaginaryAsString = number.substring(0, number.length()-1);
                     if (imaginaryAsString.equals("")) {
-                        imaginary = 1;
-                        return new ComplexNumber(0, imaginary);
+                        return J;
                     }
                     imaginary = Double.parseDouble(imaginaryAsString);
                     return new ComplexNumber(0, imaginary);
@@ -270,6 +268,7 @@ public class ComplexNumber {
                     } 
                 }
             }
+        /* Case 2: "+5+5j", "-5+5j" */
         } else if (splittedNumber.length == 3) {
             if (!splittedNumber[2].contains("j")) {
                 throw new NumberFormatException();
