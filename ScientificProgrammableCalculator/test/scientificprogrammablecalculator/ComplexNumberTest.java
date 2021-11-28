@@ -215,11 +215,6 @@ public class ComplexNumberTest {
         //fail("The test case is a prototype.");
     }
     
-
-    /**
-     * Test of hashCode method, of class ComplexNumber.
-     */
-
     /**
      * Test of equals method, of class ComplexNumber.
      */
