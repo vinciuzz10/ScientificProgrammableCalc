@@ -116,7 +116,7 @@ public class ComplexNumber {
         double imaginaryPartNumerator = imaginary * other.real - real * other.imaginary;
         double denominator = other.real * other.real + other.imaginary * other.imaginary;
         
-        return new ComplexNumber(realPartNumerator/denominator, imaginaryPartNumerator/denominator);
+        return new ComplexNumber(formatter(realPartNumerator/denominator),formatter(imaginaryPartNumerator/denominator));
     }
 
     /**
