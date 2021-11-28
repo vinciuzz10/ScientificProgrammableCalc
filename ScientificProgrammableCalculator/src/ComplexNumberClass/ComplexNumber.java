@@ -100,7 +100,7 @@ public class ComplexNumber {
      * @return {@code this * subtrahend}.
      */
     public ComplexNumber multiply(ComplexNumber other) {
-        return new ComplexNumber(real * other.real - imaginary * other.imaginary, real * other.imaginary + imaginary * other.real);
+        return new ComplexNumber(formatter(real * other.real - imaginary * other.imaginary), formatter(real * other.imaginary + imaginary * other.real));
     }
     
     /**

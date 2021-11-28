@@ -2,7 +2,6 @@ package scientificprogrammablecalculator;
 
 import ComplexNumberClass.ComplexNumber;
 import java.net.URL;
-import java.util.EmptyStackException;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -70,6 +69,10 @@ public class FXMLDocumentController implements Initializable {
         lastNumbersColumn.setCellValueFactory(new PropertyValueFactory<>("ComplexString"));
         lastNumbersTableView.setItems(numbers);
         lastNumbersTableView.setPlaceholder(new Label("Empty"));
+        
+        lastNumbersTableView.setStyle("-fx-background-color:transparent;\n"
+                + "-fx-selection-bar-non-focused:#b9eebe;\n"
+                + "-fx-selection-bar:green;\n");
     }    
 
     @FXML
@@ -90,7 +93,7 @@ public class FXMLDocumentController implements Initializable {
             number = ComplexNumber.parseComplexNumber(stringFromTextField);
             stack.push(number);
         } catch (NumberFormatException e) {
-            showNumberFormatAlert();
+            showAlert("Invalid Input" ,"The entered number format is not valid.");
         }
         
         /* Update TableView items */
@@ -101,9 +104,11 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void sumButtonPressed(ActionEvent event) {
-        if (stack.size() < 2)
+    private void sumButtonPressed(ActionEvent event) throws InterruptedException {
+        if (stack.size() < 2) {
+            showAlert("Invalid operation", "Not enough entered numbers.");
             return;
+        }
         
         ComplexNumber secondOperand = stack.pop();
         ComplexNumber firstOperand = stack.pop();
@@ -120,8 +125,10 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void differenceButtonPressed(ActionEvent event) {
-        if (stack.size() < 2)
+        if (stack.size() < 2) {
+            showAlert("Invalid operation", "Not enough entered numbers.");
             return;
+        }
         
         ComplexNumber secondOperand = stack.pop();
         ComplexNumber firstOperand = stack.pop();
@@ -138,8 +145,10 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void productButtonPressed(ActionEvent event) {
-        if (stack.size() < 2)
+        if (stack.size() < 2) {
+            showAlert("Invalid operation", "Not enough entered numbers.");
             return;
+        }
         
         ComplexNumber secondOperand = stack.pop();
         ComplexNumber firstOperand = stack.pop();
@@ -156,8 +165,10 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void quotientButtonPressed(ActionEvent event) {
-        if (stack.size() < 2)
+        if (stack.size() < 2) {
+            showAlert("Invalid operation", "Not enough entered numbers.");
             return;
+        }
         
         ComplexNumber secondOperand = stack.pop();
         ComplexNumber firstOperand = stack.pop();
@@ -174,6 +185,11 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void sqrtButtonPressed(ActionEvent event) {
+        if (stack.isEmpty()) {
+            showAlert("Invalid operation", "No entered numbers.");
+            return;
+        }
+        
         ComplexNumber number = stack.pop();
         
         ComplexNumber sqrt = number.sqrt();
@@ -188,6 +204,11 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void invertSignButtonPressed(ActionEvent event) {
+        if (stack.isEmpty()) {
+            showAlert("Invalid operation", "No entered numbers.");
+            return;
+        }
+        
         ComplexNumber number = stack.pop();
         
         ComplexNumber opposite = number.opposite();
@@ -213,8 +234,10 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void delButtonPressed(ActionEvent event) {
-        if (stack.isEmpty()) 
-            throw new EmptyStackException();
+        if (stack.isEmpty()) {
+            showAlert("Invalid operation", "No entered numbers.");
+            return;
+        }
         
         stack.pop();
         
@@ -227,8 +250,10 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void swapButtonPressed(ActionEvent event) {
-        if (stack.size() < 2) 
+        if (stack.size() < 2) {
+            showAlert("Invalid operation", "Not enough entered numbers.");
             return;
+        }
         
         stack.swap();
         
@@ -241,8 +266,10 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void dupButtonPressed(ActionEvent event) {
-        if (stack.isEmpty()) 
-            throw new EmptyStackException();
+        if (stack.isEmpty()) {
+            showAlert("Invalid operation", "No entered numbers.");
+            return;
+        }
         
         stack.dup();
         
@@ -253,20 +280,12 @@ public class FXMLDocumentController implements Initializable {
         clearTextField();
     }
 
-    private void overButtonPressed(ActionEvent event) {
-        stack.over();
-        
-        /* Update TableView items */
-        updateTableView();
-        
-        /* Clear both real part text field and imaginary part text field */
-        clearTextField();
-    }
-
     @FXML
     private void cslButtonPressed(ActionEvent event) {
-        if (stack.size() < 2) 
+        if (stack.size() < 2) {
+            showAlert("Invalid operation", "Not enough entered numbers.");
             return;
+        }
         
         stack.over();
         
@@ -285,13 +304,15 @@ public class FXMLDocumentController implements Initializable {
         List<ComplexNumber> tmp = stack.toList();
         numbers.clear();
         numbers.setAll(tmp);
+        
+        lastNumbersTableView.getSelectionModel().select(0);
     }
     
-    private void showNumberFormatAlert() {
+    private void showAlert(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Error");
-        alert.setContentText("The entered number format is not valid.");
-        alert.setHeaderText("Invalid Input");
+        alert.setContentText(content);
+        alert.setHeaderText(header);
         alert.showAndWait();
         return;
     }
