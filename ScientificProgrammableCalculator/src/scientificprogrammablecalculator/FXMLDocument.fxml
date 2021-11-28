@@ -15,12 +15,13 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#494949" height="588.0" stroke="BLACK" strokeType="INSIDE" width="560.0" />
                   <VBox prefHeight="588.0" prefWidth="560.0" spacing="20.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="15.0">
                      <children>
                         <HBox alignment="CENTER" prefHeight="49.0" prefWidth="550.0" spacing="20.0">
                            <children>
                               <TextField fx:id="mainTextField" prefHeight="49.0" prefWidth="413.0" promptText="Insert number or operations..." />
-                              <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitButtonPressed" text="Submit">
+                              <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitButtonPressed" text="Submit" textAlignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
@@ -39,11 +40,11 @@
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="550.0" spacing="20.0">
                            <children>
-                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonPressed" prefHeight="40.0" prefWidth="75.0" text="Clear" />
-                              <Button fx:id="delButton" mnemonicParsing="false" onAction="#delButtonPressed" prefHeight="40.0" prefWidth="75.0" text="Del" />
-                              <Button fx:id="swapButton" mnemonicParsing="false" onAction="#swapButtonPressed" prefHeight="40.0" prefWidth="75.0" text="Swap" />
-                              <Button fx:id="dupButton" mnemonicParsing="false" onAction="#dupButtonPressed" prefHeight="40.0" prefWidth="75.0" text="Dup" />
-                              <Button fx:id="cslButton" mnemonicParsing="false" onAction="#cslButtonPressed" prefHeight="40.0" prefWidth="75.0" text="CSL" />
+                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonPressed" prefHeight="40.0" prefWidth="77.0" text="Clear" />
+                              <Button fx:id="delButton" mnemonicParsing="false" onAction="#delButtonPressed" prefHeight="40.0" prefWidth="77.0" text="Del" />
+                              <Button fx:id="swapButton" mnemonicParsing="false" onAction="#swapButtonPressed" prefHeight="40.0" prefWidth="77.0" text="Swap" />
+                              <Button fx:id="dupButton" mnemonicParsing="false" onAction="#dupButtonPressed" prefHeight="40.0" prefWidth="77.0" text="Dup" />
+                              <Button fx:id="cslButton" mnemonicParsing="false" onAction="#cslButtonPressed" prefHeight="40.0" prefWidth="77.0" text="CSL" textAlignment="CENTER" />
                            </children>
                         </HBox>
                      </children>
@@ -52,6 +53,7 @@
             </AnchorPane>
           <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="220.0" prefHeight="160.0" prefWidth="100.0">
                <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#494949" height="588.0" stroke="BLACK" strokeType="INSIDE" width="220.0" />
                   <VBox prefHeight="588.0" prefWidth="220.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <children>
                         <TableView fx:id="lastNumbersTableView" prefHeight="643.0" prefWidth="210.0">
