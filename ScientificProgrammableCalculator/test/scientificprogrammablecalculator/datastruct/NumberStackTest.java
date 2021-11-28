@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
- */
 package scientificprogrammablecalculator.datastruct;
 
+import ComplexNumberClass.ComplexNumber;
 import DataStructures.NumberStack;
 import java.util.List;
 import org.junit.After;
@@ -12,7 +9,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ComplexNumberClass.ComplexNumber;
 
 /**
  *

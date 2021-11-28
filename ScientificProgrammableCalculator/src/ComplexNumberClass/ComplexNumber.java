@@ -164,8 +164,8 @@ public class ComplexNumber {
         double phase = this.phase();
         double realPart = Math.sqrt(this.abs()) * Math.cos(phase/2);
         double imaginaryPart = Math.sqrt(this.abs()) * Math.sin(phase/2);
-        
-        return new ComplexNumber(realPart, imaginaryPart);
+
+        return new ComplexNumber(formatter(realPart),formatter(imaginaryPart));
     }
     
     /**
@@ -334,4 +334,35 @@ public class ComplexNumber {
         }
     }    
 
+    /**
+     *
+     * @param obj
+     * @return
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ComplexNumber other = (ComplexNumber) obj;
+        if (Double.doubleToLongBits(this.imaginary) != Double.doubleToLongBits(other.imaginary)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.real) != Double.doubleToLongBits(other.real)) {
+            return false;
+        }
+        return true;
+    }
+    
+    private Double formatter(Double number){
+        Double formatted = Math.floor(number * 1000) / 1000;
+        return formatted;
+    }
+    
 }
