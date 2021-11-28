@@ -194,7 +194,7 @@ public class ComplexNumber {
      * @return a {@code ComplexNumber} representation of the {@code String}.
      * @throws NumberFormatException
      */
-    public static ComplexNumber complexFromString(String numberAsString) {
+    public static ComplexNumber parseComplexNumber(String numberAsString) {
         double real, imaginary;
         String formattedString = numberAsString.replace(" ", "");
 

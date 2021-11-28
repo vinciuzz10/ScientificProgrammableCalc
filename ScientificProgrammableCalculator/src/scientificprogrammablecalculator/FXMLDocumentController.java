@@ -74,7 +74,6 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void submitButtonPressed(ActionEvent event) {
-
         String stringFromTextField = mainTextField.getText().replace(" ", "");
         
         if (stringFromTextField.isEmpty()) {
@@ -88,7 +87,7 @@ public class FXMLDocumentController implements Initializable {
         
         ComplexNumber number;
         try {
-            number = ComplexNumber.complexFromString(stringFromTextField);
+            number = ComplexNumber.parseComplexNumber(stringFromTextField);
             stack.push(number);
         } catch (NumberFormatException e) {
             showNumberFormatAlert();
@@ -189,7 +188,6 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void invertSignButtonPressed(ActionEvent event) {
-        
         ComplexNumber number = stack.pop();
         
         ComplexNumber opposite = number.opposite();
