@@ -2,7 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package scientificprogrammablecalculator;
+package CompleNumberClass;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  *
@@ -121,7 +124,7 @@ public class ComplexNumber {
         double imaginaryPartNumerator = imaginary * other.real - real * other.imaginary;
         double denominator = other.real * other.real + other.imaginary * other.imaginary;
         
-        return new ComplexNumber(realPartNumerator/denominator, imaginaryPartNumerator/denominator);
+        return new ComplexNumber(formatter(realPartNumerator/denominator), formatter(imaginaryPartNumerator/denominator));
     }
 
     /**
@@ -167,7 +170,7 @@ public class ComplexNumber {
         double realPart = Math.sqrt(this.abs()) * Math.cos(phase/2);
         double imaginaryPart = Math.sqrt(this.abs()) * Math.sin(phase/2);
         
-        return new ComplexNumber(realPart, imaginaryPart);
+        return new ComplexNumber(formatter(realPart),formatter(imaginaryPart));
     }
     
     /**
@@ -206,12 +209,6 @@ public class ComplexNumber {
     }    
 
     @Override
-    public int hashCode() {
-        int hash = 5;
-        return hash;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -232,5 +229,9 @@ public class ComplexNumber {
         return true;
     }
     
-    
+    private Double formatter(Double number){
+        Double formatted = Math.floor(number * 1000) / 1000;
+        System.out.println(formatted);
+        return formatted;
+    }
 }
