@@ -7,18 +7,7 @@ package ComplexNumberClass;
 public class ComplexNumber {
     
     /** The square root of -1. A number representing "0.0 + 1.0j" */
-    public static final ComplexNumber J = new ComplexNumber(0.0, 1.0);
-    // CHECKSTYLE: stop ConstantName
-    /** A complex number representing "NaN + NaNi" */
-    public static final ComplexNumber NaN = new ComplexNumber(Double.NaN, Double.NaN);
-    // CHECKSTYLE: resume ConstantName
-    /** A complex number representing "+INF + INFi" */
-    public static final ComplexNumber INF = new ComplexNumber(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
-    /** A complex number representing "1.0 + 0.0  i" */
-    public static final ComplexNumber ONE = new ComplexNumber(1.0, 0.0);
-    /** A complex number representing "0.0 + 0.0i" */
-    public static final ComplexNumber ZERO = new ComplexNumber(0.0, 0.0);
-    
+    public static final ComplexNumber J = new ComplexNumber(0.0, 1.0);    
         
     /** The imaginary part. */
     private final double imaginary;
@@ -44,7 +33,7 @@ public class ComplexNumber {
     }
 
     /**
-     * Returns the imaginary part of the complex number as a double.
+     * Returns the imaginary part of the complex number as a {@code Double}.
      * @return the double value representing the imaginary part of the complex number.
      */
     public double getImaginary() {
@@ -52,7 +41,7 @@ public class ComplexNumber {
     }
 
     /**
-     * Returns the real part of the complex number as a double.
+     * Returns the real part of the complex number as a {@code Double}.
      * @return the double value representing the real part of the complex number.
      */
     public double getReal() {
@@ -60,8 +49,8 @@ public class ComplexNumber {
     }
     
     /**
-     * Utility method which returns a String representation of the complex number calling the method "toString".
-     * @return a string representing the complex number.
+     * Utility method which returns a {@code String} representation of the complex number calling the method "toString".
+     * @return a {@code String} representing the complex number.
      */
     public String getComplexString() {
         return toString();
@@ -335,9 +324,9 @@ public class ComplexNumber {
     }    
 
     /**
-     *
-     * @param obj
-     * @return
+     * Check if a {@code ComplexNumber} is equals to another one, comparing the real and the imaginary part.
+     * @param obj the {@code ComplexNumber} to be compared.
+     * @return {@code true} if {@code this} is equals to obj.
      */
     @Override
     public boolean equals(Object obj) {
