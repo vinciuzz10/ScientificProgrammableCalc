@@ -80,11 +80,7 @@ public class FXMLDocumentController implements Initializable {
         String stringFromTextField = mainTextField.getText().replace(" ", "");
         
         if (stringFromTextField.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setContentText("You can't submit an empty number or an empty operation.");
-            alert.setHeaderText("Invalid Input");
-            alert.showAndWait();
+            showAlert("Invalid Input", "You can't submit an empty number or an empty operation.");
             return;
         }
         
@@ -94,6 +90,7 @@ public class FXMLDocumentController implements Initializable {
             stack.push(number);
         } catch (NumberFormatException e) {
             showAlert("Invalid Input" ,"The entered number format is not valid.");
+            return;
         }
         
         /* Update TableView items */
