@@ -1,7 +1,7 @@
 package DataStructures;
 
 import ComplexNumberClass.ComplexNumber;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 /**
  *
@@ -9,8 +9,11 @@ import java.util.TreeMap;
  */
 public class Variables {
     
-    private TreeMap<Character, ComplexNumber> variableSet = new TreeMap<Character, ComplexNumber>();
+    private HashMap<Character, ComplexNumber> variableSet = new HashMap<Character, ComplexNumber>();
 
+    /**
+     * Create an object of the class Variables containing a Map with all variables setted to ZERO (0.0 + 0.0j).
+     */
     public Variables() {
         for (Character c: "abcdefghijklmnopqrstuvwxyz".toCharArray()){
             variableSet.put(c, ComplexNumber.ZERO);
@@ -56,7 +59,3 @@ public class Variables {
     }
     
 }
-
-/*
-
-*/
