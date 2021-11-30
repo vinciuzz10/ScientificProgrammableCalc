@@ -20,31 +20,64 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="49.0" prefWidth="550.0" spacing="20.0">
                            <children>
-                              <TextField fx:id="mainTextField" prefHeight="49.0" prefWidth="413.0" promptText="Insert number or operations..." />
-                              <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitButtonPressed" text="Submit" textAlignment="CENTER">
+                              <TextField fx:id="mainTextField" centerShape="false" prefHeight="49.0" prefWidth="413.0" promptText="Insert number or operations..." />
+                              <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitButtonPressed" prefHeight="43.0" prefWidth="91.0" style="-fx-background-color: #f4b74e;" text="Submit" textAlignment="CENTER">
                                  <font>
-                                    <Font name="System Bold" size="15.0" />
+                                    <Font name="System Bold" size="18.0" />
                                  </font>
                               </Button>
                            </children>
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="550.0" spacing="20.0">
                            <children>
-                              <Button fx:id="sumButton" mnemonicParsing="false" onAction="#sumButtonPressed" prefHeight="40.0" prefWidth="60.0" text="+" />
-                              <Button fx:id="differenceButton" mnemonicParsing="false" onAction="#differenceButtonPressed" prefHeight="40.0" prefWidth="60.0" text="-" />
-                              <Button fx:id="productButton" mnemonicParsing="false" onAction="#productButtonPressed" prefHeight="40.0" prefWidth="60.0" text="x" />
-                              <Button fx:id="quotientButton" mnemonicParsing="false" onAction="#quotientButtonPressed" prefHeight="40.0" prefWidth="60.0" text="/" />
-                              <Button fx:id="sqrtButton" mnemonicParsing="false" onAction="#sqrtButtonPressed" prefHeight="40.0" prefWidth="60.0" text="rad" />
-                              <Button fx:id="invertSignButton" mnemonicParsing="false" onAction="#invertSignButtonPressed" prefHeight="40.0" prefWidth="60.0" text="+/-" />
+                              <Button fx:id="sumButton" mnemonicParsing="false" onAction="#sumButtonPressed" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #ff5050;" text="+" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font></Button>
+                              <Button fx:id="differenceButton" mnemonicParsing="false" onAction="#differenceButtonPressed" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #ff5050;" text="-" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font></Button>
+                              <Button fx:id="productButton" mnemonicParsing="false" onAction="#productButtonPressed" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #ff5050;" text="x" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font></Button>
+                              <Button fx:id="quotientButton" mnemonicParsing="false" onAction="#quotientButtonPressed" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #ff5050;" text="/" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font></Button>
+                              <Button fx:id="sqrtButton" mnemonicParsing="false" onAction="#sqrtButtonPressed" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #ff5050;" text="rad" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font></Button>
+                              <Button fx:id="invertSignButton" mnemonicParsing="false" onAction="#invertSignButtonPressed" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #ff5050;" text="+/-" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font></Button>
                            </children>
                         </HBox>
-                        <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="550.0" spacing="20.0">
+                        <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="550.0" spacing="19.0">
                            <children>
-                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonPressed" prefHeight="40.0" prefWidth="77.0" text="Clear" />
-                              <Button fx:id="delButton" mnemonicParsing="false" onAction="#delButtonPressed" prefHeight="40.0" prefWidth="77.0" text="Del" />
-                              <Button fx:id="swapButton" mnemonicParsing="false" onAction="#swapButtonPressed" prefHeight="40.0" prefWidth="77.0" text="Swap" />
-                              <Button fx:id="dupButton" mnemonicParsing="false" onAction="#dupButtonPressed" prefHeight="40.0" prefWidth="77.0" text="Dup" />
-                              <Button fx:id="cslButton" mnemonicParsing="false" onAction="#cslButtonPressed" prefHeight="40.0" prefWidth="77.0" text="CSL" textAlignment="CENTER" />
+                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonPressed" prefHeight="40.0" prefWidth="77.0" style="-fx-background-color: #dadada;" text="Clear">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font></Button>
+                              <Button fx:id="delButton" mnemonicParsing="false" onAction="#delButtonPressed" prefHeight="40.0" prefWidth="77.0" style="-fx-background-color: #dadada;" text="Del">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font></Button>
+                              <Button fx:id="swapButton" mnemonicParsing="false" onAction="#swapButtonPressed" prefHeight="40.0" prefWidth="77.0" style="-fx-background-color: #dadada;" text="Swap">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font></Button>
+                              <Button fx:id="dupButton" mnemonicParsing="false" onAction="#dupButtonPressed" prefHeight="40.0" prefWidth="77.0" style="-fx-background-color: #dadada;" text="Dup">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font></Button>
+                              <Button fx:id="cslButton" mnemonicParsing="false" onAction="#cslButtonPressed" prefHeight="40.0" prefWidth="77.0" style="-fx-background-color: #dadada;" text="CSL" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font></Button>
                            </children>
                         </HBox>
                      </children>
