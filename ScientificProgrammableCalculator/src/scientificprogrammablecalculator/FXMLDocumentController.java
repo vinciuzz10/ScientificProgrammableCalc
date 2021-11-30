@@ -18,6 +18,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import DataStructures.NumberStack;
 import DataStructures.Variables;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.beans.binding.Bindings;
+import javafx.collections.ObservableMap;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.stage.Stage;
 
 /**
  *
@@ -55,19 +65,30 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<ComplexNumber, String> lastNumbersColumn;
     @FXML
     private TextField mainTextField;
-    
+    @FXML
+    private TableView<Variables.Entry> variablesTableView;
+    @FXML
+    private TableColumn<Variables.Entry, Character> variableKeyColumn;
+    @FXML
+    private TableColumn<Variables.Entry, ComplexNumber> variableValueColumn;
+    @FXML
+    private Button userOperationButton;
     
     
     private ObservableList<ComplexNumber> numbers;
+    private ObservableMap<Character, ComplexNumber> variableObservableMap;
     private final NumberStack stack = new NumberStack();
     private final Variables variables = new Variables();
 
-   
-   
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         numbers = FXCollections.observableArrayList(stack.toList());
+        
+        variableObservableMap = FXCollections.observableHashMap();
+        variableObservableMap.putAll(variables);
+        
         lastNumbersColumn.setCellValueFactory(new PropertyValueFactory<>("ComplexString"));
         lastNumbersTableView.setItems(numbers);
         lastNumbersTableView.setPlaceholder(new Label("Empty"));
@@ -107,7 +128,7 @@ public class FXMLDocumentController implements Initializable {
             ComplexNumber value = variables.getVariableValue(variableName);
             stack.push(value);
             updateTableView();
-            clearTextField();
+            clearTextField(); 
             return;
         } 
         
@@ -325,6 +346,35 @@ public class FXMLDocumentController implements Initializable {
         clearTextField();
     }
     
+    @FXML
+    private void userOperationButtonPressed(ActionEvent event) {
+        Stage stage = (Stage) userOperationButton.getScene().getWindow();
+        URL userOperationURL;
+        try {
+            userOperationURL = new File("").toURI().toURL();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            //Implement show alert
+            return;
+        }
+        FXMLLoader loader = new FXMLLoader(userOperationURL);
+        try {
+            Parent root = (Parent) loader.load();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            //Implement show alert
+            return;
+        }
+        /*
+        UserOperationController userOperationController = loader.getController();
+        userOperationController.loadInformation();
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene((AnchorPane) root));
+        newStage.setTitle("User Operations");
+        newStage.show();
+        */
+    }
+    
     private void clearTextField() {
         mainTextField.clear();
     }
@@ -346,27 +396,6 @@ public class FXMLDocumentController implements Initializable {
         return;
     }
 
-    /*private boolean checkForVariablesOperation(String stringFromTextField) {
-        if (stringFromTextField.matches(">[a-z]")) {
-            char variableName = stringFromTextField.substring(1).toCharArray()[0];
-            variables.setVariableValue(variableName, stack.pop());
-            return true;
-        } else if (stringFromTextField.matches("<[a-z]")) {
-            char variableName = stringFromTextField.substring(1).toCharArray()[0];
-            ComplexNumber value = variables.getVariableValue(variableName);
-            return true;
-        } else if (stringFromTextField.matches("\\+[a-z]var")) {
-            char variableName = stringFromTextField.substring(1).toCharArray()[0];
-            ComplexNumber value = variables.getVariableValue(variableName);
-            variables.setVariableValue(variableName, value.add(stack.peek()));
-            return true;
-        } else if (stringFromTextField.matches("\\-[a-z]var")) {
-            char variableName = stringFromTextField.substring(1).toCharArray()[0];
-            ComplexNumber value = variables.getVariableValue(variableName);
-            variables.setVariableValue(variableName, value.subtract(stack.peek()));
-            return true;
-        }
-        return false;
-    }*/
+   
 
 }

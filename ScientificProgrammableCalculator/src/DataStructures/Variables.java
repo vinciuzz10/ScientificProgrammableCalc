@@ -7,16 +7,16 @@ import java.util.HashMap;
  *
  * @author Vinciuzz10
  */
-public class Variables {
+public class Variables extends HashMap<Character, ComplexNumber>{
     
-    private HashMap<Character, ComplexNumber> variableSet = new HashMap<Character, ComplexNumber>();
+    //private HashMap<Character, ComplexNumber> variableSet = new HashMap<Character, ComplexNumber>();
 
     /**
      * Create an object of the class Variables containing a Map with all variables setted to ZERO (0.0 + 0.0j).
      */
     public Variables() {
         for (Character c: "abcdefghijklmnopqrstuvwxyz".toCharArray()){
-            variableSet.put(c, ComplexNumber.ZERO);
+            put(c, ComplexNumber.ZERO);
         }
     }
     
@@ -26,7 +26,7 @@ public class Variables {
      * @param newValue the value to set
      */
     public void setVariableValue(Character variableKey, ComplexNumber newValue) {
-        variableSet.put(variableKey, newValue);
+        put(variableKey, newValue);
     }
     
     /**
@@ -35,7 +35,7 @@ public class Variables {
      * @return the value of the variable with {@code key = variableKey}.
      */
     public ComplexNumber getVariableValue(Character variableKey) {
-        return variableSet.get(variableKey);
+        return get(variableKey);
     }
     
     /**
@@ -44,8 +44,8 @@ public class Variables {
      * @param value the {@code ComplexNumber} to be added to the variable value.
      */
     public void addToVariable(Character variableKey, ComplexNumber value) {
-        ComplexNumber newValue = variableSet.get(variableKey).add(value);
-        variableSet.put(variableKey, newValue);
+        ComplexNumber newValue = get(variableKey).add(value);
+        put(variableKey, newValue);
     }
     
     /**
@@ -54,8 +54,8 @@ public class Variables {
      * @param value the {@code ComplexNumber} to be subtracted to the variable value.
      */
     public void subtractToVariable(Character variableKey, ComplexNumber value) {
-        ComplexNumber newValue = variableSet.get(variableKey).subtract(value);
-        variableSet.put(variableKey, newValue);
+        ComplexNumber newValue = get(variableKey).subtract(value);
+        put(variableKey, newValue);
     }
     
 }

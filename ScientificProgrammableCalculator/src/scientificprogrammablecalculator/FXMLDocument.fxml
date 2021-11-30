@@ -9,14 +9,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scientificprogrammablecalculator.FXMLDocumentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scientificprogrammablecalculator.FXMLDocumentController">
    <children>
-      <SplitPane dividerPositions="0.7218045112781954" layoutX="300.0" layoutY="235.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+      <SplitPane dividerPositions="0.7218045112781954, 0.5" layoutX="300.0" layoutY="235.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <AnchorPane maxWidth="220.0" minWidth="220.0" prefHeight="200.0" prefWidth="220.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#494949" height="588.0" stroke="BLACK" strokeType="INSIDE" width="220.0" />
+                  <TableView fx:id="variablesTableView" layoutY="78.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                    <columns>
+                      <TableColumn fx:id="variableKeyColumn" prefWidth="37.0" text="Var" />
+                      <TableColumn fx:id="variableValueColumn" prefWidth="172.0" text="Value" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+          <AnchorPane maxWidth="600.0" minHeight="0.0" minWidth="380.0" prefHeight="160.0" prefWidth="380.0">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#494949" height="588.0" stroke="BLACK" strokeType="INSIDE" width="560.0" />
-                  <VBox prefHeight="588.0" prefWidth="560.0" spacing="20.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="15.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="588.0" prefWidth="560.0" spacing="20.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="15.0">
                      <children>
                         <HBox alignment="CENTER" prefHeight="49.0" prefWidth="550.0" spacing="20.0">
                            <children>
@@ -80,22 +91,23 @@
                                  </font></Button>
                            </children>
                         </HBox>
+                        <Button fx:id="userOperationButton" alignment="CENTER" mnemonicParsing="false" onAction="#userOperationButtonPressed" prefHeight="40.0" prefWidth="465.0" style="-fx-background-color: #1a785c;" text="Manage User-Defined Operations" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Button>
                      </children>
                   </VBox>
                </children>
             </AnchorPane>
-          <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="220.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="220.0" prefHeight="588.0" prefWidth="282.0">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#494949" height="588.0" stroke="BLACK" strokeType="INSIDE" width="220.0" />
-                  <VBox prefHeight="588.0" prefWidth="220.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-                     <children>
-                        <TableView fx:id="lastNumbersTableView" prefHeight="643.0" prefWidth="210.0">
-                          <columns>
-                            <TableColumn fx:id="lastNumbersColumn" prefWidth="209.0" text="Last numbers:" />
-                          </columns>
-                        </TableView>
-                     </children>
-                  </VBox>
+                  <TableView fx:id="lastNumbersTableView" layoutX="29.0" layoutY="12.0" prefHeight="565.0" prefWidth="186.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                    <columns>
+                      <TableColumn fx:id="lastNumbersColumn" prefWidth="209.0" text="Last numbers:" />
+                    </columns>
+                  </TableView>
                </children>
             </AnchorPane>
         </items>
