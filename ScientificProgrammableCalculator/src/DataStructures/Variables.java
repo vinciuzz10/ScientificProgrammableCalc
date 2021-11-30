@@ -12,43 +12,33 @@ public class Variables {
     private TreeMap<Character, ComplexNumber> variableSet = new TreeMap<Character, ComplexNumber>();
 
     public Variables() {
-        ComplexNumber zero = new ComplexNumber(0.0);
         for (Character c: "abcdefghijklmnopqrstuvwxyz".toCharArray()){
-            variableSet.put(c, zero);
+            variableSet.put(c, ComplexNumber.ZERO);
         }
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public String toString() {
-        return "Variables{" + "variableSet=" + variableSet + '}';
     }
     
     /**
-     *
-     * @param variableKey
-     * @param newValue
+     * Set the value of a variable to the {@code ComplexNumber} passed as a parameter.
+     * @param variableKey the key of the variable to be updated
+     * @param newValue the value to set
      */
     public void setVariableValue(Character variableKey, ComplexNumber newValue) {
         variableSet.put(variableKey, newValue);
     }
     
     /**
-     *
-     * @param variableKey
-     * @return
+     * Returns the value of the variable with the key passed as a parameter.
+     * @param variableKey the key of the variable.
+     * @return the value of the variable with {@code key = variableKey}.
      */
     public ComplexNumber getVariableValue(Character variableKey) {
         return variableSet.get(variableKey);
     }
     
     /**
-     *
-     * @param variableKey
-     * @param value
+     * Add a {@code ComplexNumber} to the value of the variable with {@code key = variableKey}.
+     * @param variableKey the key of the variable to be updated.
+     * @param value the {@code ComplexNumber} to be added to the variable value.
      */
     public void addToVariable(Character variableKey, ComplexNumber value) {
         ComplexNumber newValue = variableSet.get(variableKey).add(value);
@@ -56,9 +46,9 @@ public class Variables {
     }
     
     /**
-     *
-     * @param variableKey
-     * @param value
+     * Subtract a {@code ComplexNumber} to the value of the variable with {@code key = variableKey}.
+     * @param variableKey the key of the variable to be updated.
+     * @param value the {@code ComplexNumber} to be subtracted to the variable value.
      */
     public void subtractToVariable(Character variableKey, ComplexNumber value) {
         ComplexNumber newValue = variableSet.get(variableKey).subtract(value);
@@ -68,27 +58,5 @@ public class Variables {
 }
 
 /*
-        if (stringFromTextField.matches(">[a-z]")) {
-            Character variable = stringFromTextField.toCharArray()[1];
-            variables.setVariableValue(variable, stack.peek());
-            clearTextField();
-            return;
-        } else if (stringFromTextField.matches("<[a-z]")) {
-            Character variable = stringFromTextField.toCharArray()[1];
-            ComplexNumber variableValue = variables.getVariableValue(variable);
-            stack.push(variableValue);
-            updateTableView();
-            clearTextField();
-            return;
-        } else if (stringFromTextField.matches("\\+[a-z]")) {
-            Character variable = stringFromTextField.toCharArray()[1];
-            variables.addToVariable(variable, stack.peek());
-            clearTextField();
-            return;
-        } else if (stringFromTextField.matches("-[a-z]")) {
-            Character variable = stringFromTextField.toCharArray()[1];
-            variables.subtractToVariable(variable, stack.peek());
-            clearTextField();
-            return;
-        }
+
 */

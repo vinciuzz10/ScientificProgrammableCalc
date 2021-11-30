@@ -7,7 +7,9 @@ package ComplexNumberClass;
 public class ComplexNumber {
     
     /** The square root of -1. A number representing "0.0 + 1.0j" */
-    public static final ComplexNumber J = new ComplexNumber(0.0, 1.0);    
+    public static final ComplexNumber J = new ComplexNumber(0.0, 1.0);  
+    /** A number representing "0.0 + 0.0j" */
+    public static final ComplexNumber ZERO = new ComplexNumber(0.0, 0.0);
         
     /** The imaginary part. */
     private final double imaginary;

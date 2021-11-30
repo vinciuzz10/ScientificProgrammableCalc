@@ -17,6 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import DataStructures.NumberStack;
+import DataStructures.Variables;
 
 /**
  *
@@ -59,6 +60,7 @@ public class FXMLDocumentController implements Initializable {
     
     private ObservableList<ComplexNumber> numbers;
     private final NumberStack stack = new NumberStack();
+    private final Variables variables = new Variables();
 
    
    
@@ -79,6 +81,36 @@ public class FXMLDocumentController implements Initializable {
     private void submitButtonPressed(ActionEvent event) {
         String stringFromTextField = mainTextField.getText().replace(" ", "");
         
+        if (!stack.isEmpty()) {
+            if (stringFromTextField.matches(">[a-z]")) {
+                char variableName = stringFromTextField.substring(1).toCharArray()[0];
+                variables.setVariableValue(variableName, stack.pop());
+                updateTableView();
+                clearTextField();
+                return;
+            } else if (stringFromTextField.matches("\\+[a-z]var")) {
+                char variableName = stringFromTextField.substring(1).toCharArray()[0];
+                ComplexNumber value = variables.getVariableValue(variableName);
+                variables.setVariableValue(variableName, value.add(stack.peek()));
+                clearTextField();
+                return;
+            } else if (stringFromTextField.matches("\\-[a-z]var")) {
+                char variableName = stringFromTextField.substring(1).toCharArray()[0];
+                ComplexNumber value = variables.getVariableValue(variableName);
+                variables.setVariableValue(variableName, value.subtract(stack.peek()));
+                clearTextField();
+                return;
+            }
+        }
+        if (stringFromTextField.matches("<[a-z]")) {
+            char variableName = stringFromTextField.substring(1).toCharArray()[0];
+            ComplexNumber value = variables.getVariableValue(variableName);
+            stack.push(value);
+            updateTableView();
+            clearTextField();
+            return;
+        } 
+        
         if (stringFromTextField.isEmpty()) {
             showAlert("Invalid Input", "You can't submit an empty number or an empty operation.");
             return;
@@ -89,7 +121,7 @@ public class FXMLDocumentController implements Initializable {
             number = ComplexNumber.parseComplexNumber(stringFromTextField);
             stack.push(number);
         } catch (NumberFormatException e) {
-            showAlert("Invalid Input" ,"The entered number format is not valid.");
+            showAlert("Invalid Input" ,"The entered number or operation is not valid.");
             return;
         }
         
@@ -313,5 +345,28 @@ public class FXMLDocumentController implements Initializable {
         alert.showAndWait();
         return;
     }
+
+    /*private boolean checkForVariablesOperation(String stringFromTextField) {
+        if (stringFromTextField.matches(">[a-z]")) {
+            char variableName = stringFromTextField.substring(1).toCharArray()[0];
+            variables.setVariableValue(variableName, stack.pop());
+            return true;
+        } else if (stringFromTextField.matches("<[a-z]")) {
+            char variableName = stringFromTextField.substring(1).toCharArray()[0];
+            ComplexNumber value = variables.getVariableValue(variableName);
+            return true;
+        } else if (stringFromTextField.matches("\\+[a-z]var")) {
+            char variableName = stringFromTextField.substring(1).toCharArray()[0];
+            ComplexNumber value = variables.getVariableValue(variableName);
+            variables.setVariableValue(variableName, value.add(stack.peek()));
+            return true;
+        } else if (stringFromTextField.matches("\\-[a-z]var")) {
+            char variableName = stringFromTextField.substring(1).toCharArray()[0];
+            ComplexNumber value = variables.getVariableValue(variableName);
+            variables.setVariableValue(variableName, value.subtract(stack.peek()));
+            return true;
+        }
+        return false;
+    }*/
 
 }
