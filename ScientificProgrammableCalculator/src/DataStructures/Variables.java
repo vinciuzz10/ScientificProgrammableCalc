@@ -7,7 +7,7 @@ import java.util.HashMap;
  *
  * @author Vinciuzz10
  */
-public class Variables extends HashMap<Character, ComplexNumber>{
+public class Variables extends  HashMap<Character, ComplexNumber>{
     
     //private HashMap<Character, ComplexNumber> variableSet = new HashMap<Character, ComplexNumber>();
 
