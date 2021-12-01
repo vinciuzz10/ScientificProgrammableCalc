@@ -21,13 +21,17 @@ import DataStructures.Variables;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.binding.Bindings;
-import javafx.collections.ObservableMap;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  *
@@ -66,7 +70,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField mainTextField;
     @FXML
-    private TableView<Variables.Entry> variablesTableView;
+    private TableView<Map.Entry<Character, ComplexNumber>> variablesTableView;
     @FXML
     private TableColumn<Variables.Entry, Character> variableKeyColumn;
     @FXML
@@ -76,7 +80,7 @@ public class FXMLDocumentController implements Initializable {
     
     
     private ObservableList<ComplexNumber> numbers;
-    private ObservableMap<Character, ComplexNumber> variableObservableMap;
+    private ObservableList<Map.Entry<Character, ComplexNumber>> variableObservableList;
     private final NumberStack stack = new NumberStack();
     private final Variables variables = new Variables();
 
@@ -84,10 +88,9 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        numbers = FXCollections.observableArrayList(stack.toList());
         
-        variableObservableMap = FXCollections.observableHashMap();
-        variableObservableMap.putAll(variables);
+        /* Last Numbers Table View setup */
+        numbers = FXCollections.observableArrayList(stack.toList());
         
         lastNumbersColumn.setCellValueFactory(new PropertyValueFactory<>("ComplexString"));
         lastNumbersTableView.setItems(numbers);
@@ -96,6 +99,30 @@ public class FXMLDocumentController implements Initializable {
         lastNumbersTableView.setStyle("-fx-background-color:transparent;\n"
                 + "-fx-selection-bar-non-focused:#b9eebe;\n"
                 + "-fx-selection-bar:green;\n");
+        
+        
+        
+        /* Variablese Table View setup */
+        variableObservableList = FXCollections.observableArrayList();
+        variableObservableList.addAll(variables.entrySet());
+        
+        variableKeyColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry, Character>, ObservableValue<Character>>() {
+            @Override
+            public ObservableValue<Character> call(TableColumn.CellDataFeatures<Map.Entry, Character> param) {
+                
+                return new SimpleObjectProperty<>((Character) param.getValue().getKey());
+            }
+        });
+        
+        variableValueColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry, ComplexNumber>, ObservableValue<ComplexNumber>>(){
+            @Override
+            public ObservableValue<ComplexNumber> call(TableColumn.CellDataFeatures<Map.Entry, ComplexNumber> param) {
+                
+                return new SimpleObjectProperty<>((ComplexNumber) param.getValue().getValue());
+            }
+        });
+        
+        variablesTableView.setItems(variableObservableList);
     }    
 
     @FXML
@@ -103,37 +130,39 @@ public class FXMLDocumentController implements Initializable {
         String stringFromTextField = mainTextField.getText().replace(" ", "");
         
         if (!stack.isEmpty()) {
-            if (stringFromTextField.matches(">[a-z]")) {
+            if (stringFromTextField.matches(">[A-Z]")) {
                 char variableName = stringFromTextField.substring(1).toCharArray()[0];
-                variables.setVariableValue(variableName, stack.pop());
-                updateTableView();
+                variables.put(variableName, stack.pop());
+                updateVariablesTableView();
+                updateLastNumbersTableView();
                 clearTextField();
                 return;
-            } else if (stringFromTextField.matches("\\+[a-z]var")) {
+            } else if (stringFromTextField.matches("\\+[A-Z]")) {
                 char variableName = stringFromTextField.substring(1).toCharArray()[0];
-                ComplexNumber value = variables.getVariableValue(variableName);
-                variables.setVariableValue(variableName, value.add(stack.peek()));
+                variables.addToVariable(variableName, stack.peek());
+                updateVariablesTableView();
                 clearTextField();
                 return;
-            } else if (stringFromTextField.matches("\\-[a-z]var")) {
+            } else if (stringFromTextField.matches("\\-[A-Z]")) {
                 char variableName = stringFromTextField.substring(1).toCharArray()[0];
-                ComplexNumber value = variables.getVariableValue(variableName);
-                variables.setVariableValue(variableName, value.subtract(stack.peek()));
+                variables.subtractToVariable(variableName, stack.peek());
+                updateVariablesTableView();
                 clearTextField();
                 return;
             }
         }
-        if (stringFromTextField.matches("<[a-z]")) {
+        if (stringFromTextField.matches("<[A-Z]")) {
             char variableName = stringFromTextField.substring(1).toCharArray()[0];
-            ComplexNumber value = variables.getVariableValue(variableName);
+            ComplexNumber value = variables.get(variableName);
             stack.push(value);
-            updateTableView();
+            updateLastNumbersTableView();
             clearTextField(); 
             return;
         } 
         
         if (stringFromTextField.isEmpty()) {
             showAlert("Invalid Input", "You can't submit an empty number or an empty operation.");
+            clearTextField();
             return;
         }
         
@@ -143,11 +172,12 @@ public class FXMLDocumentController implements Initializable {
             stack.push(number);
         } catch (NumberFormatException e) {
             showAlert("Invalid Input" ,"The entered number or operation is not valid.");
+            clearTextField();
             return;
         }
         
         /* Update TableView items */
-        updateTableView();
+        updateLastNumbersTableView();
         
         /* Clear both real part text field and imaginary part text field */
         clearTextField();
@@ -167,7 +197,7 @@ public class FXMLDocumentController implements Initializable {
         stack.push(sum);
         
         /* Update TableView items */
-        updateTableView();
+        updateLastNumbersTableView();
         
         /* Clear both real part text field and imaginary part text field */
         clearTextField();
@@ -187,7 +217,7 @@ public class FXMLDocumentController implements Initializable {
         stack.push(difference);
         
         /* Update TableView items */
-        updateTableView();
+        updateLastNumbersTableView();
         
         /* Clear both real part text field and imaginary part text field */
         clearTextField();
@@ -207,7 +237,7 @@ public class FXMLDocumentController implements Initializable {
         stack.push(product);
         
         /* Update TableView items */
-        updateTableView();
+        updateLastNumbersTableView();
         
         /* Clear both real part text field and imaginary part text field */
         clearTextField();
@@ -227,7 +257,7 @@ public class FXMLDocumentController implements Initializable {
         stack.push(quotient);
         
         /* Update TableView items */
-        updateTableView();
+        updateLastNumbersTableView();
         
         /* Clear both real part text field and imaginary part text field */
         clearTextField();
@@ -246,7 +276,7 @@ public class FXMLDocumentController implements Initializable {
         stack.push(sqrt);
         
         /* Update TableView items */
-        updateTableView();
+        updateLastNumbersTableView();
         
         /* Clear both real part text field and imaginary part text field */
         clearTextField();
@@ -265,7 +295,7 @@ public class FXMLDocumentController implements Initializable {
         stack.push(opposite);
         
         /* Update TableView items */
-        updateTableView();
+        updateLastNumbersTableView();
         
         /* Clear both real part text field and imaginary part text field */
         clearTextField();
@@ -276,7 +306,7 @@ public class FXMLDocumentController implements Initializable {
         stack.clear();
         
         /* Update TableView items */
-        updateTableView();
+        updateLastNumbersTableView();
         
         /* Clear both real part text field and imaginary part text field */
         clearTextField();
@@ -292,7 +322,7 @@ public class FXMLDocumentController implements Initializable {
         stack.pop();
         
         /* Update TableView items */
-        updateTableView();
+        updateLastNumbersTableView();
         
         /* Clear both real part text field and imaginary part text field */
         clearTextField();
@@ -308,7 +338,7 @@ public class FXMLDocumentController implements Initializable {
         stack.swap();
         
         /* Update TableView items */
-        updateTableView();
+        updateLastNumbersTableView();
         
         /* Clear both real part text field and imaginary part text field */
         clearTextField();
@@ -324,7 +354,7 @@ public class FXMLDocumentController implements Initializable {
         stack.dup();
         
         /* Update TableView items */
-        updateTableView();
+        updateLastNumbersTableView();
         
         /* Clear both real part text field and imaginary part text field */
         clearTextField();
@@ -340,7 +370,7 @@ public class FXMLDocumentController implements Initializable {
         stack.over();
         
         /* Update TableView items */
-        updateTableView();
+        updateLastNumbersTableView();
         
         /* Clear both real part text field and imaginary part text field */
         clearTextField();
@@ -375,16 +405,33 @@ public class FXMLDocumentController implements Initializable {
         */
     }
     
+    @FXML
+    private void enterKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            submitButtonPressed(null);
+        }
+    }
+
+    
+    
+    
+    
+    
     private void clearTextField() {
         mainTextField.clear();
     }
     
-    private void updateTableView() {
+    private void updateLastNumbersTableView() {
         List<ComplexNumber> tmp = stack.toList();
         numbers.clear();
         numbers.setAll(tmp);
         
         lastNumbersTableView.getSelectionModel().select(0);
+    }
+    
+    private void updateVariablesTableView() {
+        variableObservableList.clear();
+        variableObservableList.addAll(variables.entrySet());
     }
     
     private void showAlert(String header, String content) {
@@ -395,7 +442,6 @@ public class FXMLDocumentController implements Initializable {
         alert.showAndWait();
         return;
     }
-
    
 
 }

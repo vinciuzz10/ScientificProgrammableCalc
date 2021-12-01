@@ -15,27 +15,10 @@ public class Variables extends  HashMap<Character, ComplexNumber>{
      * Create an object of the class Variables containing a Map with all variables setted to ZERO (0.0 + 0.0j).
      */
     public Variables() {
-        for (Character c: "abcdefghijklmnopqrstuvwxyz".toCharArray()){
+        super();
+        for (Character c: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()){
             put(c, ComplexNumber.ZERO);
         }
-    }
-    
-    /**
-     * Set the value of a variable to the {@code ComplexNumber} passed as a parameter.
-     * @param variableKey the key of the variable to be updated
-     * @param newValue the value to set
-     */
-    public void setVariableValue(Character variableKey, ComplexNumber newValue) {
-        put(variableKey, newValue);
-    }
-    
-    /**
-     * Returns the value of the variable with the key passed as a parameter.
-     * @param variableKey the key of the variable.
-     * @return the value of the variable with {@code key = variableKey}.
-     */
-    public ComplexNumber getVariableValue(Character variableKey) {
-        return get(variableKey);
     }
     
     /**
