@@ -18,20 +18,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import DataStructures.NumberStack;
 import DataStructures.Variables;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
-import javafx.util.Callback;
 
 /**
  *
@@ -106,21 +96,8 @@ public class FXMLDocumentController implements Initializable {
         variableObservableList = FXCollections.observableArrayList();
         variableObservableList.addAll(variables.entrySet());
         
-        variableKeyColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry, Character>, ObservableValue<Character>>() {
-            @Override
-            public ObservableValue<Character> call(TableColumn.CellDataFeatures<Map.Entry, Character> param) {
-                
-                return new SimpleObjectProperty<>((Character) param.getValue().getKey());
-            }
-        });
-        
-        variableValueColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Map.Entry, ComplexNumber>, ObservableValue<ComplexNumber>>(){
-            @Override
-            public ObservableValue<ComplexNumber> call(TableColumn.CellDataFeatures<Map.Entry, ComplexNumber> param) {
-                
-                return new SimpleObjectProperty<>((ComplexNumber) param.getValue().getValue());
-            }
-        });
+        variableKeyColumn.setCellValueFactory((TableColumn.CellDataFeatures<Map.Entry, Character> param) -> new SimpleObjectProperty<>((Character) param.getValue().getKey()));
+        variableValueColumn.setCellValueFactory((TableColumn.CellDataFeatures<Map.Entry, ComplexNumber> param) -> new SimpleObjectProperty<>((ComplexNumber) param.getValue().getValue()));
         
         variablesTableView.setItems(variableObservableList);
     }    
@@ -378,31 +355,7 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void userOperationButtonPressed(ActionEvent event) {
-        Stage stage = (Stage) userOperationButton.getScene().getWindow();
-        URL userOperationURL;
-        try {
-            userOperationURL = new File("").toURI().toURL();
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-            //Implement show alert
-            return;
-        }
-        FXMLLoader loader = new FXMLLoader(userOperationURL);
-        try {
-            Parent root = (Parent) loader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-            //Implement show alert
-            return;
-        }
-        /*
-        UserOperationController userOperationController = loader.getController();
-        userOperationController.loadInformation();
-        Stage newStage = new Stage();
-        newStage.setScene(new Scene((AnchorPane) root));
-        newStage.setTitle("User Operations");
-        newStage.show();
-        */
+        
     }
     
     @FXML
@@ -416,6 +369,7 @@ public class FXMLDocumentController implements Initializable {
     
     
     
+    /* ----------------- UTILITY METHODS ----------------- */
     
     private void clearTextField() {
         mainTextField.clear();
@@ -440,7 +394,6 @@ public class FXMLDocumentController implements Initializable {
         alert.setContentText(content);
         alert.setHeaderText(header);
         alert.showAndWait();
-        return;
     }
    
 
