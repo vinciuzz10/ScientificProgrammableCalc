@@ -104,6 +104,8 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void submitButtonPressed(ActionEvent event) {
+        int i = 1;
+        
         String stringFromTextField = mainTextField.getText().replace(" ", "");
         
         if (!stack.isEmpty()) {
