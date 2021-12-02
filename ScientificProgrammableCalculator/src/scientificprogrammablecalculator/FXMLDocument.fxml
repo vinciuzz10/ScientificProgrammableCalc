@@ -85,7 +85,7 @@
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font></Button>
-                              <Button fx:id="cslButton" mnemonicParsing="false" onAction="#cslButtonPressed" prefHeight="40.0" prefWidth="77.0" style="-fx-background-color: #dadada;" text="CSL" textAlignment="CENTER">
+                              <Button fx:id="cslButton" mnemonicParsing="false" onAction="#cslButtonPressed" prefHeight="40.0" prefWidth="77.0" style="-fx-background-color: #dadada;" text="Over" textAlignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font></Button>

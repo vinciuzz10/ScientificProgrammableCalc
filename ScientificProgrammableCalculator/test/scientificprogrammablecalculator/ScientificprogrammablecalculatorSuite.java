@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4Suite.java to edit this template
- */
 package scientificprogrammablecalculator;
 
 import org.junit.After;
@@ -16,7 +12,7 @@ import org.junit.runners.Suite;
  * @author alfa1
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({scientificprogrammablecalculator.datastruct.DatastructSuite.class, scientificprogrammablecalculator.ComplexNumberTest.class, scientificprogrammablecalculator.ScientificProgrammableCalculatorTest.class, scientificprogrammablecalculator.FXMLDocumentControllerTest.class, scientificprogrammablecalculator.exception.ExceptionSuite.class})
+@Suite.SuiteClasses({DataStructuresTest.DatastructSuite.class, scientificprogrammablecalculator.ComplexNumberTest.class, scientificprogrammablecalculator.ScientificProgrammableCalculatorTest.class, scientificprogrammablecalculator.FXMLDocumentControllerTest.class})
 public class ScientificprogrammablecalculatorSuite {
 
     @BeforeClass

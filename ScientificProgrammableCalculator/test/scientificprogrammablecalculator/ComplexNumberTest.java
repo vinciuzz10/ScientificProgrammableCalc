@@ -1,6 +1,6 @@
 package scientificprogrammablecalculator;
 
-import ComplexNumberClass.ComplexNumber;
+import CustomClasses.ComplexNumber;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -82,8 +82,8 @@ public class ComplexNumberTest {
     @Test
     public void testAdd() {
         System.out.println("add");
-        ComplexNumber other = new ComplexNumber(4,-3);
         ComplexNumber instance = new ComplexNumber(1,1);
+        ComplexNumber other = new ComplexNumber(4,-3);
         ComplexNumber expResult = new ComplexNumber(5,-2);
         ComplexNumber result = instance.add(other);
         assertTrue(expResult.equals(result));
@@ -97,8 +97,8 @@ public class ComplexNumberTest {
     @Test
     public void testSubtract() {
         System.out.println("subtract");
-        ComplexNumber other = new ComplexNumber(4,-3);
         ComplexNumber instance = new ComplexNumber(1,1);
+        ComplexNumber other = new ComplexNumber(4,-3);
         ComplexNumber expResult = new ComplexNumber(-3,4);
         ComplexNumber result = instance.subtract(other);
         assertTrue(expResult.equals(result));   
@@ -111,8 +111,8 @@ public class ComplexNumberTest {
     @Test
     public void testMultiply() {
         System.out.println("multiply");
-        ComplexNumber other = new ComplexNumber(4,7);
         ComplexNumber instance = new ComplexNumber(2,3);
+        ComplexNumber other = new ComplexNumber(4,7);
         ComplexNumber expResult = new ComplexNumber(-13,26);
         ComplexNumber result = instance.multiply(other);
         assertTrue(expResult.equals(result));
@@ -124,8 +124,8 @@ public class ComplexNumberTest {
     @Test
     public void testDivide() {
         System.out.println("divide");
-        ComplexNumber other = new ComplexNumber(2,4);
         ComplexNumber instance = new ComplexNumber(3,-7);
+        ComplexNumber other = new ComplexNumber(2,4);
         ComplexNumber expResult = new ComplexNumber(-1.1,-1.3);
         ComplexNumber result = instance.divide(other);
         assertTrue(expResult.equals(result));

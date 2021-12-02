@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
-import ComplexNumberClass.ComplexNumber;
+import CustomClasses.ComplexNumber;
 
 /**
  *

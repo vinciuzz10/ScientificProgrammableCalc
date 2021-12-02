@@ -1,4 +1,4 @@
-package ComplexNumberClass;
+package CustomClasses;
 
 /**
  * This class implements the mathematical concept of Complex Number.

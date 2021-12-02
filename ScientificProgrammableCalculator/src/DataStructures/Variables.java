@@ -1,6 +1,6 @@
 package DataStructures;
 
-import ComplexNumberClass.ComplexNumber;
+import CustomClasses.ComplexNumber;
 import java.util.HashMap;
 
 /**
