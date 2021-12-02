@@ -1,4 +1,4 @@
-package DataStructuresTest;
+package DataStructures;
 
 import CustomClasses.ComplexNumber;
 import DataStructures.NumberStack;
