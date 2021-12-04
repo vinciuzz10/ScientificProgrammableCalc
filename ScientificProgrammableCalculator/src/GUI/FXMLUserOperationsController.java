@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package GUI;
 
 import CustomClasses.UserOperation;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.List;
@@ -167,7 +162,7 @@ public class FXMLUserOperationsController implements Initializable {
     }
     
     public void loadInfo(List<UserOperation> operationsList,FXMLDocumentController mainCOntroller){
-        mainReference= mainCOntroller;
+        mainReference = mainCOntroller;
         operations.addAll(operationsList);
         userOperationTable.getItems().addAll(operations);
     }

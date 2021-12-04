@@ -103,6 +103,9 @@
                                 </items>
                               </ContextMenu>
                            </contextMenu>
+                           <VBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </VBox.margin>
                         </TableView>
                         <Button fx:id="userOperationButton" alignment="CENTER" mnemonicParsing="false" onAction="#userOperationButtonPressed" prefHeight="40.0" prefWidth="465.0" style="-fx-background-color: #1a785c;" text="Manage User-Defined Operations" textFill="WHITE">
                            <font>
