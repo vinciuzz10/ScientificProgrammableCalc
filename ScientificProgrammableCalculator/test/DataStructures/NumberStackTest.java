@@ -17,6 +17,11 @@ import static org.junit.Assert.*;
  */
 public class NumberStackTest {
     
+    private NumberStack stack;
+    private ComplexNumber n1;
+    private ComplexNumber n2;
+    private ComplexNumber n3;
+    
     public NumberStackTest() {
     }
     
@@ -30,6 +35,10 @@ public class NumberStackTest {
     
     @Before
     public void setUp() {
+        stack = new NumberStack();
+        n1 = new ComplexNumber(1, 1);
+        n2 = new ComplexNumber(2, 2);
+        n3 = new ComplexNumber(3, 3);
     }
     
     @After
@@ -42,14 +51,11 @@ public class NumberStackTest {
     @Test
     public void testSwap() {
         System.out.println("swap");
-        NumberStack instance = new NumberStack();
-        ComplexNumber n1 = new ComplexNumber(5,2);
-        ComplexNumber n2 = new ComplexNumber(6,3);
-        instance.push(n1);
-        instance.push(n2);
-        instance.swap();
-        assertEquals(instance.pop(), n1);
-        assertEquals(instance.pop(), n2);
+        stack.push(n1);
+        stack.push(n2);
+        stack.swap();
+        assertEquals(stack.pop(), n1);
+        assertEquals(stack.pop(), n2);
     }
 
     /**
@@ -58,15 +64,12 @@ public class NumberStackTest {
     @Test
     public void testOver() {
         System.out.println("over");
-        NumberStack instance = new NumberStack();
-        ComplexNumber n1 = new ComplexNumber(5,2);
-        ComplexNumber n2 = new ComplexNumber(6,3);
-        instance.push(n1);
-        instance.push(n2);
-        instance.over();
-        assertEquals(instance.pop(), n1);
-        assertEquals(instance.pop(), n2);
-        assertEquals(instance.pop(), n1);
+        stack.push(n1);
+        stack.push(n2);
+        stack.over();
+        assertEquals(stack.pop(), n1);
+        assertEquals(stack.pop(), n2);
+        assertEquals(stack.pop(), n1);
     }
 
     /**
@@ -75,12 +78,10 @@ public class NumberStackTest {
     @Test
     public void testDup() {
         System.out.println("dup");
-        NumberStack instance = new NumberStack();
-        ComplexNumber n = new ComplexNumber(5,2);
-        instance.push(n);
-        instance.dup();
-        assertTrue(instance.pop().equals(n));
-        assertTrue(instance.pop().equals(n));
+        stack.push(n1);
+        stack.dup();
+        assertTrue(stack.pop().equals(n1));
+        assertTrue(stack.pop().equals(n1));
     }
 
     /**
@@ -89,17 +90,12 @@ public class NumberStackTest {
     @Test
     public void testToList() {
         System.out.println("toList");
-        NumberStack instance = new NumberStack();
         List<ComplexNumber> expResult = new ArrayList<>();
         
-        ComplexNumber n1 = new ComplexNumber(1,1);
-        ComplexNumber n2 = new ComplexNumber(2,2);
-        ComplexNumber n3 = new ComplexNumber(3,3);
-        
         /* Push 3 numbers onto the instance stack */
-        instance.push(n1);
-        instance.push(n2);
-        instance.push(n3);
+        stack.push(n1);
+        stack.push(n2);
+        stack.push(n3);
         
         /* Add 3 ComplexNumbers to the expResult list */
         expResult.add(0, n3);
@@ -107,7 +103,7 @@ public class NumberStackTest {
         expResult.add(2, n1);
         
         /* Verify the results of toList method */
-        List<ComplexNumber> result = instance.toList();
+        List<ComplexNumber> result = stack.toList();
         for (int i=0;i<result.size();i++) {
             assertEquals(expResult.get(i), result.get(i));
         }

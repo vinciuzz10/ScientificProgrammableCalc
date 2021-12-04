@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
- */
 package DataStructures;
 
 import CustomClasses.ComplexNumber;
@@ -18,6 +14,8 @@ import static org.junit.Assert.*;
  */
 public class VariablesTest {
     
+    private Variables var;
+    
     public VariablesTest() {
     }
     
@@ -31,6 +29,7 @@ public class VariablesTest {
     
     @Before
     public void setUp() {
+        var = new Variables();
     }
     
     @After
@@ -46,11 +45,10 @@ public class VariablesTest {
         Character variableKey = 'A';
         ComplexNumber expValue = new ComplexNumber(3, 3);
         ComplexNumber value = new ComplexNumber(1, 1);
-        Variables instance = new Variables();
-        instance.put('A', new ComplexNumber(2, 2));
+        var.put('A', new ComplexNumber(2, 2));
         
-        instance.addToVariable(variableKey, value);
-        assertTrue(instance.get(variableKey).equals(expValue));
+        var.addToVariable(variableKey, value);
+        assertTrue(var.get(variableKey).equals(expValue));
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
@@ -64,11 +62,10 @@ public class VariablesTest {
         Character variableKey = 'A';
         ComplexNumber expValue = new ComplexNumber(2, 2);
         ComplexNumber value = new ComplexNumber(1, 1);
-        Variables instance = new Variables();
-        instance.put('A', new ComplexNumber(3, 3));
+        var.put('A', new ComplexNumber(3, 3));
         
-        instance.subtractToVariable(variableKey, value);
-        assertTrue(instance.get(variableKey).equals(expValue));
+        var.subtractToVariable(variableKey, value);
+        assertTrue(var.get(variableKey).equals(expValue));
         // TODO review the generated test code and remove the default call to fail.
         // fail("The test case is a prototype.");
     }
