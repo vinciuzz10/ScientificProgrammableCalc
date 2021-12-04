@@ -1,5 +1,6 @@
 package scientificprogrammablecalculator;
 
+import CustomClasses.Calculator;
 import CustomClasses.ComplexNumber;
 import java.net.URL;
 import java.util.List;
@@ -73,6 +74,7 @@ public class FXMLDocumentController implements Initializable {
     private ObservableList<Map.Entry<Character, ComplexNumber>> variableObservableList;
     private final NumberStack stack = new NumberStack();
     private final Variables variables = new Variables();
+    private final Calculator calc = new Calculator(stack, variables);
 
 
     @Override
@@ -188,7 +190,7 @@ public class FXMLDocumentController implements Initializable {
             showAlert("Invalid operation", "Not enough entered numbers.");
             return;
         }
-        
+
         ComplexNumber secondOperand = stack.pop();
         ComplexNumber firstOperand = stack.pop();
         
