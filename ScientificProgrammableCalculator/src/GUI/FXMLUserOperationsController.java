@@ -5,9 +5,14 @@
 package GUI;
 
 import CustomClasses.UserOperation;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +28,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -80,11 +86,49 @@ public class FXMLUserOperationsController implements Initializable {
     }
 
     @FXML
-    private void loadFromFile(ActionEvent event) {
+    private void loadFromFile(ActionEvent event) throws FileNotFoundException {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extension = new FileChooser.ExtensionFilter("Text Files","*.txt");
+        fileChooser.getExtensionFilters().add(extension);
+       
+        File file = fileChooser.showOpenDialog(null);
+        if (file == null) {
+            //Implement alert
+            return;
+        }
+        
+        try (Scanner sc = new Scanner(file)) {
+            String line, opName, opFormula;
+            while (sc.hasNext()) {
+                line = sc.nextLine();
+                opName = line.split("\t")[0];
+                opFormula = line.split("\t")[1];
+                UserOperation op = new UserOperation(opName, opFormula.split(" "));
+                operations.add(op);
+            }
+        }
+        
+        userOperationTable.setItems(operations);
+        mainReference.updateUserOperations(operations);
     }
 
     @FXML
-    private void saveToFile(ActionEvent event) {
+    private void saveToFile(ActionEvent event) throws FileNotFoundException {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extension = new FileChooser.ExtensionFilter("Text Files","*.txt");
+        fileChooser.getExtensionFilters().add(extension);
+       
+        File file = fileChooser.showSaveDialog(null);
+        if (file == null) {
+            //Implement alert
+            return;
+        }
+        
+        try (PrintWriter pw = new PrintWriter(file)) {
+            operations.forEach(op -> {
+                pw.write(op.getName() + "\t" + op.getOperationAsString() + "\n");
+            });
+        }
     }
 
     @FXML
