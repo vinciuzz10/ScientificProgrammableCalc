@@ -91,6 +91,19 @@
                                  </font></Button>
                            </children>
                         </HBox>
+                        <TableView fx:id="userOperationsTableView" prefHeight="200.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn fx:id="operationTableColumn" prefWidth="141.0" text="Operation" />
+                            <TableColumn fx:id="formulaTableColumn" prefWidth="400.0" text="Formula" />
+                          </columns>
+                           <contextMenu>
+                              <ContextMenu>
+                                <items>
+                                  <MenuItem fx:id="computeMenuItem" mnemonicParsing="false" onAction="#computeCustomOperation" text="Compute" />
+                                </items>
+                              </ContextMenu>
+                           </contextMenu>
+                        </TableView>
                         <Button fx:id="userOperationButton" alignment="CENTER" mnemonicParsing="false" onAction="#userOperationButtonPressed" prefHeight="40.0" prefWidth="465.0" style="-fx-background-color: #1a785c;" text="Manage User-Defined Operations" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="16.0" />

@@ -7,7 +7,6 @@ package GUI;
 import CustomClasses.UserOperation;
 import java.net.URL;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +21,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 /**
  * FXML Controller class
@@ -95,16 +96,13 @@ public class FXMLUserOperationsController implements Initializable {
         tid.setTitle("Edit");
         tid.setHeaderText("Edit selected user operation");
         tid.setContentText("Function");
+        tid.getEditor().setText(selected.getOperationAsString());
         tid.showAndWait();
-        selected.setOperation(tid.getResult().split(" "));
-        //operations.remove(selected);
-        //operations.add(new UserOperation(selected.getName(),tid.getResult()));
-        userOperationTable.getItems().clear();
+        //selected.setOperation(tid.getResult().split(" "));
+        operations.remove(selected);
+        operations.add(new UserOperation(selected.getName(),tid.getResult().split(" ")));
         userOperationTable.setItems(operations);
         mainReference.updateUserOperations(operations);
-        
-        
-        
     }
 
     @FXML
@@ -117,10 +115,16 @@ public class FXMLUserOperationsController implements Initializable {
         mainReference.updateUserOperations(operations);
     }
     
+    @FXML
+    private void enterKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            createOperation(null);
+        }
+    }
+    
     public void loadInfo(List<UserOperation> operationsList,FXMLDocumentController mainCOntroller){
         mainReference= mainCOntroller;
         operations.addAll(operationsList);
         userOperationTable.getItems().addAll(operations);
-        return;
     }
 }

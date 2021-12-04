@@ -26,6 +26,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -74,13 +75,23 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<Variables.Entry, ComplexNumber> variableValueColumn;
     @FXML
     private Button userOperationButton;
+    @FXML
+    private TableView<UserOperation> userOperationsTableView;
+    @FXML
+    private TableColumn<UserOperation, String> operationTableColumn;
+    @FXML
+    private TableColumn<UserOperation, String> formulaTableColumn;
+    @FXML
+    private MenuItem computeMenuItem;
     
-    private List<UserOperation> customOperations;
+    
+    private ObservableList<UserOperation> customOperations;
     private ObservableList<ComplexNumber> numbers;
     private ObservableList<Map.Entry<Character, ComplexNumber>> variableObservableList;
     private final NumberStack stack = new NumberStack();
     private final Variables variables = new Variables();
     private Calculator calc;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -106,6 +117,11 @@ public class FXMLDocumentController implements Initializable {
        
         /* UserOperations setUp*/
         customOperations = FXCollections.observableArrayList();
+        
+        userOperationsTableView.setItems(customOperations);
+        userOperationsTableView.setPlaceholder(new Label("Empty"));
+        operationTableColumn.setCellValueFactory(new PropertyValueFactory("name"));
+        formulaTableColumn.setCellValueFactory(new PropertyValueFactory("operationAsString"));
         
         /* Calculator initialisation */
         calc = new Calculator(stack, variables, customOperations);
@@ -357,6 +373,16 @@ public class FXMLDocumentController implements Initializable {
         stage.setResizable(false);
         
     }
+
+    @FXML
+    private void computeCustomOperation(ActionEvent event) {
+        UserOperation selected = userOperationsTableView.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showAlert("No user-operation selected", "Please select an ser-operation before pressing 'compute'");
+        }
+        calc.executeUserOperation(selected);
+        updateLastNumbersTableView();
+    }
     
     @FXML
     private void enterKeyPressed(KeyEvent event) {
@@ -364,8 +390,6 @@ public class FXMLDocumentController implements Initializable {
             submitButtonPressed(null);
         }
     }
-
-    
     
     
     

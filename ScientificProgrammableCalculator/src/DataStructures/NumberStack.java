@@ -1,7 +1,6 @@
 package DataStructures;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
 import CustomClasses.ComplexNumber;
@@ -17,7 +16,9 @@ public class NumberStack extends Stack<ComplexNumber> {
     /**
      * Swap the last and the second last elements contained into the stack.
      */
-    public void swap() throws EmptyStackException {
+    public void swap() {
+        if (size() < 2) 
+            return;
         ComplexNumber last = pop();
         ComplexNumber secondLast = pop();
         push(last);
@@ -27,8 +28,8 @@ public class NumberStack extends Stack<ComplexNumber> {
     /**
      * Push onto the stack a copy of the second last element.
      */
-    public void over() throws EmptyStackException {
-        if (size()<2) {
+    public void over() {
+        if (size() < 2) {
             return;
         }
         ComplexNumber last = pop();
@@ -40,7 +41,9 @@ public class NumberStack extends Stack<ComplexNumber> {
     /**
      * Push onto the stack a copy of the last element.
      */
-    public void dup()  throws EmptyStackException {
+    public void dup() {
+        if (isEmpty())
+            return;
         push(peek());
     }
     
