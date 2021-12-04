@@ -1,4 +1,4 @@
-package DataStructuresTest;
+package DataStructures;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,7 +12,7 @@ import org.junit.runners.Suite;
  * @author alfa1
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({DataStructuresTest.NumberStackTest.class})
+@Suite.SuiteClasses({DataStructures.NumberStackTest.class})
 public class DatastructSuite {
 
     @BeforeClass

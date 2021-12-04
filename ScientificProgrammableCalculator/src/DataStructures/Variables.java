@@ -7,9 +7,9 @@ import java.util.HashMap;
  *
  * @author Vinciuzz10
  */
+
+/* This class represents a HashMap in which all the variables with their values are stored */
 public class Variables extends  HashMap<Character, ComplexNumber>{
-    
-    //private HashMap<Character, ComplexNumber> variableSet = new HashMap<Character, ComplexNumber>();
 
     /**
      * Create an object of the class Variables containing a Map with all variables setted to ZERO (0.0 + 0.0j).

@@ -12,7 +12,7 @@ import org.junit.runners.Suite;
  * @author alfa1
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({DataStructuresTest.DatastructSuite.class, scientificprogrammablecalculator.ComplexNumberTest.class, scientificprogrammablecalculator.ScientificProgrammableCalculatorTest.class, scientificprogrammablecalculator.FXMLDocumentControllerTest.class})
+@Suite.SuiteClasses({DataStructures.DatastructSuite.class, scientificprogrammablecalculator.ComplexNumberTest.class, scientificprogrammablecalculator.ScientificProgrammableCalculatorTest.class, scientificprogrammablecalculator.FXMLDocumentControllerTest.class})
 public class ScientificprogrammablecalculatorSuite {
 
     @BeforeClass
