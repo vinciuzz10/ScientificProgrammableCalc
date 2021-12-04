@@ -27,14 +27,21 @@ public class UserOperation {
     public String[] getOperation() {
         return operation;
     }
+    
+    public String getOperationAsString(){
+        String s="";
+        for(String tmp: operation){
+            s += tmp;
+            s += " ";
+        }
+        return s;
+    }
+    
 
     public void setOperation(String[] operation) {
         this.operation = operation;
     }
-    
-    
-    
-    
+
     private List<String> operationSplitter(String operation){
         String[] operations = operation.split(" ");
         List<String> tmp = new ArrayList<>();
@@ -47,16 +54,6 @@ public class UserOperation {
     @Override
     public String toString() {
         return "UserOperation{" + "name=" + name + ", operation=" + operation + '}';
-    }
-
-    public String getOperationAsString(){
-        String s="";
-        for(String tmp: operation){
-            s += tmp;
-            s += " ";
-        }
-        return s;
-    }
-    
+    }    
     
 }

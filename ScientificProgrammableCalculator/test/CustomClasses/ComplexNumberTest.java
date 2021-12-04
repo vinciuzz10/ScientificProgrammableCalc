@@ -1,4 +1,4 @@
-package scientificprogrammablecalculator;
+package CustomClasses;
 
 import CustomClasses.ComplexNumber;
 
