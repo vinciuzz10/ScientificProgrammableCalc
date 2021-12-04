@@ -4,11 +4,9 @@ import CustomClasses.ComplexNumber;
 import java.util.HashMap;
 
 /**
- *
+ * This class represents a HashMap in which all the variables with their values are stored
  * @author Vinciuzz10
  */
-
-/** This class represents a HashMap in which all the variables with their values are stored */
 public class Variables extends  HashMap<Character, ComplexNumber>{
 
     /**
