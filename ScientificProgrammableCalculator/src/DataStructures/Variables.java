@@ -8,7 +8,7 @@ import java.util.HashMap;
  * @author Vinciuzz10
  */
 
-/* This class represents a HashMap in which all the variables with their values are stored */
+/** This class represents a HashMap in which all the variables with their values are stored */
 public class Variables extends  HashMap<Character, ComplexNumber>{
 
     /**
