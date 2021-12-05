@@ -124,7 +124,7 @@ public class FXMLDocumentController implements Initializable {
         formulaTableColumn.setCellValueFactory(new PropertyValueFactory("operationAsString"));
         
         /* Calculator initialisation */
-        calc = new Calculator(stack, variables, customOperations);
+        calc = new Calculator(stack, variables);
     }    
 
     @FXML

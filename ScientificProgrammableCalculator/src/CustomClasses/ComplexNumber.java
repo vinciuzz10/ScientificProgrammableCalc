@@ -17,7 +17,7 @@ public class ComplexNumber {
     private final double real;
     
     /**
-     * Create a complex number given the real and imaginary parts.
+     * Create a {@code ComplexNumber} given the real and imaginary parts.
      * @param real the real part of the complex number.
      * @param imaginary the imaginary part of the complex number.
      */
