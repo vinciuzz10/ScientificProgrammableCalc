@@ -137,20 +137,20 @@ public class FXMLDocumentController implements Initializable {
         if (!stack.isEmpty()) {
             if (stringFromTextField.matches(">[A-Z]")) {
                 char variableName = stringFromTextField.substring(1).toCharArray()[0];
-                variables.put(variableName, stack.pop());
+                calc.storeInVariable(variableName);
                 updateVariablesTableView();
                 updateLastNumbersTableView();
                 clearTextField();
                 return;
             } else if (stringFromTextField.matches("\\+[A-Z]")) {
                 char variableName = stringFromTextField.substring(1).toCharArray()[0];
-                variables.addToVariable(variableName, stack.peek());
+                calc.addToVariable(variableName);
                 updateVariablesTableView();
                 clearTextField();
                 return;
             } else if (stringFromTextField.matches("\\-[A-Z]")) {
                 char variableName = stringFromTextField.substring(1).toCharArray()[0];
-                variables.subtractToVariable(variableName, stack.peek());
+                calc.subtractToVariable(variableName);
                 updateVariablesTableView();
                 clearTextField();
                 return;
@@ -158,8 +158,7 @@ public class FXMLDocumentController implements Initializable {
         }
         if (stringFromTextField.matches("<[A-Z]")) {
             char variableName = stringFromTextField.substring(1).toCharArray()[0];
-            ComplexNumber value = variables.get(variableName);
-            stack.push(value);
+            calc.pickFromVariable(variableName);
             updateLastNumbersTableView();
             clearTextField(); 
             return;

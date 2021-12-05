@@ -7,19 +7,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * This class manages communication between the controller and the model.
  * @author Vinciuzz10
  */
 public class Calculator {
+    
+    /** The stack of {@code ComplexNumber} entered by the user. */
     private final NumberStack stack;
+    /** The map of variables. */
     private final Variables var;
     
+    /** A map that associates to a {@code String}, that represents an operation, a function to perform.
+     e.g.  "dup" -> dup()*/
     private final Map<String,Runnable> operationMap;
 
     /**
-     *
-     * @param stack
-     * @param var
+     * Create an object {@code Calculator} given the stack of numbers and the variables collection.
+     * @param stack the stack of {@code ComplexNumber}.
+     * @param var the map of variables.
      */
     public Calculator(NumberStack stack, Variables var){
         this.stack = stack;
@@ -40,7 +45,8 @@ public class Calculator {
     }
     
     /**
-     *
+     * Perform the sum between the last and the second last element contained into the stack.
+     * The function calls the method of the class {@code ComplexNumber}.
      */
     public void sum() {
         if (stack.size() < 2) {
@@ -52,7 +58,8 @@ public class Calculator {
     }
     
     /**
-     *
+     * Perform the difference between the second last and the last element contained into the stack.
+     * The function calls the method of the class {@code ComplexNumber}.
      */
     public void difference() {
         if (stack.size() < 2) {
@@ -64,7 +71,8 @@ public class Calculator {
     }
     
     /**
-     *
+     * Perform the product between the last and the second last element contained into the stack.
+     * The function calls the method of the class {@code ComplexNumber}.
      */
     public void product() {
         if (stack.size() < 2) {
@@ -76,7 +84,8 @@ public class Calculator {
     }
     
     /**
-     *
+     * Perform the quotient between the second last and the last element contained into the stack.
+     * The function calls the method of the class {@code ComplexNumber}.
      */
     public void quotient() {
         if (stack.size() < 2) {
@@ -88,7 +97,8 @@ public class Calculator {
     }
     
     /**
-     *
+     * Perform the square root of the last element contained into the stack.
+     * The function calls the method of the class {@code ComplexNumber}.
      */
     public void sqrt() {
         if (stack.isEmpty()) {
@@ -99,7 +109,8 @@ public class Calculator {
     }
     
     /**
-     *
+     * Compute the opposite the last element contained into the stack.
+     * The function calls the method of the class {@code ComplexNumber}.
      */
     public void invertSign() {
         if (stack.isEmpty()) {
@@ -110,8 +121,8 @@ public class Calculator {
     }
     
     /**
-     *
-     * @param varKey
+     * Store the last entered number in the variable specified as a parameter.
+     * @param varKey the variable to be updated.
      */
     public void storeInVariable(Character varKey) {
         ComplexNumber n = stack.pop();
@@ -119,36 +130,37 @@ public class Calculator {
     }
     
     /**
-     *
-     * @param varKey
+     * Push onto the stack the value of the variable specified as a parameter.
+     * @param varKey the variable to be picked.
      */
     public void pickFromVariable(Character varKey) {
         stack.push(var.get(varKey));
     }
     
     /**
-     *
-     * @param varKey
+     * Add the last entered number to the variable specified as a parameter.
+     * @param varKey the variable to be updated.
      */
     public void addToVariable(Character varKey) {
         ComplexNumber value = var.get(varKey);
-        ComplexNumber newValue = value.add(stack.pop());
+        ComplexNumber newValue = value.add(stack.peek());
         var.put(varKey, newValue);
     }
     
     /**
-     *
-     * @param varKey
+     * Subtract the last entered number to the variable specified as a parameter.
+     * @param varKey the variable to be updated.
      */
     public void subtractToVariable(Character varKey) {
         ComplexNumber value = var.get(varKey);
-        ComplexNumber newValue = value.subtract(stack.pop());
+        ComplexNumber newValue = value.subtract(stack.peek());
         var.put(varKey, newValue);
     }
     
     /**
-     *
-     * @param op
+     * Execute the user-defined operation specified as a parameter if it is valid.
+     * A user-defined operation is valid if contains only basic operations.
+     * @param op the user-defined operation to be executed.
      */
     public boolean executeUserOperation(UserOperation op) {
         for (String subOp: op.getOperation()) {

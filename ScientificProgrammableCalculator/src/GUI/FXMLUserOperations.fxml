@@ -31,7 +31,7 @@
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                <children>
                   <TextField fx:id="insertOperationTextField" onKeyPressed="#enterKeyPressed" prefHeight="40.0" prefWidth="672.0" promptText="Insert your operation" />
-                  <Button fx:id="createOperationButton" mnemonicParsing="false" onAction="#createOperation" prefHeight="39.0" prefWidth="82.0" text="Create">
+                  <Button fx:id="createOperationButton" mnemonicParsing="false" onAction="#createOperation" prefHeight="39.0" prefWidth="82.0" style="-fx-background-color: #f4b74e;" text="Create">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -40,12 +40,12 @@
             </HBox>
             <HBox alignment="TOP_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button fx:id="LoadOperationButton" mnemonicParsing="false" onAction="#loadFromFile" text="Load">
+                  <Button fx:id="LoadOperationButton" mnemonicParsing="false" onAction="#loadFromFile" style="-fx-background-color: ff5050;" text="Load" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="saveTofFileButton" mnemonicParsing="false" onAction="#saveToFile" text="Save">
+                  <Button fx:id="saveTofFileButton" mnemonicParsing="false" onAction="#saveToFile" style="-fx-background-color: #1a785c;" text="Save" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
