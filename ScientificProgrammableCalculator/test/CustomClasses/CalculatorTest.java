@@ -1,5 +1,8 @@
 package CustomClasses;
 
+import DataStructures.NumberStack;
+import DataStructures.Variables;
+import com.sun.org.apache.xpath.internal.operations.Variable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,7 +15,11 @@ import static org.junit.Assert.*;
  * @author Vinciuzz10
  */
 public class CalculatorTest {
-    
+    private NumberStack stack;
+    private Variables var;
+    private Calculator calculator;
+    private ComplexNumber n1;
+    private ComplexNumber n2;
     public CalculatorTest() {
     }
     
@@ -26,6 +33,13 @@ public class CalculatorTest {
     
     @Before
     public void setUp() {
+        stack = new NumberStack();
+        var = new Variables();
+        calculator = new Calculator(stack,var);
+        n1 = new ComplexNumber(2,-4);
+        n2 = new ComplexNumber(4,13);
+        stack.push(n1);
+        stack.push(n2);
     }
     
     @After
@@ -38,10 +52,11 @@ public class CalculatorTest {
     @Test
     public void testSum() {
         System.out.println("sum");
-        Calculator instance = null;
-        instance.sum();
+        ComplexNumber expResult= new ComplexNumber(6,9);
+        calculator.sum();
+        assertEquals(expResult,stack.pop());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -50,10 +65,11 @@ public class CalculatorTest {
     @Test
     public void testDifference() {
         System.out.println("difference");
-        Calculator instance = null;
-        instance.difference();
+        ComplexNumber expResult= new ComplexNumber(-2,-17);
+        calculator.difference();
+        assertEquals(expResult,stack.pop());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -62,10 +78,11 @@ public class CalculatorTest {
     @Test
     public void testProduct() {
         System.out.println("product");
-        Calculator instance = null;
-        instance.product();
+        ComplexNumber expResult= new ComplexNumber(60,10);
+        calculator.product();
+        assertEquals(expResult,stack.pop());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -74,10 +91,11 @@ public class CalculatorTest {
     @Test
     public void testQuotient() {
         System.out.println("quotient");
-        Calculator instance = null;
-        instance.quotient();
+        ComplexNumber expResult= new ComplexNumber(-0.238,-0.228);
+        calculator.quotient();
+        assertEquals(expResult,stack.pop());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -86,10 +104,11 @@ public class CalculatorTest {
     @Test
     public void testSqrt() {
         System.out.println("sqrt");
-        Calculator instance = null;
-        instance.sqrt();
+        ComplexNumber expResult= new ComplexNumber(2.966,2.191);
+        calculator.sqrt();
+        assertEquals(expResult,stack.pop());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -98,10 +117,11 @@ public class CalculatorTest {
     @Test
     public void testInvertSign() {
         System.out.println("invertSign");
-        Calculator instance = null;
-        instance.invertSign();
+        ComplexNumber expResult= new ComplexNumber(-4,-13);
+        calculator.invertSign();
+        assertEquals(expResult,stack.pop());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -110,11 +130,11 @@ public class CalculatorTest {
     @Test
     public void testStoreInVariable() {
         System.out.println("storeInVariable");
-        Character varKey = null;
-        Calculator instance = null;
-        instance.storeInVariable(varKey);
+        Character varKey = 'J';
+        calculator.storeInVariable(varKey);
+        assertEquals(var.get(varKey),n2);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -123,11 +143,12 @@ public class CalculatorTest {
     @Test
     public void testPickFromVariable() {
         System.out.println("pickFromVariable");
-        Character varKey = null;
-        Calculator instance = null;
-        instance.pickFromVariable(varKey);
+        Character varKey = 'K';
+        var.put(varKey,stack.pop());
+        calculator.pickFromVariable(varKey);
+        assertEquals(var.get(varKey),n2);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -136,11 +157,12 @@ public class CalculatorTest {
     @Test
     public void testAddToVariable() {
         System.out.println("addToVariable");
-        Character varKey = null;
-        Calculator instance = null;
-        instance.addToVariable(varKey);
+        Character varKey = 'S';
+        var.put(varKey,stack.pop());
+        calculator.addToVariable(varKey);
+        assertEquals(var.get(varKey),n1.add(n2));
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -149,11 +171,12 @@ public class CalculatorTest {
     @Test
     public void testSubtractToVariable() {
         System.out.println("subtractToVariable");
-        Character varKey = null;
-        Calculator instance = null;
-        instance.subtractToVariable(varKey);
+        Character varKey = 'S';
+        var.put(varKey,stack.pop());
+        calculator.subtractToVariable(varKey);
+        assertEquals(var.get(varKey),n2.subtract(n1));
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -162,11 +185,13 @@ public class CalculatorTest {
     @Test
     public void testExecuteUserOperation() {
         System.out.println("executeUserOperation");
-        UserOperation op = null;
-        Calculator instance = null;
-        instance.executeUserOperation(op);
+        String[] s ={"+","rad"};
+        UserOperation op = new UserOperation("test",s);
+        ComplexNumber expResult = n1.add(n2).sqrt();
+        calculator.executeUserOperation(op);
+        assertEquals(expResult,stack.pop());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
     
 }

@@ -12,12 +12,13 @@ import static org.junit.Assert.*;
  * @author Vinciuzz10
  */
 public class UserOperationTest {
-    
+    String[] operations;
     public UserOperationTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
+        
     }
     
     @AfterClass
@@ -26,6 +27,8 @@ public class UserOperationTest {
     
     @Before
     public void setUp() {
+        String[] s= {"+","rad","-"};
+        operations = s;
     }
     
     @After
@@ -38,12 +41,12 @@ public class UserOperationTest {
     @Test
     public void testGetName() {
         System.out.println("getName");
-        UserOperation instance = null;
-        String expResult = "";
+        UserOperation instance = new UserOperation("test",operations);
+        String expResult = "test";
         String result = instance.getName();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -52,12 +55,12 @@ public class UserOperationTest {
     @Test
     public void testGetOperation() {
         System.out.println("getOperation");
-        UserOperation instance = null;
-        String[] expResult = null;
+        UserOperation instance = new UserOperation("test",operations);
+        String[] expResult = {"+","rad","-"};
         String[] result = instance.getOperation();
         assertArrayEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -66,12 +69,12 @@ public class UserOperationTest {
     @Test
     public void testGetOperationAsString() {
         System.out.println("getOperationAsString");
-        UserOperation instance = null;
-        String expResult = "";
+        UserOperation instance = new UserOperation("test",operations);
+        String expResult = "+ rad -";
         String result = instance.getOperationAsString();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -80,11 +83,12 @@ public class UserOperationTest {
     @Test
     public void testSetOperation() {
         System.out.println("setOperation");
-        String[] operation = null;
-        UserOperation instance = null;
+        String[] operation = {"dup *"};
+        UserOperation instance = new UserOperation("test",operations);
         instance.setOperation(operation);
+        assertTrue(operation.equals(instance.getOperation()));
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -93,12 +97,13 @@ public class UserOperationTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        UserOperation instance = null;
-        String expResult = "";
+        UserOperation instance = new UserOperation("test",operations);
+        String expResult = "UserOperation{name=test, operation=+ rad -}";
         String result = instance.toString();
-        assertEquals(expResult, result);
+        System.out.println(result);
+        assertTrue(expResult.equals(result));
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
     
 }

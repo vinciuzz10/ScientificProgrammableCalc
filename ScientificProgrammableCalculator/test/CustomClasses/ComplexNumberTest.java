@@ -227,5 +227,19 @@ public class ComplexNumberTest {
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
+
+    /**
+     * Test of parseComplexNumber method, of class ComplexNumber.
+     */
+    @Test
+    public void testParseComplexNumber() {
+        System.out.println("parseComplexNumber");
+        String numberAsString = "";
+        ComplexNumber expResult = null;
+        ComplexNumber result = ComplexNumber.parseComplexNumber(numberAsString);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
     
 }

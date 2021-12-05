@@ -50,7 +50,7 @@ public class UserOperation {
             s += tmp;
             s += " ";
         }
-        return s;
+        return s.substring(0,s.length()-1);
     }
     
     /**
@@ -77,6 +77,6 @@ public class UserOperation {
     
     @Override
     public String toString() {
-        return "UserOperation{" + "name=" + name + ", operation=" + operation + '}';
+        return "UserOperation{" + "name=" + name + ", operation=" + getOperationAsString() + '}';
     }
 }
