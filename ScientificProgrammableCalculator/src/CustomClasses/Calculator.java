@@ -1,5 +1,6 @@
 package CustomClasses;
 
+import CalculatorExceptions.InvalidOperandsException;
 import DataStructures.NumberStack;
 import DataStructures.Variables;
 import java.util.HashMap;
@@ -43,7 +44,7 @@ public class Calculator {
      */
     public void sum() {
         if (stack.size() < 2) {
-            return;
+            throw new InvalidOperandsException();
         }
         ComplexNumber n1 = stack.pop();
         ComplexNumber n2 = stack.pop();
@@ -55,7 +56,7 @@ public class Calculator {
      */
     public void difference() {
         if (stack.size() < 2) {
-            return;
+            throw new InvalidOperandsException();
         }
         ComplexNumber n1 = stack.pop();
         ComplexNumber n2 = stack.pop();
@@ -67,7 +68,7 @@ public class Calculator {
      */
     public void product() {
         if (stack.size() < 2) {
-            return;
+            throw new InvalidOperandsException();
         }
         ComplexNumber n1 = stack.pop();
         ComplexNumber n2 = stack.pop();
@@ -79,7 +80,7 @@ public class Calculator {
      */
     public void quotient() {
         if (stack.size() < 2) {
-            return;
+            throw new InvalidOperandsException();
         }
         ComplexNumber n1 = stack.pop();
         ComplexNumber n2 = stack.pop();
@@ -91,7 +92,7 @@ public class Calculator {
      */
     public void sqrt() {
         if (stack.isEmpty()) {
-            return;
+            throw new InvalidOperandsException();
         }
         ComplexNumber n = stack.pop();
         stack.push(n.sqrt());
@@ -102,7 +103,7 @@ public class Calculator {
      */
     public void invertSign() {
         if (stack.isEmpty()) {
-            return;
+            throw new InvalidOperandsException();
         }
         ComplexNumber n = stack.pop();
         stack.push(n.opposite());
@@ -149,15 +150,25 @@ public class Calculator {
      *
      * @param op
      */
-    public void executeUserOperation(UserOperation op) {
+    public boolean executeUserOperation(UserOperation op) {
         for (String subOp: op.getOperation()) {
             if (!operationMap.keySet().contains(subOp)) {
-                return;
+                return false;
             }
         }
+        NumberStack tmp = new NumberStack();
+        tmp.addAll(stack);
         for (String subOp: op.getOperation()) {
             Runnable function = operationMap.get(subOp);
-            function.run();
+            try{
+                function.run();
+            }catch(InvalidOperandsException e){
+                System.out.println("ERRORE");
+                stack.clear();
+                stack.addAll(tmp);
+                return false;
+            } 
         }
+        return true;
     }
 }

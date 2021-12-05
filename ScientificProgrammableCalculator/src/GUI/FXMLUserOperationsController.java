@@ -91,7 +91,8 @@ public class FXMLUserOperationsController implements Initializable {
             //Implement alert
             return;
         }
-        
+        operations.clear();
+        //userOperationTable.getItems().clear();
         try (Scanner sc = new Scanner(file)) {
             String line, opName, opFormula;
             while (sc.hasNext()) {

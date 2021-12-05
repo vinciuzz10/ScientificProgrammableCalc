@@ -27,6 +27,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -369,6 +370,7 @@ public class FXMLDocumentController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("User Operations");
         stage.setScene(scene);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("manageOperationsIcon.png")));
         stage.show();
         stage.setResizable(false);
         
@@ -380,7 +382,11 @@ public class FXMLDocumentController implements Initializable {
         if (selected == null) {
             showAlert("No user-operation selected", "Please select an ser-operation before pressing 'compute'");
         }
-        calc.executeUserOperation(selected);
+        Boolean b= calc.executeUserOperation(selected);
+        if(!b){
+            showAlert("Invalid operation", "The operation is not valid, or the operands are not enough to compute it.");
+            return;
+        }
         updateLastNumbersTableView();
     }
     
