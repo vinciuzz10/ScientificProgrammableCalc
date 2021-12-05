@@ -352,7 +352,7 @@ public class ComplexNumber {
     }
     
     private Double formatter(Double number){
-        Double formatted = Math.floor(number * 1000) / 1000;
+        Double formatted = Math.floor(number * 100000000) / 100000000;
         return formatted;
     }
     
