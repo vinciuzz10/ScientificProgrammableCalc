@@ -2,7 +2,6 @@ package CustomClasses;
 
 import DataStructures.NumberStack;
 import DataStructures.Variables;
-import com.sun.org.apache.xpath.internal.operations.Variable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -192,6 +191,32 @@ public class CalculatorTest {
         assertEquals(expResult,stack.pop());
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of storeVariablesStatus method, of class Calculator.
+     */
+    @Test
+    public void testStoreVariablesStatus() {
+        System.out.println("storeVariablesStatus");
+        Calculator instance = null;
+        instance.storeVariablesStatus();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of restoreVariableStatus method, of class Calculator.
+     */
+    @Test
+    public void testRestoreVariableStatus() {
+        System.out.println("restoreVariableStatus");
+        Calculator instance = null;
+        boolean expResult = false;
+        boolean result = instance.restoreVariableStatus();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
     
 }

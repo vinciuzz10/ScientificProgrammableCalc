@@ -18,10 +18,10 @@ public class Calculator {
     private final NumberStack stack;
     /** The map of variables. */
     private final Variables var;
-    
+    /** A Stack for storing variables values. */
     private final Stack<Variables> variablesStack;
     
-    /** A map that associates to a {@code String}, that represents an operation, a function to perform.
+    /** A map which associates to a {@code String}, that represents an operation, a function to perform.
      e.g.  "dup" -> dup()*/
     private final Map<String,Runnable> operationMap;
 
@@ -166,6 +166,7 @@ public class Calculator {
      * Execute the user-defined operation specified as a parameter if it is valid.
      * A user-defined operation is valid if contains only basic operations.
      * @param op the user-defined operation to be executed.
+     * @return true if the operation can be performed. Otherwise returns false.
      */
     public boolean executeUserOperation(UserOperation op) {
         for (String subOp: op.getOperation()) {
@@ -189,7 +190,7 @@ public class Calculator {
     }
     
     /**
-     *
+     * Push the variables values onto a stack to restore and use them in next operations.
      */
     public void storeVariablesStatus() {
         Variables tmp = new Variables();
@@ -198,8 +199,8 @@ public class Calculator {
     }
     
     /**
-     *
-     * @return
+     * Restore the variables value, perforiming the pop on the variables stack.
+     * @return true if the variables can be restored. Otherwise returns false.
      */
     public boolean restoreVariableStatus() {
         Variables tmp;
