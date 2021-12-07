@@ -37,6 +37,6 @@ public class Variables extends  HashMap<Character, ComplexNumber>{
     public void subtractToVariable(Character variableKey, ComplexNumber value) {
         ComplexNumber newValue = get(variableKey).subtract(value);
         put(variableKey, newValue);
-    }
+    }   
     
 }

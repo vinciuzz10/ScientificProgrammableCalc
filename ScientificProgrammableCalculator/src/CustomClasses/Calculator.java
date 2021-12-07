@@ -3,11 +3,13 @@ package CustomClasses;
 import CalculatorExceptions.InvalidOperandsException;
 import DataStructures.NumberStack;
 import DataStructures.Variables;
+import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 /**
- * This class manages communication between the controller and the model.
+ * This class manages the communication between the controller and the model.
  * @author Vinciuzz10
  */
 public class Calculator {
@@ -15,7 +17,9 @@ public class Calculator {
     /** The stack of {@code ComplexNumber} entered by the user. */
     private final NumberStack stack;
     /** The map of variables. */
-    private final Variables var;
+    private Variables var;
+    
+    private final Stack<Variables> variablesStack;
     
     /** A map that associates to a {@code String}, that represents an operation, a function to perform.
      e.g.  "dup" -> dup()*/
@@ -29,6 +33,7 @@ public class Calculator {
     public Calculator(NumberStack stack, Variables var){
         this.stack = stack;
         this.var = var;
+        variablesStack = new Stack<>();
         
         operationMap = new HashMap<>();
         operationMap.put("+", () -> sum());
@@ -143,7 +148,7 @@ public class Calculator {
      */
     public void addToVariable(Character varKey) {
         ComplexNumber value = var.get(varKey);
-        ComplexNumber newValue = value.add(stack.peek());
+        ComplexNumber newValue = value.add(stack.pop());
         var.put(varKey, newValue);
     }
     
@@ -153,7 +158,7 @@ public class Calculator {
      */
     public void subtractToVariable(Character varKey) {
         ComplexNumber value = var.get(varKey);
-        ComplexNumber newValue = value.subtract(stack.peek());
+        ComplexNumber newValue = value.subtract(stack.pop());
         var.put(varKey, newValue);
     }
     
@@ -172,15 +177,39 @@ public class Calculator {
         tmp.addAll(stack);
         for (String subOp: op.getOperation()) {
             Runnable function = operationMap.get(subOp);
-            try{
+            try {
                 function.run();
-            }catch(InvalidOperandsException e){
-                System.out.println("ERRORE");
+            } catch (InvalidOperandsException e) {
                 stack.clear();
                 stack.addAll(tmp);
                 return false;
             } 
         }
+        return true;
+    }
+    
+    /**
+     *
+     */
+    public void storeVariablesStatus() {
+        Variables tmp = new Variables();
+        tmp.putAll(var);
+        variablesStack.push(tmp);
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public boolean restoreVariableStatus() {
+        Variables tmp;
+        try {
+            tmp = variablesStack.pop();
+        } catch (EmptyStackException e) {
+            return false;
+        }
+        var.clear();
+        var.putAll(tmp);
         return true;
     }
 }

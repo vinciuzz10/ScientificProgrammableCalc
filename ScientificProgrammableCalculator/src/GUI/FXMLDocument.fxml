@@ -112,6 +112,20 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Button>
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="542.0" spacing="18.0">
+                           <children>
+                              <Button fx:id="saveVarButton" mnemonicParsing="false" onAction="#saveVarButtonPressed" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #1e1a1a;" text="Save var" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="restoreVarButton" mnemonicParsing="false" onAction="#restoreVarButtonPressed" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #1e1a1a;" text="Restore var" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
