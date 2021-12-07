@@ -452,7 +452,5 @@ public class FXMLDocumentController implements Initializable {
         customOperations.clear();
         customOperations.addAll(operations);
     }
-
-
     
 }

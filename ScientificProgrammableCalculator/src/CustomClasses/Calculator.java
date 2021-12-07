@@ -200,7 +200,7 @@ public class Calculator {
     
     /**
      * Restore the variables value, perforiming the pop on the variables stack.
-     * @return true if the variables can be restored. Otherwise returns false.
+     * @return true if there are variables that can be restored. Otherwise returns false.
      */
     public boolean restoreVariableStatus() {
         Variables tmp;
