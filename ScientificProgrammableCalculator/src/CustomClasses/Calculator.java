@@ -17,7 +17,7 @@ public class Calculator {
     /** The stack of {@code ComplexNumber} entered by the user. */
     private final NumberStack stack;
     /** The map of variables. */
-    private Variables var;
+    private final Variables var;
     
     private final Stack<Variables> variablesStack;
     
