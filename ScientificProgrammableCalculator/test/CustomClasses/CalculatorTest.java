@@ -2,6 +2,7 @@ package CustomClasses;
 
 import DataStructures.NumberStack;
 import DataStructures.Variables;
+import java.util.Set;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,11 +15,13 @@ import static org.junit.Assert.*;
  * @author Vinciuzz10
  */
 public class CalculatorTest {
+    
     private NumberStack stack;
     private Variables var;
     private Calculator calculator;
     private ComplexNumber n1;
     private ComplexNumber n2;
+    
     public CalculatorTest() {
     }
     
@@ -213,7 +216,21 @@ public class CalculatorTest {
         System.out.println("restoreVariableStatus");
         Calculator instance = null;
         boolean expResult = false;
-        boolean result = instance.restoreVariableStatus();
+        instance.restoreVariableStatus();
+        //assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getOperationsAllowed method, of class Calculator.
+     */
+    @Test
+    public void testGetOperationsAllowed() {
+        System.out.println("getOperationsAllowed");
+        Calculator instance = null;
+        Set<String> expResult = null;
+        Set<String> result = instance.getOperationsAllowed();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

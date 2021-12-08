@@ -13,6 +13,9 @@ import static org.junit.Assert.*;
  */
 public class ComplexNumberTest {
     
+    private ComplexNumber n1;
+    private ComplexNumber n2;
+    
     public ComplexNumberTest() {
     }
     
@@ -26,6 +29,8 @@ public class ComplexNumberTest {
     
     @Before
     public void setUp() {
+        n1 = new ComplexNumber(5, 3);
+        n2 = new ComplexNumber(4, 2);
     }
     
     @After
@@ -38,9 +43,8 @@ public class ComplexNumberTest {
     @Test
     public void testGetImaginary() {
         System.out.println("getImaginary");
-        ComplexNumber instance = new ComplexNumber(12,45);
-        double expResult = 45.0;
-        double result = instance.getImaginary();
+        double expResult = 3.0;
+        double result = n1.getImaginary();
         assertEquals(expResult, result, 0.0);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -52,9 +56,8 @@ public class ComplexNumberTest {
     @Test
     public void testGetReal() {
         System.out.println("getReal");
-        ComplexNumber instance = new ComplexNumber(34.13,76);
-        double expResult = 34.13;
-        double result = instance.getReal();
+        double expResult = 5.0;
+        double result = n1.getReal();
         assertEquals(expResult, result, 0.0);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -66,9 +69,8 @@ public class ComplexNumberTest {
     @Test
     public void testGetComplexString() {
         System.out.println("getComplexString");
-        ComplexNumber instance = new ComplexNumber(12,-78);
-        String expResult = "12.0-78.0j";
-        String result = instance.getComplexString();
+        String expResult = "5.0+3.0j";
+        String result = n1.getComplexString();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -80,10 +82,8 @@ public class ComplexNumberTest {
     @Test
     public void testAdd() {
         System.out.println("add");
-        ComplexNumber instance = new ComplexNumber(1,1);
-        ComplexNumber other = new ComplexNumber(4,-3);
-        ComplexNumber expResult = new ComplexNumber(5,-2);
-        ComplexNumber result = instance.add(other);
+        ComplexNumber expResult = new ComplexNumber(9,5);
+        ComplexNumber result = n1.add(n2);
         assertTrue(expResult.equals(result));
         // TODO review the generated test code and remove the default call to fail.
         //fail("The testAdd failed.\n Expected:"+ expResult.getComplexString()+"\nObtained:"+result.getComplexString());
@@ -95,10 +95,8 @@ public class ComplexNumberTest {
     @Test
     public void testSubtract() {
         System.out.println("subtract");
-        ComplexNumber instance = new ComplexNumber(1,1);
-        ComplexNumber other = new ComplexNumber(4,-3);
-        ComplexNumber expResult = new ComplexNumber(-3,4);
-        ComplexNumber result = instance.subtract(other);
+        ComplexNumber expResult = new ComplexNumber(1,1);
+        ComplexNumber result = n1.subtract(n2);
         assertTrue(expResult.equals(result));   
         // TODO review the generated test code and remove the default call to fail.
     }
@@ -109,10 +107,8 @@ public class ComplexNumberTest {
     @Test
     public void testMultiply() {
         System.out.println("multiply");
-        ComplexNumber instance = new ComplexNumber(2,3);
-        ComplexNumber other = new ComplexNumber(4,7);
-        ComplexNumber expResult = new ComplexNumber(-13,26);
-        ComplexNumber result = instance.multiply(other);
+        ComplexNumber expResult = new ComplexNumber(14,22);
+        ComplexNumber result = n1.multiply(n2);
         assertTrue(expResult.equals(result));
     }
 

@@ -1,5 +1,6 @@
 package GUI;
 
+import CustomClasses.Calculator;
 import CustomClasses.UserOperation;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -53,6 +55,7 @@ public class FXMLUserOperationsController implements Initializable {
 
     private ObservableList<UserOperation> operations;
     private FXMLDocumentController mainReference;
+    private Calculator calc;
     
     /**
      * Initializes the controller class.
@@ -69,6 +72,13 @@ public class FXMLUserOperationsController implements Initializable {
     @FXML
     private void createOperation(ActionEvent event) {
         String[] tmp = insertOperationTextField.getText().split(" ");
+        for (String op: tmp) {
+            if (!calc.getOperationsAllowed().contains(op)) {
+                showAlert("Error", "Invalid user-operation", "The entered user-operation contains invalid suboperations.", Alert.AlertType.ERROR);
+                return;
+            } 
+        }
+        
         TextInputDialog tid = new TextInputDialog();
         tid.setTitle("Provide a Name");
         tid.setHeaderText("Enter operation name:");
@@ -138,7 +148,6 @@ public class FXMLUserOperationsController implements Initializable {
         tid.setContentText("Function");
         tid.getEditor().setText(selected.getOperationAsString());
         tid.showAndWait();
-        //selected.setOperation(tid.getResult().split(" "));
         operations.remove(selected);
         operations.add(new UserOperation(selected.getName(),tid.getResult().split(" ")));
         userOperationTable.setItems(operations);
@@ -162,9 +171,23 @@ public class FXMLUserOperationsController implements Initializable {
         }
     }
     
-    public void loadInfo(List<UserOperation> operationsList,FXMLDocumentController mainCOntroller){
+    
+    
+    
+    // ------------------ UTILITY METHODS ------------------
+    
+    public void loadInfo(List<UserOperation> operationsList, Calculator calc, FXMLDocumentController mainCOntroller){
         mainReference = mainCOntroller;
         operations.addAll(operationsList);
+        this.calc = calc;
         userOperationTable.getItems().addAll(operations);
+    }
+    
+    private void showAlert(String title, String header, String content, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.setHeaderText(header);
+        alert.showAndWait();
     }
 }

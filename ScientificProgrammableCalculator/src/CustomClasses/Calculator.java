@@ -6,6 +6,7 @@ import DataStructures.Variables;
 import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -107,7 +108,7 @@ public class Calculator {
      */
     public void sqrt() {
         if (stack.isEmpty()) {
-            throw new InvalidOperandsException();
+            throw new EmptyStackException();
         }
         ComplexNumber n = stack.pop();
         stack.push(n.sqrt());
@@ -119,7 +120,7 @@ public class Calculator {
      */
     public void invertSign() {
         if (stack.isEmpty()) {
-            throw new InvalidOperandsException();
+            throw new EmptyStackException();
         }
         ComplexNumber n = stack.pop();
         stack.push(n.opposite());
@@ -199,18 +200,21 @@ public class Calculator {
     }
     
     /**
-     * Restore the variables value, perforiming the pop on the variables stack.
-     * @return true if there are variables that can be restored. Otherwise returns false.
+     * Restore the variables values, perforiming the pop on the variables stack.
      */
-    public boolean restoreVariableStatus() {
-        Variables tmp;
-        try {
-            tmp = variablesStack.pop();
-        } catch (EmptyStackException e) {
-            return false;
+    public void restoreVariableStatus() {
+        if (variablesStack.isEmpty()) {
+            throw new EmptyStackException();
         }
+        Variables tmp = variablesStack.pop();
         var.clear();
         var.putAll(tmp);
-        return true;
+    }
+    
+    /**
+     * Returns a Set of {@code String} containing all the allowed operations.
+     */
+    public Set<String> getOperationsAllowed() {
+        return operationMap.keySet();
     }
 }

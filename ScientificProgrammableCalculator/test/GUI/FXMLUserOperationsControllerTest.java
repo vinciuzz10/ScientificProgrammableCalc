@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import CustomClasses.Calculator;
 import CustomClasses.UserOperation;
 import java.net.URL;
 import java.util.List;
@@ -62,8 +63,9 @@ public class FXMLUserOperationsControllerTest {
         System.out.println("loadInfo");
         List<UserOperation> operationsList = null;
         FXMLDocumentController mainCOntroller = null;
+        Calculator calc = null;
         FXMLUserOperationsController instance = new FXMLUserOperationsController();
-        instance.loadInfo(operationsList, mainCOntroller);
+        instance.loadInfo(operationsList, calc, mainCOntroller);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

@@ -1,5 +1,6 @@
 package GUI;
 
+import CalculatorExceptions.InvalidOperandsException;
 import CustomClasses.Calculator;
 import CustomClasses.ComplexNumber;
 import CustomClasses.UserOperation;
@@ -21,11 +22,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import DataStructures.NumberStack;
 import DataStructures.Variables;
 import java.io.IOException;
+import java.util.EmptyStackException;
 import java.util.Map;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -142,7 +145,7 @@ public class FXMLDocumentController implements Initializable {
         
         /* Check if the user has entered something in the textfield, otherwise shows an alert. */
         if (stringFromTextField.isEmpty()) {
-            showAlert("Error", "Invalid Input", "You can't submit an empty number or an empty operation.");
+            showAlert("Error", "Invalid Input", "You can't submit an empty number or an empty operation.", AlertType.ERROR);
             clearTextField();
             return;
         }
@@ -184,7 +187,7 @@ public class FXMLDocumentController implements Initializable {
             number = ComplexNumber.parseComplexNumber(stringFromTextField);
             stack.push(number);
         } catch (NumberFormatException e) {
-            showAlert("Error", "Invalid Input" ,"The entered number or operation is not valid.");
+            showAlert("Error", "Invalid Input" ,"The entered number or operation is not valid.", AlertType.ERROR);
             clearTextField();
             return;
         }
@@ -198,12 +201,12 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void sumButtonPressed(ActionEvent event) throws InterruptedException {
-        if (stack.size() < 2) {
-            showAlert("Error", "Invalid operation", "Not enough entered numbers.");
+        try {
+            calc.sum();
+        } catch (InvalidOperandsException e) {
+            showAlert("Error", "Invalid operation", "Not enough entered numbers.", AlertType.ERROR);
             return;
         }
-        
-        calc.sum();
         
         /* Update TableView items */
         updateLastNumbersTableView();
@@ -214,13 +217,13 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void differenceButtonPressed(ActionEvent event) {
-        if (stack.size() < 2) {
-            showAlert("Error", "Invalid operation", "Not enough entered numbers.");
+        try {
+            calc.difference();
+        } catch (InvalidOperandsException e) {
+            showAlert("Error", "Invalid operation", "Not enough entered numbers.", AlertType.ERROR);
             return;
         }
-        
-        calc.difference();
-        
+
         /* Update TableView items */
         updateLastNumbersTableView();
         
@@ -230,12 +233,12 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void productButtonPressed(ActionEvent event) {
-        if (stack.size() < 2) {
-            showAlert("Error", "Invalid operation", "Not enough entered numbers.");
+        try {
+            calc.product();
+        } catch (InvalidOperandsException e) {
+            showAlert("Error", "Invalid operation", "Not enough entered numbers.", AlertType.ERROR);
             return;
         }
-        
-        calc.product();
         
         /* Update TableView items */
         updateLastNumbersTableView();
@@ -246,12 +249,12 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void quotientButtonPressed(ActionEvent event) {
-        if (stack.size() < 2) {
-            showAlert("Error", "Invalid operation", "Not enough entered numbers.");
+        try {
+            calc.quotient();
+        } catch (InvalidOperandsException e) {
+            showAlert("Error", "Invalid operation", "Not enough entered numbers.", AlertType.ERROR);
             return;
         }
-        
-        calc.quotient();
         
         /* Update TableView items */
         updateLastNumbersTableView();
@@ -262,12 +265,12 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void sqrtButtonPressed(ActionEvent event) {
-        if (stack.isEmpty()) {
-            showAlert("Error", "Invalid operation", "No entered numbers.");
+        try {
+            calc.sqrt();
+        } catch (EmptyStackException e) {
+            showAlert("Error", "Invalid operation", "No entered numbers.", AlertType.ERROR);
             return;
         }
-        
-        calc.sqrt();
         
         /* Update TableView items */
         updateLastNumbersTableView();
@@ -278,12 +281,12 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void invertSignButtonPressed(ActionEvent event) {
-        if (stack.isEmpty()) {
-            showAlert("Error", "Invalid operation", "No entered numbers.");
+        try {
+            calc.invertSign();
+        } catch (EmptyStackException e) {
+            showAlert("Error", "Invalid operation", "No entered numbers.", AlertType.ERROR);
             return;
         }
-        
-        calc.invertSign();
         
         /* Update TableView items */
         updateLastNumbersTableView();
@@ -306,7 +309,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void delButtonPressed(ActionEvent event) {
         if (stack.isEmpty()) {
-            showAlert("Error", "Invalid operation", "No entered numbers.");
+            showAlert("Error", "Invalid operation", "No entered numbers.", AlertType.ERROR);
             return;
         }
         
@@ -322,7 +325,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void swapButtonPressed(ActionEvent event) {
         if (stack.size() < 2) {
-            showAlert("Error", "Invalid operation", "Not enough entered numbers.");
+            showAlert("Error", "Invalid operation", "Not enough entered numbers.", AlertType.ERROR);
             return;
         }
         
@@ -338,7 +341,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void dupButtonPressed(ActionEvent event) {
         if (stack.isEmpty()) {
-            showAlert("Error", "Invalid operation", "No entered numbers.");
+            showAlert("Error", "Invalid operation", "No entered numbers.", AlertType.ERROR);
             return;
         }
         
@@ -354,7 +357,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void cslButtonPressed(ActionEvent event) {
         if (stack.size() < 2) {
-            showAlert("Error", "Invalid operation", "Not enough entered numbers.");
+            showAlert("Error", "Invalid operation", "Not enough entered numbers.", AlertType.ERROR);
             return;
         }
         stack.over();
@@ -370,9 +373,8 @@ public class FXMLDocumentController implements Initializable {
     private void userOperationButtonPressed(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLUserOperations.fxml"));
         Parent root = (Parent)loader.load();
-        //Parent root = FXMLLoader.load(getClass().getResource("/UserOperations/FXMLUserOperation.fxml"));
         FXMLUserOperationsController controller = loader.getController();
-        controller.loadInfo(customOperations,this);
+        controller.loadInfo(customOperations,calc,this);
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setTitle("User Operations");
@@ -385,30 +387,37 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void saveVarButtonPressed(ActionEvent event) {
         calc.storeVariablesStatus();
-        showAlert("", "Saving completed", "The variables have been stored succesfully.");
+        showAlert("", "Saving completed", "The variables have been stored succesfully.", AlertType.INFORMATION);
     }
 
     @FXML
     private void restoreVarButtonPressed(ActionEvent event) {
-        if (!calc.restoreVariableStatus()) {
-            showAlert("Error", "Restore variables", "No variables stored.");
+        try {
+            calc.restoreVariableStatus();
+        } catch (EmptyStackException e) {
+            showAlert("Error", "Restore variables", "No variables stored.", AlertType.ERROR);
             return;
         }
+        
+        /* Update TableView items */
         updateVariablesTableView();
-        showAlert("", "Restore variables", "The variables have been restored succesfully.");
+        showAlert("", "Restore variables", "The variables have been restored succesfully.", AlertType.INFORMATION);
     }
 
     @FXML
     private void computeCustomOperation(ActionEvent event) {
         UserOperation selected = userOperationsTableView.getSelectionModel().getSelectedItem();
+        
         if (selected == null) {
-            showAlert("Error", "No user-operation selected", "Please select an ser-operation before pressing 'compute'");
+            showAlert("Error", "No user-operation selected", "Please select an ser-operation before pressing 'compute'", AlertType.ERROR);
         }
-        Boolean b = calc.executeUserOperation(selected);
-        if(!b){
-            showAlert("Error", "Invalid operation", "The operation is not valid, or the operands are not enough to compute it.");
+        
+        if(!calc.executeUserOperation(selected)){
+            showAlert("Error", "Invalid operation", "The operation is not valid, or the operands are not enough to compute it.", AlertType.ERROR);
             return;
         }
+        
+        /* Update TableView items */
         updateLastNumbersTableView();
     }
     
@@ -440,8 +449,8 @@ public class FXMLDocumentController implements Initializable {
         variableObservableList.addAll(variables.entrySet());
     }
     
-    private void showAlert(String title, String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    private void showAlert(String title, String header, String content, AlertType type) {
+        Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setContentText(content);
         alert.setHeaderText(header);
