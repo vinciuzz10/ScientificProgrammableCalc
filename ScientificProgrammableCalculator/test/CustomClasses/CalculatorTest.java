@@ -223,14 +223,14 @@ public class CalculatorTest {
     }
 
     /**
-     * Test of getOperationsAllowed method, of class Calculator.
+     * Test of getAllowedOperations method, of class Calculator.
      */
     @Test
-    public void testGetOperationsAllowed() {
+    public void testGetAllowedOperations() {
         System.out.println("getOperationsAllowed");
         Calculator instance = null;
         Set<String> expResult = null;
-        Set<String> result = instance.getOperationsAllowed();
+        Set<String> result = instance.getAllowedOperations();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

@@ -43,11 +43,11 @@ public class Calculator {
         operationMap.put("/", () -> quotient());
         operationMap.put("rad", () -> sqrt());
         operationMap.put("invSign", () -> invertSign());
-        operationMap.put("swap", () -> stack.swap());
-        operationMap.put("dup", () -> stack.dup());
-        operationMap.put("over", () -> stack.over());
-        operationMap.put("del", () -> stack.pop());
-        operationMap.put("clear", () -> stack.clear());
+        operationMap.put("swap", () -> swapLastTwo());
+        operationMap.put("dup", () -> dupLastElement());
+        operationMap.put("over", () -> over());
+        operationMap.put("del", () -> delLastElement());
+        operationMap.put("clear", () -> clearAllStack());
     }
     
     /**
@@ -125,6 +125,50 @@ public class Calculator {
         ComplexNumber n = stack.pop();
         stack.push(n.opposite());
     }
+    
+    /**
+     *
+     * @param n1
+     */
+    public void pushOntoStack(ComplexNumber n1) {
+        stack.push(n1);
+    }
+    
+    /**
+     *
+     */
+    public void dupLastElement() {
+        stack.dup();
+    }
+    
+    /**
+     *
+     */
+    public void swapLastTwo() {
+        stack.swap();
+    }
+    
+    /**
+     *
+     */
+    public void delLastElement() {
+        stack.pop();
+    }
+    
+    /**
+     *
+     */
+    public void clearAllStack() {
+        stack.clear();
+    }
+    
+    /**
+     *
+     */
+    public void over() {
+        stack.over();
+    }
+    
     
     /**
      * Store the last entered number in the variable specified as a parameter.
@@ -214,7 +258,7 @@ public class Calculator {
     /**
      * Returns a Set of {@code String} containing all the allowed operations.
      */
-    public Set<String> getOperationsAllowed() {
+    public Set<String> getAllowedOperations() {
         return operationMap.keySet();
     }
 }

@@ -1,4 +1,5 @@
 package DataStructures;
+import CalculatorExceptions.InvalidOperandsException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,8 +16,8 @@ public class NumberStack extends Stack<ComplexNumber> {
      * Swap the last and the second last elements contained into the stack.
      */
     public void swap() {
-        if (size() < 2) 
-            return;
+        if (size() < 2)
+            throw new InvalidOperandsException();
         ComplexNumber last = pop();
         ComplexNumber secondLast = pop();
         push(last);
@@ -28,7 +29,7 @@ public class NumberStack extends Stack<ComplexNumber> {
      */
     public void over() {
         if (size() < 2) {
-            return;
+            throw new InvalidOperandsException();
         }
         ComplexNumber last = pop();
         ComplexNumber secondLast = peek();
@@ -40,8 +41,6 @@ public class NumberStack extends Stack<ComplexNumber> {
      * Push onto the stack a copy of the last element.
      */
     public void dup() {
-        if (isEmpty())
-            return;
         push(peek());
     }
     

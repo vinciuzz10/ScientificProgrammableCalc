@@ -73,7 +73,7 @@ public class FXMLUserOperationsController implements Initializable {
     private void createOperation(ActionEvent event) {
         String[] tmp = insertOperationTextField.getText().split(" ");
         for (String op: tmp) {
-            if (!calc.getOperationsAllowed().contains(op)) {
+            if (!calc.getAllowedOperations().contains(op)) {
                 showAlert("Error", "Invalid user-operation", "The entered user-operation contains invalid suboperations.", Alert.AlertType.ERROR);
                 return;
             } 
@@ -102,7 +102,7 @@ public class FXMLUserOperationsController implements Initializable {
             return;
         }
         operations.clear();
-        //userOperationTable.getItems().clear();
+        //userOperationTable.getItems().clearAllStack();
         try (Scanner sc = new Scanner(file)) {
             String line, opName, opFormula;
             while (sc.hasNext()) {
