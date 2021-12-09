@@ -73,8 +73,9 @@ public class FXMLUserOperationsController implements Initializable {
     private void createOperation(ActionEvent event) {
         String[] tmp = insertOperationTextField.getText().split(" ");
         for (String op: tmp) {
-            if (!calc.getAllowedOperations().contains(op)) {
+            if (!calc.getAllowedOperations().contains(op) && !op.matches("[><+-][A-Z]")) {
                 showAlert("Error", "Invalid user-operation", "The entered user-operation contains invalid suboperations.", Alert.AlertType.ERROR);
+                insertOperationTextField.clear();
                 return;
             } 
         }
@@ -84,10 +85,12 @@ public class FXMLUserOperationsController implements Initializable {
         tid.setHeaderText("Enter operation name:");
         tid.setContentText("Name:");
         tid.showAndWait();
-        operations.add(new UserOperation(tid.getResult(),tmp));
+        UserOperation op = new UserOperation(tid.getResult(),tmp);
+        operations.add(op);
         userOperationTable.setItems(operations);
         mainReference.updateUserOperations(operations);
         insertOperationTextField.clear();
+        calc.addOperationToMap(op);
     }
 
     @FXML
@@ -102,7 +105,7 @@ public class FXMLUserOperationsController implements Initializable {
             return;
         }
         operations.clear();
-        //userOperationTable.getItems().clearAllStack();
+        //userOperationTable.getItems().clear();
         try (Scanner sc = new Scanner(file)) {
             String line, opName, opFormula;
             while (sc.hasNext()) {
@@ -156,7 +159,7 @@ public class FXMLUserOperationsController implements Initializable {
 
     @FXML
     private void deleteOperationFunction(ActionEvent event) {
-        UserOperation selected =userOperationTable.getSelectionModel().getSelectedItem();
+        UserOperation selected = userOperationTable.getSelectionModel().getSelectedItem();
         if(selected == null)
             return;
         operations.remove(selected);

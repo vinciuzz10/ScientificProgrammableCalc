@@ -27,13 +27,11 @@ public class Calculator {
     private final Map<String,Runnable> operationMap;
 
     /**
-     * Create an object {@code Calculator} given the stack of numbers and the variables collection.
-     * @param stack the stack of {@code ComplexNumber}.
-     * @param var the map of variables.
+     * Create an object of the class {@code Calculator}.
      */
-    public Calculator(NumberStack stack, Variables var){
-        this.stack = stack;
-        this.var = var;
+    public Calculator(){
+        this.stack = new NumberStack();
+        this.var = new Variables();
         variablesStack = new Stack<>();
         
         operationMap = new HashMap<>();
@@ -43,11 +41,27 @@ public class Calculator {
         operationMap.put("/", () -> quotient());
         operationMap.put("rad", () -> sqrt());
         operationMap.put("invSign", () -> invertSign());
-        operationMap.put("swap", () -> swapLastTwo());
-        operationMap.put("dup", () -> dupLastElement());
+        operationMap.put("swap", () -> swap());
+        operationMap.put("dup", () -> dup());
         operationMap.put("over", () -> over());
-        operationMap.put("del", () -> delLastElement());
-        operationMap.put("clear", () -> clearAllStack());
+        operationMap.put("del", () -> del());
+        operationMap.put("clear", () -> clear());
+    }
+
+    /**
+     *
+     * @return
+     */
+    public NumberStack getStack() {
+        return stack;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Variables getVar() {
+        return var;
     }
     
     /**
@@ -126,39 +140,58 @@ public class Calculator {
         stack.push(n.opposite());
     }
     
+    
+    // --------------------- STACK OPERATIONS ---------------------
+    
     /**
      *
      * @param n1
      */
-    public void pushOntoStack(ComplexNumber n1) {
+    public void push(ComplexNumber n1) {
         stack.push(n1);
     }
     
     /**
      *
+     * @return
      */
-    public void dupLastElement() {
+    public ComplexNumber peek() {
+        return stack.peek();
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public ComplexNumber pop() {
+        return stack.pop();
+    }
+    
+    /**
+     *
+     */
+    public void dup() {
         stack.dup();
     }
     
     /**
      *
      */
-    public void swapLastTwo() {
+    public void swap() {
         stack.swap();
     }
     
     /**
      *
      */
-    public void delLastElement() {
+    public void del() {
         stack.pop();
     }
     
     /**
      *
      */
-    public void clearAllStack() {
+    public void clear() {
         stack.clear();
     }
     
@@ -169,6 +202,8 @@ public class Calculator {
         stack.over();
     }
     
+    
+    // ------------------- VARIABLES OPERATIONS -------------------
     
     /**
      * Store the last entered number in the variable specified as a parameter.
@@ -208,33 +243,6 @@ public class Calculator {
     }
     
     /**
-     * Execute the user-defined operation specified as a parameter if it is valid.
-     * A user-defined operation is valid if contains only basic operations.
-     * @param op the user-defined operation to be executed.
-     * @return true if the operation can be performed. Otherwise returns false.
-     */
-    public boolean executeUserOperation(UserOperation op) {
-        for (String subOp: op.getOperation()) {
-            if (!operationMap.keySet().contains(subOp)) {
-                return false;
-            }
-        }
-        NumberStack tmp = new NumberStack();
-        tmp.addAll(stack);
-        for (String subOp: op.getOperation()) {
-            Runnable function = operationMap.get(subOp);
-            try {
-                function.run();
-            } catch (InvalidOperandsException e) {
-                stack.clear();
-                stack.addAll(tmp);
-                return false;
-            } 
-        }
-        return true;
-    }
-    
-    /**
      * Push the variables values onto a stack to restore and use them in next operations.
      */
     public void storeVariablesStatus() {
@@ -255,10 +263,49 @@ public class Calculator {
         var.putAll(tmp);
     }
     
+    
+    // ------------------- USER-DEFINED OPERATIONS -------------------
+    
+    /**
+     * Execute the user-defined operation specified as a parameter if it is valid.
+     * A user-defined operation is valid if contains only basic operations.
+     * @param op the user-defined operation to be executed.
+     * @return true if the operation can be performed. Otherwise returns false.
+     */
+    public boolean executeUserOperation(UserOperation op) {
+        NumberStack tmp = new NumberStack();
+        tmp.addAll(stack);
+        for (String subOp: op.getOperation()) {
+            try {
+                if (subOp.startsWith(">")) {
+                    storeInVariable(subOp.substring(1).charAt(0));
+                } else if (subOp.startsWith("<")) {
+                    pickFromVariable(subOp.substring(1).charAt(0));
+                } else if (subOp.length() == 2 && subOp.startsWith("+")) {
+                    addToVariable(subOp.substring(1).charAt(0));
+                } else if (subOp.length() == 2 && subOp.startsWith("-")) {
+                    subtractToVariable(subOp.substring(1).charAt(0));
+                } else {
+                    Runnable function = operationMap.get(subOp);
+                    function.run();
+                }
+            } catch (Exception e) {
+                stack.clear();
+                stack.addAll(tmp);
+                return false;
+            }
+        }
+        return true;
+    }
+    
     /**
      * Returns a Set of {@code String} containing all the allowed operations.
      */
     public Set<String> getAllowedOperations() {
         return operationMap.keySet();
+    }
+    
+    public void addOperationToMap(UserOperation op) {
+        operationMap.put(op.getName(), () -> executeUserOperation(op));
     }
 }

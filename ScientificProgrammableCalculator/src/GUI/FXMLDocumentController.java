@@ -96,9 +96,9 @@ public class FXMLDocumentController implements Initializable {
     private ObservableList<UserOperation> customOperations;
     private ObservableList<ComplexNumber> numbers;
     private ObservableList<Map.Entry<Character, ComplexNumber>> variableObservableList;
-    private final NumberStack stack = new NumberStack();
-    private final Variables variables = new Variables();
-    private Calculator calc;
+    private Calculator calc = new Calculator();
+    private final NumberStack stack = calc.getStack();
+    private final Variables variables = calc.getVar();
 
 
     @Override
@@ -132,10 +132,6 @@ public class FXMLDocumentController implements Initializable {
         userOperationsTableView.setPlaceholder(new Label("Empty"));
         operationTableColumn.setCellValueFactory(new PropertyValueFactory("name"));
         formulaTableColumn.setCellValueFactory(new PropertyValueFactory("operationAsString"));
-        
-        
-        /* Calculator initialisation */
-        calc = new Calculator(stack, variables);
     }    
 
     @FXML
@@ -184,7 +180,7 @@ public class FXMLDocumentController implements Initializable {
         ComplexNumber number;
         try {
             number = ComplexNumber.parseComplexNumber(stringFromTextField);
-            calc.pushOntoStack(number);
+            calc.push(number);
         } catch (NumberFormatException e) {
             showAlert("Error", "Invalid Input" ,"The entered number or operation is not valid.", AlertType.ERROR);
             clearTextField();
@@ -297,7 +293,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void clearButtonPressed(ActionEvent event) {
         try {
-            calc.clearAllStack();
+            calc.clear();
         } catch (EmptyStackException e) {
             return;
         }
@@ -312,7 +308,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void delButtonPressed(ActionEvent event) {
         try {
-            calc.delLastElement();
+            calc.del();
         } catch (EmptyStackException e) {
             showAlert("Error", "Invalid operation", "No entered numbers.", AlertType.ERROR);
             return;
@@ -328,11 +324,11 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void swapButtonPressed(ActionEvent event) {
         try {
-            calc.swapLastTwo();
+            calc.swap();
         } catch (InvalidOperandsException e) {
             showAlert("Error", "Invalid operation", "Not enough entered numbers.", AlertType.ERROR);
             return;
-        };
+        }
         
         /* Update TableView items */
         updateLastNumbersTableView();
@@ -344,11 +340,11 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void dupButtonPressed(ActionEvent event) {
         try {
-            calc.dupLastElement();
+            calc.dup();
         } catch (EmptyStackException e) {
             showAlert("Error", "Invalid operation", "No entered numbers.", AlertType.ERROR);
             return;
-        };
+        }
         
         /* Update TableView items */
         updateLastNumbersTableView();
@@ -364,7 +360,7 @@ public class FXMLDocumentController implements Initializable {
         } catch (InvalidOperandsException e) {
             showAlert("Error", "Invalid operation", "Not enough entered numbers.", AlertType.ERROR);
             return;
-        };
+        }
         
         /* Update TableView items */
         updateLastNumbersTableView();
@@ -423,6 +419,7 @@ public class FXMLDocumentController implements Initializable {
         
         /* Update TableView items */
         updateLastNumbersTableView();
+        updateVariablesTableView();
     }
     
     @FXML

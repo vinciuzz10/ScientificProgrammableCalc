@@ -94,7 +94,7 @@
                         <TableView fx:id="userOperationsTableView" prefHeight="200.0" prefWidth="200.0">
                           <columns>
                             <TableColumn fx:id="operationTableColumn" prefWidth="141.0" text="Operation" />
-                            <TableColumn fx:id="formulaTableColumn" prefWidth="400.0" text="Formula" />
+                            <TableColumn fx:id="formulaTableColumn" prefWidth="390.0" text="Formula" />
                           </columns>
                            <contextMenu>
                               <ContextMenu>
