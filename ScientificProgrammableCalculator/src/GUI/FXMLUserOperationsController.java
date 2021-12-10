@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import javafx.collections.FXCollections;
@@ -84,13 +85,22 @@ public class FXMLUserOperationsController implements Initializable {
         tid.setTitle("Provide a Name");
         tid.setHeaderText("Enter operation name:");
         tid.setContentText("Name:");
-        tid.showAndWait();
+        Optional<String> result = tid.showAndWait();
+        if(result.isPresent()){
+            if(tid.getResult().equals("")){
+                insertOperationTextField.clear();
+                return;
+            }
         UserOperation op = new UserOperation(tid.getResult(),tmp);
         operations.add(op);
         userOperationTable.setItems(operations);
         mainReference.updateUserOperations(operations);
         insertOperationTextField.clear();
         calc.addOperationToMap(op);
+        }
+        else {
+            return;
+        }
     }
 
     @FXML
@@ -114,6 +124,7 @@ public class FXMLUserOperationsController implements Initializable {
                 opFormula = line.split("\t")[1];
                 UserOperation op = new UserOperation(opName, opFormula.split(" "));
                 operations.add(op);
+                calc.addOperationToMap(op);
             }
         }
         
@@ -155,6 +166,7 @@ public class FXMLUserOperationsController implements Initializable {
         operations.add(new UserOperation(selected.getName(),tid.getResult().split(" ")));
         userOperationTable.setItems(operations);
         mainReference.updateUserOperations(operations);
+        calc.addOperationToMap(selected);
     }
 
     @FXML
@@ -165,6 +177,7 @@ public class FXMLUserOperationsController implements Initializable {
         operations.remove(selected);
         userOperationTable.setItems(operations);
         mainReference.updateUserOperations(operations);
+        
     }
     
     @FXML
