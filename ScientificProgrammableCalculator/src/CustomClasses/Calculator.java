@@ -300,11 +300,16 @@ public class Calculator {
     
     /**
      * Returns a Set of {@code String} containing all the allowed operations.
+     * @return 
      */
     public Set<String> getAllowedOperations() {
         return operationMap.keySet();
     }
     
+    /**
+     *
+     * @param op
+     */
     public void addOperationToMap(UserOperation op) {
         operationMap.put(op.getName(), () -> executeUserOperation(op));
     }

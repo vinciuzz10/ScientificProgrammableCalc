@@ -227,15 +227,15 @@ public class ComplexNumberTest {
     /**
      * Test of parseComplexNumber method, of class ComplexNumber.
      */
-    /*@Test
+    @Test
     public void testParseComplexNumber() {
         System.out.println("parseComplexNumber");
-        String numberAsString = "";
-        ComplexNumber expResult = null;
+        String numberAsString = "5+3j";
+        ComplexNumber expResult = new ComplexNumber(5,3);
         ComplexNumber result = ComplexNumber.parseComplexNumber(numberAsString);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
-    }*/
+    }
     
 }

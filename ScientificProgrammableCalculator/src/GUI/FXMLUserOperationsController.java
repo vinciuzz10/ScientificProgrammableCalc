@@ -60,6 +60,8 @@ public class FXMLUserOperationsController implements Initializable {
     
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -82,7 +84,7 @@ public class FXMLUserOperationsController implements Initializable {
         }
         
         TextInputDialog tid = new TextInputDialog();
-        tid.setTitle("Provide a Name");
+        tid.setTitle("Provide a name");
         tid.setHeaderText("Enter operation name:");
         tid.setContentText("Name:");
         Optional<String> result = tid.showAndWait();
@@ -91,15 +93,12 @@ public class FXMLUserOperationsController implements Initializable {
                 insertOperationTextField.clear();
                 return;
             }
-        UserOperation op = new UserOperation(tid.getResult(),tmp);
-        operations.add(op);
-        userOperationTable.setItems(operations);
-        mainReference.updateUserOperations(operations);
-        insertOperationTextField.clear();
-        calc.addOperationToMap(op);
-        }
-        else {
-            return;
+            UserOperation op = new UserOperation(tid.getResult(),tmp);
+            operations.add(op);
+            userOperationTable.setItems(operations);
+            mainReference.updateUserOperations(operations);
+            insertOperationTextField.clear();
+            calc.addOperationToMap(op);
         }
     }
 
@@ -166,7 +165,6 @@ public class FXMLUserOperationsController implements Initializable {
         operations.add(new UserOperation(selected.getName(),tid.getResult().split(" ")));
         userOperationTable.setItems(operations);
         mainReference.updateUserOperations(operations);
-        calc.addOperationToMap(selected);
     }
 
     @FXML
