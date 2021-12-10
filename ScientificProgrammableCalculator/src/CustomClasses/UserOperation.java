@@ -10,7 +10,7 @@ import java.util.List;
 public class UserOperation {
     
     /** The name of the USer-defined operation. */
-    private String name;
+    private final String name;
     /** The formula of the User-defined operation. */
     private String[] operation;
 
