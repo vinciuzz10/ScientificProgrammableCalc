@@ -131,7 +131,7 @@ public class FXMLDocumentController implements Initializable {
         userOperationsTableView.setItems(customOperations);
         userOperationsTableView.setPlaceholder(new Label("Empty"));
         operationTableColumn.setCellValueFactory(new PropertyValueFactory("name"));
-        formulaTableColumn.setCellValueFactory(new PropertyValueFactory("operationAsString"));
+        formulaTableColumn.setCellValueFactory(new PropertyValueFactory("OperationAsString"));
     }    
 
     @FXML

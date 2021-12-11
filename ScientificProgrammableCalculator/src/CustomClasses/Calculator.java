@@ -276,6 +276,8 @@ public class Calculator {
         NumberStack tmp = new NumberStack();
         tmp.addAll(stack);
         for (String subOp: op.getOperation()) {
+            NumberStack tmp1 = new NumberStack();
+            tmp1.addAll(stack);
             try {
                 if (subOp.startsWith(">")) {
                     storeInVariable(subOp.substring(1).charAt(0));
@@ -288,6 +290,11 @@ public class Calculator {
                 } else {
                     Runnable function = operationMap.get(subOp);
                     function.run();
+                    if(tmp1.containsAll(stack)){
+                        stack.clear();
+                        stack.addAll(tmp);
+                        return false;
+                    }
                 }
             } catch (Exception e) {
                 stack.clear();
