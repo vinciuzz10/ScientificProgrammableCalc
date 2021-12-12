@@ -11,7 +11,7 @@ import java.util.Stack;
 
 /**
  * This class manages the communication between the controller and the model.
- * @author Vinciuzz10
+ * @author Group #14
  */
 public class Calculator {
     
@@ -27,7 +27,7 @@ public class Calculator {
     private final Map<String,Runnable> operationMap;
 
     /**
-     * Create an object of the class {@code Calculator}.
+     * Create an object of the class {@code Calculator} containing a {@code NumberStack}, a Map of Variables and a Map of allowed operations.
      */
     public Calculator(){
         this.stack = new NumberStack();
@@ -44,13 +44,12 @@ public class Calculator {
         operationMap.put("swap", () -> swap());
         operationMap.put("dup", () -> dup());
         operationMap.put("over", () -> over());
-        operationMap.put("del", () -> del());
+        operationMap.put("del", () -> pop());
         operationMap.put("clear", () -> clear());
     }
 
     /**
-     *
-     * @return
+     * @return a {@code NumberStack} containing all the entered numbers.
      */
     public NumberStack getStack() {
         return stack;
@@ -58,14 +57,14 @@ public class Calculator {
 
     /**
      *
-     * @return
+     * @return an object of the class {@code Variables} containing all the variables with their values.
      */
     public Variables getVar() {
         return var;
     }
     
     /**
-     * Perform the sum between the last and the second last element contained into the stack.
+     * Performs the sum between the last and the second last element contained into the stack.
      * The function calls the method of the class {@code ComplexNumber}.
      */
     public void sum() {
@@ -78,7 +77,7 @@ public class Calculator {
     }
     
     /**
-     * Perform the difference between the second last and the last element contained into the stack.
+     * Performs the difference between the second last and the last element contained into the stack and push the result onto it.
      * The function calls the method of the class {@code ComplexNumber}.
      */
     public void difference() {
@@ -91,7 +90,7 @@ public class Calculator {
     }
     
     /**
-     * Perform the product between the last and the second last element contained into the stack.
+     * Performs the product between the last and the second last element contained into the stack and push the result onto it.
      * The function calls the method of the class {@code ComplexNumber}.
      */
     public void product() {
@@ -104,7 +103,7 @@ public class Calculator {
     }
     
     /**
-     * Perform the quotient between the second last and the last element contained into the stack.
+     * Performs the quotient between the second last and the last element contained into the stack and push the result onto it.
      * The function calls the method of the class {@code ComplexNumber}.
      */
     public void quotient() {
@@ -117,7 +116,7 @@ public class Calculator {
     }
     
     /**
-     * Perform the square root of the last element contained into the stack.
+     * Performs the square root of the last element contained into the stack and push the result onto it.
      * The function calls the method of the class {@code ComplexNumber}.
      */
     public void sqrt() {
@@ -129,7 +128,7 @@ public class Calculator {
     }
     
     /**
-     * Compute the opposite the last element contained into the stack.
+     * Computes the opposite the last element contained into the stack and push the result onto it.
      * The function calls the method of the class {@code ComplexNumber}.
      */
     public void invertSign() {
@@ -144,59 +143,52 @@ public class Calculator {
     // --------------------- STACK OPERATIONS ---------------------
     
     /**
-     *
-     * @param n1
+     * Pushes a number onto the stack calling the 'push method' of class Stack.
+     * @param n1 the {@code ComplexNumber} to be pushed onto the stack.
      */
     public void push(ComplexNumber n1) {
         stack.push(n1);
     }
     
     /**
-     *
-     * @return
+     * Gets the last number contained into the stack calling the 'peek method' of class Stack.
+     * @return the last element of the {@code NumberStack}.
      */
     public ComplexNumber peek() {
         return stack.peek();
     }
     
     /**
-     *
-     * @return
+     * Removes and returns the last number contained into the stack calling the 'pop method' of class Stack.
+     * @return the {@code ComplexNumber} removed.
      */
     public ComplexNumber pop() {
         return stack.pop();
     }
     
     /**
-     *
+     * Duplicates the last element contained into the stack, calling the 'dup method' of class {@code NumberStack}.
      */
     public void dup() {
         stack.dup();
     }
     
     /**
-     *
+     * Swaps the last and the second last element of the stack calling the 'swap method' of class {@code NumberStack}.
      */
     public void swap() {
         stack.swap();
     }
     
     /**
-     *
-     */
-    public void del() {
-        stack.pop();
-    }
-    
-    /**
-     *
+     * Clears the stack calling the 'clear method' of the class Stack.
      */
     public void clear() {
         stack.clear();
     }
     
     /**
-     *
+     * Pushes onto the stack a copy of the second last element calling the 'over method' of the class {@code NumberStack}.
      */
     public void over() {
         stack.over();
@@ -206,7 +198,7 @@ public class Calculator {
     // ------------------- VARIABLES OPERATIONS -------------------
     
     /**
-     * Store the last entered number in the variable specified as a parameter.
+     * Stores the last entered number in the variable specified as a parameter.
      * @param varKey the variable to be updated.
      */
     public void storeInVariable(Character varKey) {
@@ -215,7 +207,7 @@ public class Calculator {
     }
     
     /**
-     * Push onto the stack the value of the variable specified as a parameter.
+     * Pushes onto the stack the value of the variable specified as a parameter.
      * @param varKey the variable to be picked.
      */
     public void pickFromVariable(Character varKey) {
@@ -223,7 +215,7 @@ public class Calculator {
     }
     
     /**
-     * Add the last entered number to the variable specified as a parameter.
+     * Adds the last entered number to the variable specified as a parameter.
      * @param varKey the variable to be updated.
      */
     public void addToVariable(Character varKey) {
@@ -233,7 +225,7 @@ public class Calculator {
     }
     
     /**
-     * Subtract the last entered number to the variable specified as a parameter.
+     * Subtracts the last entered number to the variable specified as a parameter.
      * @param varKey the variable to be updated.
      */
     public void subtractToVariable(Character varKey) {
@@ -243,7 +235,7 @@ public class Calculator {
     }
     
     /**
-     * Push the variables values onto a stack to restore and use them in next operations.
+     * Pushes the variables values onto a stack to restore and use them in next operations.
      */
     public void storeVariablesStatus() {
         Variables tmp = new Variables();
@@ -252,7 +244,7 @@ public class Calculator {
     }
     
     /**
-     * Restore the variables values, perforiming the pop on the variables stack.
+     * Restores the variables values, perforiming the pop on the variables stack.
      */
     public void restoreVariableStatus() {
         if (variablesStack.isEmpty()) {
@@ -267,7 +259,7 @@ public class Calculator {
     // ------------------- USER-DEFINED OPERATIONS -------------------
     
     /**
-     * Execute the user-defined operation specified as a parameter if it is valid.
+     * Executes the user-defined operation specified as a parameter if it is valid.
      * A user-defined operation is valid if contains only basic operations.
      * @param op the user-defined operation to be executed.
      * @return true if the operation can be performed. Otherwise returns false.
@@ -306,13 +298,25 @@ public class Calculator {
     }
     
     /**
-     * Returns a Set of {@code String} containing all the allowed operations.
+     * @return a Set of {@code String} containing all the allowed operations.
      */
     public Set<String> getAllowedOperations() {
         return operationMap.keySet();
     }
     
+    /**
+     * Adds an operation to the operation map.
+     * @param op the operation to b added.
+     */
     public void addOperationToMap(UserOperation op) {
         operationMap.put(op.getName(), () -> executeUserOperation(op));
+    }
+    
+    /**
+     * Removes an operation from the operation map.
+     * @param opName the operation to be removed.
+     */
+    public void removeOperation(String opName) {
+        operationMap.remove(opName);
     }
 }

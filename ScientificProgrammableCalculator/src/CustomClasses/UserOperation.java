@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * This class represents a User-defined Operation through a name and a formula.
- * @author Alfonso Giso
+ * @author Group #14
  */
 public class UserOperation {
     
@@ -73,10 +73,5 @@ public class UserOperation {
             tmp.add(s);
         }
         return tmp;
-    }
-    
-    @Override
-    public String toString() {
-        return "UserOperation{" + "name=" + name + ", operation=" + getOperationAsString() + '}';
     }
 }

@@ -96,7 +96,7 @@ public class FXMLDocumentController implements Initializable {
     private ObservableList<UserOperation> customOperations;
     private ObservableList<ComplexNumber> numbers;
     private ObservableList<Map.Entry<Character, ComplexNumber>> variableObservableList;
-    private Calculator calc = new Calculator();
+    private final Calculator calc = new Calculator();
     private final NumberStack stack = calc.getStack();
     private final Variables variables = calc.getVar();
 
@@ -308,7 +308,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void delButtonPressed(ActionEvent event) {
         try {
-            calc.del();
+            calc.pop();
         } catch (EmptyStackException e) {
             showAlert("Error", "Invalid operation", "No entered numbers.", AlertType.ERROR);
             return;

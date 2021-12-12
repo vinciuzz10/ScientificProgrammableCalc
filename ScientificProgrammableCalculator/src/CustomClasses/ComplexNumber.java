@@ -2,7 +2,7 @@ package CustomClasses;
 
 /**
  * This class implements the mathematical concept of Complex Number.
- * @author Vinciuzz10
+ * @author Group #14
  */
 public class ComplexNumber {
     
@@ -103,6 +103,9 @@ public class ComplexNumber {
      * @return {@code this * subtrahend}.
      */
     public ComplexNumber divide(ComplexNumber other) {
+        if (other.equals(ZERO)) {
+            return new ComplexNumber(Double.POSITIVE_INFINITY);
+        }
         double realPartNumerator = real * other.real + imaginary * other.imaginary;
         double imaginaryPartNumerator = imaginary * other.real - real * other.imaginary;
         double denominator = other.real * other.real + other.imaginary * other.imaginary;
@@ -144,11 +147,14 @@ public class ComplexNumber {
     }
     
     /**
-     * Compute the <a href="http://mathworld.wolfram.com/SquareRoot.html" TARGET="_top">square root</a> 
+     * Compute the <a href="https://www.youmath.it/lezioni/analisi-matematica/numeri-complessi/760-calcolare-le-radici-di-un-numero-complesso.html" TARGET="_top">square root</a> 
      * of this complex number.
      * @return the square root of {@code this}.
      */
     public ComplexNumber sqrt() {
+        if (real == 0 && imaginary == 0) {
+            return ZERO;
+        }
         if (imaginary == 0 && real <0) {
             return new ComplexNumber(0.0, Math.sqrt(-real));
         }
@@ -351,6 +357,10 @@ public class ComplexNumber {
         return true;
     }
     
+    /** 
+     * Rounds the number to the 8th decimal place.
+     * @return the rounded number.
+     */
     private Double formatter(Double number){
         Double formatted = Math.floor(number * 100000000) / 100000000;
         return formatted;

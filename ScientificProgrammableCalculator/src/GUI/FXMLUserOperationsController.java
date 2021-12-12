@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -161,10 +162,14 @@ public class FXMLUserOperationsController implements Initializable {
         tid.setContentText("Function");
         tid.getEditor().setText(selected.getOperationAsString());
         tid.showAndWait();
+        
+        UserOperation newOp = new UserOperation(selected.getName(),tid.getResult().split(" "));
         operations.remove(selected);
-        operations.add(new UserOperation(selected.getName(),tid.getResult().split(" ")));
+        operations.add(newOp);
         userOperationTable.setItems(operations);
         mainReference.updateUserOperations(operations);
+        
+        calc.addOperationToMap(newOp);
     }
 
     @FXML
@@ -172,10 +177,20 @@ public class FXMLUserOperationsController implements Initializable {
         UserOperation selected = userOperationTable.getSelectionModel().getSelectedItem();
         if(selected == null)
             return;
+        
+        List<UserOperation> tmp = new ArrayList();
+        tmp.addAll(operations);
+        
+        deleteOperation(selected, tmp);
+        
+        operations.clear();
+        operations.addAll(tmp);
         operations.remove(selected);
+        
         userOperationTable.setItems(operations);
         mainReference.updateUserOperations(operations);
         
+        calc.removeOperation(selected.getName());
     }
     
     @FXML
@@ -203,5 +218,18 @@ public class FXMLUserOperationsController implements Initializable {
         alert.setContentText(content);
         alert.setHeaderText(header);
         alert.showAndWait();
+    }
+    
+    private void deleteOperation (UserOperation selected, List<UserOperation> tmp) {
+        for (UserOperation op: operations) {
+            String[] subOp = op.getOperation();
+            for (String s: subOp) {
+                if (s.equals(selected.getName())) {
+                    tmp.remove(op);
+                    deleteOperation(op, tmp);
+                    break;
+                }
+            }
+        }
     }
 }
