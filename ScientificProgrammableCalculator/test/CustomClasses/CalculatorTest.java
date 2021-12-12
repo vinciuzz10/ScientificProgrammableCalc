@@ -18,6 +18,7 @@ public class CalculatorTest {
     private Calculator calc;
     private ComplexNumber n1;
     private ComplexNumber n2;
+    private ComplexNumber n3;
     private Variables var;
     
     public CalculatorTest() {
@@ -36,9 +37,11 @@ public class CalculatorTest {
         calc = new Calculator();
         n1 = new ComplexNumber(1,2);
         n2 = new ComplexNumber(2,3);
+        n3 = new ComplexNumber(3,4);
         var = calc.getVar();
         calc.push(n1);
         calc.push(n2);
+        calc.push(n3);
     }
     
     @After
@@ -185,40 +188,22 @@ public class CalculatorTest {
     @Test
     public void testExecuteUserOperation() {
         System.out.println("executeUserOperation");
-        UserOperation op = null;
-        Calculator instance = new Calculator();
-        boolean expResult = false;
-        boolean result = instance.executeUserOperation(op);
+        
+        // Test Case 1: Perform an allowed operation
+        String[] opList1 = {"+","-"};
+        UserOperation op1 = new UserOperation("Test", opList1);
+        boolean expResult = true;
+        boolean result = calc.executeUserOperation(op1);
+        assertEquals(expResult, result);
+        
+        // Test Case 2: Perform a not allowed operation
+        String[] opList2 = {"+","-", "+"};
+        UserOperation op2 = new UserOperation("Test", opList2);
+        expResult = false;
+        result = calc.executeUserOperation(op2);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getAllowedOperations method, of class Calculator.
-     */
-    @Test
-    public void testGetAllowedOperations() {
-        System.out.println("getAllowedOperations");
-        Calculator instance = new Calculator();
-        Set<String> expResult = null;
-        Set<String> result = instance.getAllowedOperations();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of addOperationToMap method, of class Calculator.
-     */
-    @Test
-    public void testAddOperationToMap() {
-        System.out.println("addOperationToMap");
-        UserOperation op = null;
-        Calculator instance = new Calculator();
-        instance.addOperationToMap(op);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
     
 }
