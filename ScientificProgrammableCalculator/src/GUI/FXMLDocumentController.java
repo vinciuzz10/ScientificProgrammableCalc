@@ -138,6 +138,7 @@ public class FXMLDocumentController implements Initializable {
     private void submitButtonPressed(ActionEvent event) {
         
         String stringFromTextField = mainTextField.getText().replace(" ", "");
+        char variableName;
         
         /* Check if the user has entered something in the textfield, otherwise shows an alert. */
         if (stringFromTextField.isEmpty()) {
@@ -145,23 +146,23 @@ public class FXMLDocumentController implements Initializable {
             clearTextField();
             return;
         }
-
+        
         if (!stack.isEmpty()) {
             if (stringFromTextField.matches(">[A-Z]")) {
-                char variableName = stringFromTextField.substring(1).toCharArray()[0];
+                variableName = stringFromTextField.substring(1).toCharArray()[0];
                 calc.storeInVariable(variableName);
                 updateVariablesTableView();
                 updateLastNumbersTableView();
                 clearTextField();
                 return;
             } else if (stringFromTextField.matches("\\+[A-Z]")) {
-                char variableName = stringFromTextField.substring(1).toCharArray()[0];
+                variableName = stringFromTextField.substring(1).toCharArray()[0];
                 calc.addToVariable(variableName);
                 updateVariablesTableView();
                 clearTextField();
                 return;
             } else if (stringFromTextField.matches("\\-[A-Z]")) {
-                char variableName = stringFromTextField.substring(1).toCharArray()[0];
+                variableName = stringFromTextField.substring(1).toCharArray()[0];
                 calc.subtractToVariable(variableName);
                 updateVariablesTableView();
                 clearTextField();
@@ -169,7 +170,7 @@ public class FXMLDocumentController implements Initializable {
             }
         }
         if (stringFromTextField.matches("<[A-Z]")) {
-            char variableName = stringFromTextField.substring(1).toCharArray()[0];
+            variableName = stringFromTextField.substring(1).toCharArray()[0];
             calc.pickFromVariable(variableName);
             updateLastNumbersTableView();
             clearTextField(); 
@@ -312,7 +313,7 @@ public class FXMLDocumentController implements Initializable {
         } catch (EmptyStackException e) {
             showAlert("Error", "Invalid operation", "No entered numbers.", AlertType.ERROR);
             return;
-        };
+        }
         
         /* Update TableView items */
         updateLastNumbersTableView();
