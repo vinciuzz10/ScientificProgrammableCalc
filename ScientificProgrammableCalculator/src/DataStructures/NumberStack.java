@@ -8,7 +8,7 @@ import CustomClasses.ComplexNumber;
 
 /**
  * This class represents a stack which memorizes the numbers entered by the user (using a LIFO technology)
- * @author Vinciuzz10
+ * @author Group #14
  */
 public class NumberStack extends Stack<ComplexNumber> {
     

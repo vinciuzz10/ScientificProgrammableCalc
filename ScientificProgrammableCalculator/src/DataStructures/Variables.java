@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 /**
  * This class represents a HashMap in which all the variables with their values are stored
- * @author Vinciuzz10
+ * @author Group #14
  */
 public class Variables extends  HashMap<Character, ComplexNumber>{
 
