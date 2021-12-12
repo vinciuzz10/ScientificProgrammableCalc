@@ -1,7 +1,6 @@
 package CustomClasses;
 
 import DataStructures.Variables;
-import java.util.Set;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
