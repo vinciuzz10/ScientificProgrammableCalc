@@ -393,7 +393,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void restoreVarButtonPressed(ActionEvent event) {
         try {
-            calc.restoreVariableStatus();
+            calc.restoreVariablesStatus();
         } catch (EmptyStackException e) {
             showAlert("Error", "Restore variables", "No variables stored.", AlertType.ERROR);
             return;

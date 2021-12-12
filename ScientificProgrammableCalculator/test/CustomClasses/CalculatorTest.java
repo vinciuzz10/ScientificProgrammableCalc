@@ -1,6 +1,5 @@
 package CustomClasses;
 
-import DataStructures.NumberStack;
 import DataStructures.Variables;
 import java.util.Set;
 import org.junit.After;
@@ -178,30 +177,6 @@ public class CalculatorTest {
         assertTrue(var.get(varKey).equals(expResult));
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of storeVariablesStatus method, of class Calculator.
-     */
-    @Test
-    public void testStoreVariablesStatus() {
-        System.out.println("storeVariablesStatus");
-        Calculator instance = new Calculator();
-        instance.storeVariablesStatus();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of restoreVariableStatus method, of class Calculator.
-     */
-    @Test
-    public void testRestoreVariableStatus() {
-        System.out.println("restoreVariableStatus");
-        Calculator instance = new Calculator();
-        instance.restoreVariableStatus();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**

@@ -246,7 +246,7 @@ public class Calculator {
     /**
      * Restores the variables values, perforiming the pop on the variables stack.
      */
-    public void restoreVariableStatus() {
+    public void restoreVariablesStatus() {
         if (variablesStack.isEmpty()) {
             throw new EmptyStackException();
         }
