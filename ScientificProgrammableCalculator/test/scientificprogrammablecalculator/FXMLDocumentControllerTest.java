@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author alfa1
+ * @author Group #14
  */
 public class FXMLDocumentControllerTest {
     

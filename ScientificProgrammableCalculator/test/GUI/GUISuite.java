@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4Suite.java to edit this template
- */
 package GUI;
 
 import org.junit.After;
@@ -13,7 +9,7 @@ import org.junit.runners.Suite;
 
 /**
  *
- * @author alfa1
+ * @author Group #14
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({GUI.FXMLDocumentControllerTest.class, GUI.FXMLUserOperationsControllerTest.class})

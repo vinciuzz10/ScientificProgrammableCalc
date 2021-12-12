@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author AlfonsoGiso
+ * @author Group #14
  */
 public class ComplexNumberTest {
     

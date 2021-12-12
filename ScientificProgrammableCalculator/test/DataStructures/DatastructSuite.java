@@ -9,7 +9,7 @@ import org.junit.runners.Suite;
 
 /**
  *
- * @author alfa1
+ * @author Group #14
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({DataStructures.NumberStackTest.class})

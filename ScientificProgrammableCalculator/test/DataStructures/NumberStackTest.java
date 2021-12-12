@@ -1,7 +1,6 @@
 package DataStructures;
 
 import CustomClasses.ComplexNumber;
-import DataStructures.NumberStack;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -13,7 +12,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author alfa1
+ * @author Group #14
  */
 public class NumberStackTest {
     

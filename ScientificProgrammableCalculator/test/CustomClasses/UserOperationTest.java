@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Vinciuzz10
+ * @author Group #14
  */
 public class UserOperationTest {
     String[] operations;
