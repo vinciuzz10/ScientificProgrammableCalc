@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * This class manages the communication between the controller and the model.
@@ -22,6 +24,8 @@ public class Calculator {
     /** A Stack for storing variables values. */
     private final Stack<Variables> variablesStack;
     
+    private final ObservableList<UserOperation> operations;
+    
     /** A map which associates to a {@code String}, that represents an operation, a function to perform.
      e.g.  "dup" -> dup()*/
     private final Map<String,Runnable> operationMap;
@@ -33,6 +37,7 @@ public class Calculator {
         this.stack = new NumberStack();
         this.var = new Variables();
         variablesStack = new Stack<>();
+        operations = FXCollections.observableArrayList();
         
         operationMap = new HashMap<>();
         operationMap.put("+", () -> sum());
@@ -61,6 +66,10 @@ public class Calculator {
      */
     public Variables getVar() {
         return var;
+    }
+
+    public ObservableList<UserOperation> getOperations() {
+        return operations;
     }
     
     /**

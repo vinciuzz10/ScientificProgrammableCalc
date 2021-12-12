@@ -459,7 +459,7 @@ public class FXMLDocumentController implements Initializable {
         alert.showAndWait();
     }
 
-    void updateUserOperations(ObservableList<UserOperation> operations) {
+    public void updateUserOperations(ObservableList<UserOperation> operations) {
         customOperations.clear();
         customOperations.addAll(operations);
     }

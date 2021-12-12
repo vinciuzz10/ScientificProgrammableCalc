@@ -118,7 +118,7 @@ public class ComplexNumber {
      * @return the absolute value.
      */
     public double abs() {
-        return Math.sqrt(real*real + imaginary*imaginary);
+        return formatter(Math.sqrt(real*real + imaginary*imaginary));
     }
     
     /**
@@ -182,6 +182,9 @@ public class ComplexNumber {
      * @return the conjugate of {@code this}.
      */
     public ComplexNumber conjugate() {
+        if (imaginary == 0) {
+            return new ComplexNumber(real);
+        }
         return new ComplexNumber(real, -imaginary);
     }
     
